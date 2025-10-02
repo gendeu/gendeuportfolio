@@ -1,21 +1,26 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Gen Deu Gagarin | UI/UX Portfolio</title>
+  <meta name="description" content="Gen Deu Gagarin — UI/UX Developer & Frontend Engineer" />
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <!-- Loader -->
-  <div id="loader">
-    <div class="loader-logo">
-      <span>GD</span>
-    </div>
+  <div id="loader" aria-hidden="true">
+    <div class="loader-logo" aria-hidden="true"><span>GD</span></div>
   </div>
+
+  <!-- Dim overlay (non-blocking by default) -->
+  <div id="dim" aria-hidden="true"></div>
 
   <!-- Particle Background -->
   <canvas id="bgCanvas"></canvas>
+
+  <!-- Progress bar (kept) -->
+  <div id="progress-bar" aria-hidden="true"></div>
 
   <!-- Navbar -->
   <header>
@@ -46,9 +51,7 @@
   <section id="about" class="page">
     <h2>About Me</h2>
     <div class="card glass fade-in">
-      <p>I’m a UI/UX Developer and Frontend Engineer passionate about creating 
-         sleek, user-focused web experiences. I bridge design and code, ensuring 
-         beautiful interfaces deliver smooth, intuitive interactions.</p>
+      <p>I’m a UI/UX Developer and Frontend Engineer passionate about creating sleek, user-focused web experiences. I bridge design and code, ensuring beautiful interfaces deliver smooth, intuitive interactions.</p>
     </div>
   </section>
 
@@ -69,9 +72,9 @@
   </section>
 
   <!-- Case Study Modal -->
-  <div id="case-study" class="modal">
-    <div class="modal-content glass">
-      <span class="close">&times;</span>
+  <div id="case-study" class="modal" aria-hidden="true">
+    <div class="modal-content glass" role="dialog" aria-modal="true">
+      <span class="close" title="Close modal">&times;</span>
       <h3 id="case-title"></h3>
       <p id="case-problem"></p>
       <p id="case-process"></p>
