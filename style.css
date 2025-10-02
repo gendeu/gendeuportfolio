@@ -23,9 +23,8 @@ footer{text-align:center;padding:2rem;color:rgba(255,255,255,.7)}
 .view-btn{width:40px;height:40px;border-radius:8px;border:1px solid rgba(255,255,255,.06);background:transparent;color:var(--text);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center}
 .view-btn[aria-pressed="true"]{background:var(--accent);color:#071225;box-shadow:0 8px 18px rgba(0,0,0,.35);border-color:rgba(255,255,255,.08)}
 
-/* ---------- CAROUSEL STYLES (CENTER-STAGE, SNAPPY) ---------- */
-.carousel-view{display:none;position:relative;align-items:center;gap:12px;margin:0 0 1.75rem 0}
-.carousel-view.active{display:flex}
+/* ---------- CAROUSEL STYLES (CENTER-STAGE, NO SCROLLBAR) ---------- */
+.carousel-view{display:flex;position:relative;align-items:center;gap:12px;margin:0 0 1.75rem 0}
 .carousel-track{
   display:flex;
   gap:16px;
@@ -39,6 +38,12 @@ footer{text-align:center;padding:2rem;color:rgba(255,255,255,.7)}
   padding-left: calc(50% - 140px);
   padding-right: calc(50% - 140px);
 }
+
+/* hide scrollbar visually while preserving swipe/scroll functionality */
+.carousel-track::-webkit-scrollbar{display:none}
+.carousel-track{ -ms-overflow-style: none; scrollbar-width: none; }
+
+/* item sizes */
 .carousel-item{
   min-width:260px;
   flex:0 0 260px;
@@ -52,49 +57,60 @@ footer{text-align:center;padding:2rem;color:rgba(255,255,255,.7)}
   border:1px solid rgba(255,255,255,0.02);
   cursor:pointer;
   transform-origin:center center;
-  transition: transform 220ms cubic-bezier(.16,.8,.32,1), box-shadow 220ms cubic-bezier(.16,.8,.32,1), z-index 220ms;
+  transition: transform 200ms cubic-bezier(.18,.85,.32,1), box-shadow 200ms cubic-bezier(.18,.85,.32,1), z-index 200ms;
   will-change: transform, box-shadow;
-  /* slightly smaller by default so active pops */
   transform: translateY(0) scale(0.96);
   z-index: 1;
   opacity: 0.98;
 }
 .carousel-thumb{height:140px;border-radius:8px;background-size:cover;background-position:center;box-shadow:0 6px 20px rgba(0,0,0,.35)}
 
-/* Active (center) item: snappier and larger */
+/* Active (center) item: larger & lifted */
 .carousel-item.active{
   transform: translateY(-16px) scale(1.08);
-  z-index: 12;
-  box-shadow: 0 28px 60px rgba(2,6,23,0.64), 0 10px 30px rgba(0,0,0,0.38);
+  z-index: 14;
+  box-shadow: 0 32px 70px rgba(2,6,23,0.68), 0 12px 36px rgba(0,0,0,0.42);
   opacity: 1;
 }
 
-/* Slight de-emphasis for neighbors */
+/* neighbor styling */
 .carousel-item.sibling{
-  transform: translateY(-6px) scale(0.99);
-  z-index: 6;
-  box-shadow: 0 10px 24px rgba(0,0,0,0.28);
+  transform: translateY(-8px) scale(0.99);
+  z-index: 8;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.30);
 }
 
-/* Prev/Next nav */
-.carousel-nav{position:relative;z-index:10;border:none;background:rgba(0,0,0,0.45);color:var(--text);padding:10px 12px;border-radius:10px;cursor:pointer;min-width:48px}
-.carousel-prev{margin-right:8px}
-.carousel-next{margin-left:8px}
+/* bigger arrows */
+.carousel-nav{
+  position:relative;
+  z-index:20;
+  border:none;
+  background:rgba(0,0,0,0.55);
+  color:var(--text);
+  padding:14px 16px;
+  border-radius:12px;
+  cursor:pointer;
+  min-width:60px;
+  font-size:28px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:transform .12s ease;
+}
+.carousel-nav:hover{transform:scale(1.05)}
+.carousel-prev{margin-right:10px}
+.carousel-next{margin-left:10px}
 
-/* Hide scrollbars visually but keep functionality */
-.carousel-track::-webkit-scrollbar{height:10px}
-.carousel-track::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.06);border-radius:8px}
-.carousel-track{scrollbar-width:thin;scrollbar-color:rgba(255,255,255,0.06) transparent}
-
-/* Grid styles */
+/* Grid view */
 .grid-view{display:block}
 .grid-view.hidden{display:none}
 .project-grid .project{padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.02);cursor:pointer;transition:transform .2s ease}
 .project-grid .project:hover{transform:translateY(-6px)}
 
-/* small screens */
+/* responsive tweaks */
 @media (max-width:520px){
   .carousel-item{min-width:220px;flex:0 0 220px}
   .carousel-thumb{height:110px}
   .carousel-track{padding-left: calc(50% - 110px); padding-right: calc(50% - 110px);}
+  .carousel-nav{min-width:48px;padding:10px 12px;font-size:22px}
 }
