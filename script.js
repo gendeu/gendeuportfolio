@@ -1,37 +1,33 @@
-// SPA Navigation with progress bar
+/* ============================
+   SPA Navigation + Progress
+   ============================ */
 const links = document.querySelectorAll('.nav-link');
 const pages = document.querySelectorAll('.page');
-// Loader animation (on first load + during navigation)
-const loader = document.getElementById("loader");
+const loaderEl = document.getElementById('loader');
+const dimEl = document.getElementById('dim');
+const progressBar = document.getElementById('progress-bar');
 
-function showLoader() {
-  loader.style.display = "flex";
-  setTimeout(() => loader.style.opacity = "1", 20);
-}
-
-function hideLoader() {
-  loader.style.opacity = "0";
-  setTimeout(() => loader.style.display = "none", 800);
-}
-
-// Show loader for 2s on first page load
+// Show/hide loader functions defined later (floating loader section).
+// Keep previous simple first-load hide:
 document.addEventListener("DOMContentLoaded", () => {
+  // hide loader after 2s on first load
+  showLoader();
   setTimeout(() => hideLoader(), 2000);
 });
 
-// Show loader on SPA navigation instead of progress bar
+// SPA nav click behavior (we will show the floating loader)
 links.forEach(link => {
-  link.addEventListener("click", e => {
+  link.addEventListener('click', e => {
     e.preventDefault();
     const targetId = link.getAttribute('href');
 
-    // loader instead of bar
+    // show floating loader
     showLoader();
 
     links.forEach(l => l.classList.remove('active'));
     link.classList.add('active');
 
-    // fade out current
+    // fade out current active page
     pages.forEach(p => {
       if (p.classList.contains('active')) {
         p.style.opacity = "0";
@@ -40,24 +36,23 @@ links.forEach(link => {
       }
     });
 
-    // fade in target after loader
+    // Simulate navigation delay then show target
     setTimeout(() => {
       const targetPage = document.querySelector(targetId);
       targetPage.classList.add('active');
       targetPage.style.opacity = "1";
       targetPage.style.transform = "translateY(0)";
       hideLoader();
-    }, 2000);
+    }, 1000 + Math.random()*900); // slight randomized delay for a more natural feel
   });
 });
 
-
-// Mobile menu
+/* Mobile menu */
 const menuToggle = document.getElementById("menu-toggle");
 const navMenu = document.querySelector("nav ul");
-menuToggle.addEventListener("click", () => navMenu.classList.toggle("show"));
+if (menuToggle) menuToggle.addEventListener("click", () => navMenu.classList.toggle("show"));
 
-// Typewriter effect
+/* Typewriter */
 const roles = ["UI/UX Developer", "Frontend Engineer", "Creative Coder"];
 let roleIndex = 0, charIndex = 0;
 const typewriter = document.getElementById("typewriter");
@@ -78,25 +73,23 @@ function erase() {
 }
 type();
 
-// Case Studies
+/* ============================
+   Case studies modal
+   ============================ */
 const caseStudies = {
   klp:{title:"KLP Lifestyle",problem:"E-commerce lacked responsive UI.",process:"Figma redesign + frontend build.",solution:"Delivered clean, mobile UI.",link:"https://klplifestyle.com/"},
   fixifoot:{title:"Fixifoot",problem:"Showcase not engaging.",process:"Interactive grids + responsive design.",solution:"Better UX & conversions.",link:"https://fixifoot.ph/"},
   cveez:{title:"Cveez",problem:"Needed sleek booking UX.",process:"Designed flows + coded frontend.",solution:"Modern booking platform.",link:"https://cveez.com/"}
 };
-
 const modal = document.getElementById("case-study");
 const closeBtn = modal.querySelector(".close");
-
 function openCaseStudy(key) {
-  const d = caseStudies[key];
-  if (!d) return;
+  const d = caseStudies[key]; if (!d) return;
   document.getElementById("case-title").textContent = d.title;
   document.getElementById("case-problem").textContent = "Problem: " + d.problem;
   document.getElementById("case-process").textContent = "Process: " + d.process;
   document.getElementById("case-solution").textContent = "Solution: " + d.solution;
   document.getElementById("case-link").href = d.link;
-
   modal.style.display = "flex";
   setTimeout(() => modal.classList.add("show"), 20);
 }
@@ -106,40 +99,134 @@ function closeCaseStudy() {
 }
 closeBtn.addEventListener("click", closeCaseStudy);
 window.addEventListener("click", e => { if (e.target === modal) closeCaseStudy(); });
-
-// ESC to close modal
 window.addEventListener("keydown", e => { if (e.key === "Escape") closeCaseStudy(); });
 
-// Dark/Light toggle
+/* Dark/Light toggle */
 const toggleBtn = document.getElementById("theme-toggle");
 toggleBtn.addEventListener("click", () => {
   document.body.classList.toggle("light");
   toggleBtn.textContent = document.body.classList.contains("light") ? "🌞" : "🌙";
 });
 
-// Particle Background
-const canvas=document.getElementById("bgCanvas"),ctx=canvas.getContext("2d");
-canvas.width=window.innerWidth; canvas.height=window.innerHeight;
-let particles=[];
-for(let i=0;i<100;i++){
-  particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,radius:1+Math.random()*2,dx:(Math.random()-.5)*.7,dy:(Math.random()-.5)*.7,opacity:Math.random(),twinkleSpeed:Math.random()*0.02+0.005});
+/* ============================
+   Particle background
+   ============================ */
+const canvas = document.getElementById("bgCanvas"), ctx = canvas.getContext("2d");
+function fitCanvas(){ canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+fitCanvas();
+let particles = [];
+for (let i=0;i<100;i++){
+  particles.push({
+    x: Math.random()*canvas.width,
+    y: Math.random()*canvas.height,
+    radius: 1 + Math.random()*2,
+    dx: (Math.random()-0.5)*0.7,
+    dy: (Math.random()-0.5)*0.7,
+    opacity: Math.random(),
+    twinkleSpeed: Math.random()*0.02 + 0.005
+  });
 }
 function animateParticles(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
   particles.forEach(p=>{
     ctx.beginPath();
-    if (!document.body.classList.contains("light")) {
+    if (!document.body.classList.contains("light")){
       p.opacity += p.twinkleSpeed * (Math.random() > 0.5 ? 1 : -1);
-      if(p.opacity > 1) p.opacity = 1;
-      if(p.opacity < 0.2) p.opacity = 0.2;
+      if (p.opacity > 1) p.opacity = 1;
+      if (p.opacity < 0.2) p.opacity = 0.2;
     } else { p.opacity = 0.3; }
-    ctx.fillStyle=`rgba(255,255,255,${p.opacity})`;
+    ctx.fillStyle = `rgba(255,255,255,${p.opacity})`;
     ctx.arc(p.x,p.y,p.radius,0,Math.PI*2); ctx.fill();
-    p.x+=p.dx; p.y+=p.dy;
-    if(p.x<0||p.x>canvas.width)p.dx*=-1;
-    if(p.y<0||p.y>canvas.height)p.dy*=-1;
+    p.x += p.dx; p.y += p.dy;
+    if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+    if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
   });
   requestAnimationFrame(animateParticles);
 }
 animateParticles();
-window.addEventListener("resize",()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;});
+window.addEventListener("resize", () => { fitCanvas(); });
+
+/* ============================
+   Floating GD Loader (pointer-follow + dim)
+   ============================ */
+
+// Elements already queried at top: loaderEl, dimEl
+let pointer = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+let pos = { x: pointer.x, y: pointer.y };
+let rafId = null;
+const followEase = 0.16; // smaller = slower
+const loaderMargin = 40;
+
+function onPointerMove(e) {
+  const ev = (e.touches && e.touches[0]) ? e.touches[0] : e;
+  pointer.x = ev.clientX;
+  pointer.y = ev.clientY;
+}
+window.addEventListener('mousemove', onPointerMove, { passive: true });
+window.addEventListener('touchmove', onPointerMove, { passive: true });
+
+function animateLoader() {
+  pos.x += (pointer.x - pos.x) * followEase;
+  pos.y += (pointer.y - pos.y) * followEase;
+
+  const vw = window.innerWidth, vh = window.innerHeight;
+  const x = Math.min(Math.max(pos.x, loaderMargin), vw - loaderMargin);
+  const y = Math.min(Math.max(pos.y, loaderMargin), vh - loaderMargin);
+
+  // Use left/top and CSS translate(-50%,-50%) for perfect centering
+  loaderEl.style.left = `${x}px`;
+  loaderEl.style.top = `${y}px`;
+
+  rafId = requestAnimationFrame(animateLoader);
+}
+
+// Show/hide functions for floating loader
+function showLoader() {
+  // start animation
+  if (!rafId) animateLoader();
+
+  // visually show
+  loaderEl.classList.add('show');
+  loaderEl.style.opacity = '1';
+
+  // show dim overlay (non-blocking)
+  dimEl.style.opacity = '1';
+}
+
+function hideLoader() {
+  loaderEl.style.opacity = '0';
+  dimEl.style.opacity = '0';
+  loaderEl.classList.remove('show');
+
+  // stop RAF after a short timeout to save CPU
+  setTimeout(() => {
+    if (rafId) {
+      cancelAnimationFrame(rafId);
+      rafId = null;
+    }
+  }, 350);
+}
+
+// keep the loader centered when idle (keyboard nav)
+let pointerTimer = null;
+function ensureCenterOnIdle() {
+  clearTimeout(pointerTimer);
+  pointerTimer = setTimeout(() => {
+    pointer.x = window.innerWidth / 2;
+    pointer.y = window.innerHeight / 2;
+  }, 2200);
+}
+window.addEventListener('mousemove', ensureCenterOnIdle, { passive: true });
+window.addEventListener('touchmove', ensureCenterOnIdle, { passive: true });
+
+// expose show/hide globally if you want manual triggers
+window.showLoader = showLoader;
+window.hideLoader = hideLoader;
+
+/* Accessibility note:
+   the loader & dim use pointer-events: none so they don't intercept clicks.
+   To make the dim block interactions during long ops:
+     dimEl.style.pointerEvents = 'auto';
+   and to restore:
+     dimEl.style.pointerEvents = 'none';
+*/
