@@ -17,7 +17,66 @@ const carouselTrack = document.querySelector('.carousel-track');
 const prevBtn = document.querySelector('.carousel-prev');
 const nextBtn = document.querySelector('.carousel-next');
 
-// helper: set view mode and persist (default carousel)
+/* --------------------------
+   Floating GD Loader (works correctly)
+   -------------------------- */
+// keep loader variables and functions near top so they're available immediately
+let pointer = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+let pos = { x: pointer.x, y: pointer.y };
+let rafId = null;
+const followEase = 0.16;
+const loaderMargin = 40;
+
+function onPointerMove(e) {
+  const ev = (e.touches && e.touches[0]) ? e.touches[0] : e;
+  pointer.x = ev.clientX;
+  pointer.y = ev.clientY;
+}
+window.addEventListener('mousemove', onPointerMove, { passive: true });
+window.addEventListener('touchmove', onPointerMove, { passive: true });
+
+function animateLoader() {
+  pos.x += (pointer.x - pos.x) * followEase;
+  pos.y += (pointer.y - pos.y) * followEase;
+  const vw = window.innerWidth, vh = window.innerHeight;
+  const x = Math.min(Math.max(pos.x, loaderMargin), vw - loaderMargin);
+  const y = Math.min(Math.max(pos.y, loaderMargin), vh - loaderMargin);
+  if (loaderEl) { loaderEl.style.left = `${x}px`; loaderEl.style.top = `${y}px`; }
+  rafId = requestAnimationFrame(animateLoader);
+}
+
+function showLoader() {
+  if (!rafId) animateLoader();
+  if (loaderEl) { loaderEl.classList.add('show'); loaderEl.style.opacity = '1'; }
+  if (dimEl) dimEl.style.opacity = '1';
+}
+
+function hideLoader() {
+  if (loaderEl) loaderEl.style.opacity = '0';
+  if (dimEl) dimEl.style.opacity = '0';
+  if (loaderEl) loaderEl.classList.remove('show');
+  setTimeout(() => { if (rafId) { cancelAnimationFrame(rafId); rafId = null; } }, 350);
+}
+
+// keep the loader centered when idle (keyboard nav)
+let pointerTimer = null;
+function ensureCenterOnIdle() {
+  clearTimeout(pointerTimer);
+  pointerTimer = setTimeout(() => {
+    pointer.x = window.innerWidth / 2;
+    pointer.y = window.innerHeight / 2;
+  }, 2200);
+}
+window.addEventListener('mousemove', ensureCenterOnIdle, { passive: true });
+window.addEventListener('touchmove', ensureCenterOnIdle, { passive: true });
+
+// expose for debugging if needed
+window.showLoader = showLoader;
+window.hideLoader = hideLoader;
+
+/* ============================
+   View toggle (carousel / grid)
+   ============================ */
 function setProjectsView(mode) {
   if (mode === 'grid') {
     carouselView.classList.remove('active');
@@ -33,12 +92,8 @@ function setProjectsView(mode) {
     localStorage.setItem('projectsView', 'carousel');
   }
 }
-
-// init view from localStorage (default to carousel)
 const savedView = localStorage.getItem('projectsView') || 'carousel';
 setProjectsView(savedView);
-
-// toggle buttons
 if (btnCarousel) btnCarousel.addEventListener('click', () => setProjectsView('carousel'));
 if (btnGrid) btnGrid.addEventListener('click', () => setProjectsView('grid'));
 
@@ -49,7 +104,6 @@ const carouselItems = carouselTrack ? Array.from(carouselTrack.querySelectorAll(
 
 if (carouselTrack && carouselItems.length) {
 
-  // Helper: center a specific item in the track
   function centerItem(item, smooth = true) {
     const trackRect = carouselTrack.getBoundingClientRect();
     const itemRect = item.getBoundingClientRect();
@@ -59,7 +113,6 @@ if (carouselTrack && carouselItems.length) {
     carouselTrack.scrollTo({ left: targetScroll, behavior: smooth ? 'smooth' : 'auto' });
   }
 
-  // Find the item nearest to the center of the visible track
   function findCenteredItem() {
     const trackRect = carouselTrack.getBoundingClientRect();
     const trackCenterX = trackRect.left + trackRect.width / 2;
@@ -73,7 +126,6 @@ if (carouselTrack && carouselItems.length) {
     return closest;
   }
 
-  // Update classes: active + sibling
   function updateActiveClasses() {
     const active = findCenteredItem();
     if (!active) return;
@@ -88,7 +140,7 @@ if (carouselTrack && carouselItems.length) {
     if (idx < carouselItems.length - 1) carouselItems[idx + 1].classList.add('sibling');
   }
 
-  // Throttle using requestAnimationFrame during scroll
+  // RAF throttle scroll
   let ticking = false;
   carouselTrack.addEventListener('scroll', () => {
     if (!ticking) {
@@ -100,27 +152,48 @@ if (carouselTrack && carouselItems.length) {
     }
   }, { passive: true });
 
-  // Initial centering: ALWAYS choose the middle index by default
+  // ALWAYS center the middle index on initial load
   window.addEventListener('load', () => {
     const middleIndex = Math.floor(carouselItems.length / 2);
     const startItem = carouselItems[middleIndex] || carouselItems[0];
     centerItem(startItem, false);
     setTimeout(updateActiveClasses, 40);
-    // store chosen default if you want later persistence
     localStorage.setItem('carouselCenterIndex', middleIndex);
   });
 
-  // Click on item centers it
+  // CLICK behavior:
+  // - Mobile/touch (< 900px): tapping any card immediately opens modal
+  // - Desktop: tapping inactive card centers it; tapping currently active card opens modal
   carouselItems.forEach((it, i) => {
     it.addEventListener('click', (e) => {
-      e.preventDefault();
-      centerItem(it, true);
-      localStorage.setItem('carouselCenterIndex', i);
-      setTimeout(updateActiveClasses, 180);
+      const viewportWidth = window.innerWidth;
+      const isMobile = viewportWidth < 900; // threshold you can adjust
+      const isActive = it.classList.contains('active');
+
+      if (isMobile) {
+        // on mobile, open modal directly
+        const key = it.dataset.key;
+        if (key) openCaseStudy(key);
+        return;
+      }
+
+      // desktop: if not active, center it; if active, open modal
+      if (!isActive) {
+        centerItem(it, true);
+        // update stored index after animation
+        setTimeout(() => {
+          updateActiveClasses();
+          localStorage.setItem('carouselCenterIndex', i);
+        }, 250);
+      } else {
+        // active -> open modal
+        const key = it.dataset.key;
+        if (key) openCaseStudy(key);
+      }
     });
   });
 
-  // Prev / Next behavior: center prev/next item
+  // Prev / Next behavior
   if (prevBtn) prevBtn.addEventListener('click', () => {
     const active = findCenteredItem(); if (!active) return;
     const idx = carouselItems.indexOf(active);
@@ -140,13 +213,13 @@ if (carouselTrack && carouselItems.length) {
     setTimeout(updateActiveClasses, 180);
   });
 
-  // Keyboard support when track focused
+  // Keyboard
   carouselTrack.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowRight') { nextBtn && nextBtn.click(); }
     if (e.key === 'ArrowLeft') { prevBtn && prevBtn.click(); }
   });
 
-  // Snap to nearest item when user stops scrolling (short debounce)
+  // Snap to nearest item when user stops scrolling
   let scrollEndTimer = null;
   carouselTrack.addEventListener('scroll', () => {
     clearTimeout(scrollEndTimer);
@@ -155,65 +228,55 @@ if (carouselTrack && carouselItems.length) {
       if (center) {
         centerItem(center, true);
         updateActiveClasses();
-        // store current
         const idx = carouselItems.indexOf(center);
         localStorage.setItem('carouselCenterIndex', idx);
       }
     }, 80);
   }, { passive: true });
 
-  // On resize re-center the middle (or last active)
+  // Resize re-center
   window.addEventListener('resize', () => {
     const active = findCenteredItem() || carouselItems[Math.floor(carouselItems.length/2)] || carouselItems[0];
     centerItem(active, false);
     setTimeout(updateActiveClasses, 60);
   });
 
-  /* ============================
-     Drag-to-scroll implementation (so scrollbar can be hidden)
-     - uses pointer events (works for mouse & touch)
-     ============================ */
+  /* Drag-to-scroll (pointer events) so scrollbar can be hidden */
   let isDown = false, startX = 0, startScroll = 0;
-  // pointerdown
   carouselTrack.addEventListener('pointerdown', (e) => {
     isDown = true;
     carouselTrack.setPointerCapture(e.pointerId);
     startX = e.clientX;
     startScroll = carouselTrack.scrollLeft;
-    // small visual feedback
     carouselTrack.style.cursor = 'grabbing';
   });
-  // pointermove
   carouselTrack.addEventListener('pointermove', (e) => {
     if (!isDown) return;
     e.preventDefault();
     const dx = e.clientX - startX;
     carouselTrack.scrollLeft = startScroll - dx;
   }, { passive: false });
-  // pointerup / leave
   const endDrag = (e) => {
     if (!isDown) return;
     isDown = false;
     try { carouselTrack.releasePointerCapture(e && e.pointerId); } catch {}
     carouselTrack.style.cursor = 'grab';
-    // snap to nearest item
     const center = findCenteredItem();
     if (center) centerItem(center, true);
   };
   carouselTrack.addEventListener('pointerup', endDrag);
   carouselTrack.addEventListener('pointercancel', endDrag);
   carouselTrack.addEventListener('pointerleave', endDrag);
-  // set friendly cursor
   carouselTrack.style.cursor = 'grab';
-
 }
 
 /* ============================
    SPA Navigation (kept)
    ============================ */
 document.addEventListener("DOMContentLoaded", () => {
+  // show loader briefly on first load
   showLoader();
-  setTimeout(() => hideLoader(), 2000);
+  setTimeout(() => hideLoader(), 1200);
 });
 links.forEach(link => {
   link.addEventListener('click', e => {
@@ -267,7 +330,7 @@ function erase() {
 type();
 
 /* ============================
-   Case studies modal (kept)
+   Case studies modal
    ============================ */
 const caseStudies = {
   klp:{title:"KLP Lifestyle",problem:"E-commerce lacked responsive UI.",process:"Figma redesign + frontend build.",solution:"Delivered clean, mobile UI.",link:"https://klplifestyle.com/"},
@@ -329,62 +392,6 @@ function animateParticles(){
 }
 animateParticles();
 window.addEventListener("resize", () => { fitCanvas(); });
-
-/* ============================
-   Floating GD Loader (pointer-follow + dim)
-   ============================ */
-let pointer = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-let pos = { x: pointer.x, y: pointer.y };
-let rafId = null;
-const followEase = 0.16;
-const loaderMargin = 40;
-
-function onPointerMove(e) {
-  const ev = (e.touches && e.touches[0]) ? e.touches[0] : e;
-  pointer.x = ev.clientX;
-  pointer.y = ev.clientY;
-}
-window.addEventListener('mousemove', onPointerMove, { passive: true });
-window.addEventListener('touchmove', onPointerMove, { passive: true });
-
-function animateLoader() {
-  pos.x += (pointer.x - pos.x) * followEase;
-  pos.y += (pointer.y - pos.y) * followEase;
-  const vw = window.innerWidth, vh = window.innerHeight;
-  const x = Math.min(Math.max(pos.x, loaderMargin), vw - loaderMargin);
-  const y = Math.min(Math.max(pos.y, loaderMargin), vh - loaderMargin);
-  loaderEl.style.left = `${x}px`;
-  loaderEl.style.top = `${y}px`;
-  rafId = requestAnimationFrame(animateLoader);
-}
-
-function showLoader() {
-  if (!rafId) animateLoader();
-  loaderEl.classList.add('show');
-  loaderEl.style.opacity = '1';
-  dimEl.style.opacity = '1';
-}
-
-function hideLoader() {
-  loaderEl.style.opacity = '0';
-  dimEl.style.opacity = '0';
-  loaderEl.classList.remove('show');
-  setTimeout(() => { if (rafId) { cancelAnimationFrame(rafId); rafId = null; } }, 350);
-}
-
-let pointerTimer = null;
-function ensureCenterOnIdle() {
-  clearTimeout(pointerTimer);
-  pointerTimer = setTimeout(() => {
-    pointer.x = window.innerWidth / 2;
-    pointer.y = window.innerHeight / 2;
-  }, 2200);
-}
-window.addEventListener('mousemove', ensureCenterOnIdle, { passive: true });
-window.addEventListener('touchmove', ensureCenterOnIdle, { passive: true });
-
-window.showLoader = showLoader;
-window.hideLoader = hideLoader;
 
 /* Accessibility note:
    loader & dim use pointer-events: none so they don't intercept clicks.
