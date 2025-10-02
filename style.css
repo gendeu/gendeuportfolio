@@ -26,30 +26,68 @@ footer{text-align:center;padding:2rem;color:rgba(255,255,255,.7)}
 .view-btn{width:40px;height:40px;border-radius:8px;border:1px solid rgba(255,255,255,.06);background:transparent;color:var(--text);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center}
 .view-btn[aria-pressed="true"]{background:var(--accent);color:#071225;box-shadow:0 8px 18px rgba(0,0,0,.35);border-color:rgba(255,255,255,.08)}
 
-/* ---------- CAROUSEL STYLES ---------- */
+/* ---------- CAROUSEL STYLES (CENTER-STAGE) ---------- */
 .carousel-view{display:none;position:relative;align-items:center;gap:12px;margin:0 0 1.75rem 0}
 .carousel-view.active{display:flex}
-.carousel-track{display:flex;gap:16px;padding:20px 12px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth; -webkit-overflow-scrolling:touch;}
-.carousel-item{min-width:260px;flex:0 0 260px;scroll-snap-align:center;display:flex;flex-direction:column;gap:10px;padding:12px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.02);cursor:pointer}
+.carousel-track{
+  display:flex;
+  gap:16px;
+  padding:20px 12px;
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  scroll-behavior:smooth;
+  -webkit-overflow-scrolling:touch;
+  align-items:center;
+  /* center padding so items can sit centered at extremes */
+  padding-left: calc(50% - 140px);
+  padding-right: calc(50% - 140px);
+}
+.carousel-item{
+  min-width:260px;
+  flex:0 0 260px;
+  scroll-snap-align:center;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  padding:12px;
+  border-radius:12px;
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border:1px solid rgba(255,255,255,0.02);
+  cursor:pointer;
+  transform-origin:center center;
+  transition: transform 320ms cubic-bezier(.2,.9,.25,1), box-shadow 320ms cubic-bezier(.2,.9,.25,1), z-index 320ms;
+  will-change: transform, box-shadow;
+  /* slightly smaller by default so active pops */
+  transform: translateY(0) scale(0.96);
+  z-index: 1;
+  opacity: 0.98;
+}
+/* optional thumbnail */
 .carousel-thumb{height:140px;border-radius:8px;background-size:cover;background-position:center;box-shadow:0 6px 20px rgba(0,0,0,.35)}
+
+/* Active (center) item */
+.carousel-item.active{
+  transform: translateY(-12px) scale(1.06);
+  z-index: 12;
+  box-shadow: 0 22px 50px rgba(2,6,23,0.6), 0 8px 20px rgba(0,0,0,0.35);
+  opacity: 1;
+}
+
+/* Slight de-emphasis for neighbors (subtle) */
+.carousel-item.sibling{
+  transform: translateY(-4px) scale(0.985);
+  z-index: 6;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.28);
+}
+
+/* Prev/Next nav */
 .carousel-nav{position:relative;z-index:10;border:none;background:rgba(0,0,0,0.45);color:var(--text);padding:10px 12px;border-radius:10px;cursor:pointer;min-width:48px}
-.carousel-nav:active{transform:translateY(1px)}
 .carousel-prev{margin-right:8px}
 .carousel-next{margin-left:8px}
 
-/* Hide scrollbars visually but keep functionality */
-.carousel-track::-webkit-scrollbar{height:10px}
-.carousel-track::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.06);border-radius:8px}
-.carousel-track{scrollbar-width:thin;scrollbar-color:rgba(255,255,255,0.06) transparent}
-
-/* ---------- GRID STYLES (card list) ---------- */
-.grid-view{display:block}
-.grid-view.hidden{display:none}
-.project-grid .project{padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.02);cursor:pointer;transition:transform .2s ease}
-.project-grid .project:hover{transform:translateY(-6px)}
-
-/* Small: stack carousel vertically for narrow screens */
+/* Tweak for small screens */
 @media (max-width:520px){
   .carousel-item{min-width:220px;flex:0 0 220px}
   .carousel-thumb{height:110px}
+  .carousel-track{padding-left: calc(50% - 110px); padding-right: calc(50% - 110px);}
 }
