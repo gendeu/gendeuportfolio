@@ -3,112 +3,80 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gen Deu Gagarin | Portfolio</title>
+  <title>Gen Deu Gagarin | UI/UX Portfolio</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Header -->
+  <!-- Navbar -->
   <header>
     <nav>
-      <h1 class="logo">Gen Deu Gagarin</h1>
+      <h1 class="logo">GenDeu</h1>
       <ul>
-        <li><a href="#about">About</a></li>
-        <li><a href="#experience">Experience</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="#home" class="nav-link active">Home</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#projects" class="nav-link">Projects</a></li>
+        <li><a href="#skills" class="nav-link">Skills</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
       </ul>
     </nav>
   </header>
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="hero-card">
-      <h2>Hi, I'm <span>Gen Deu</span></h2>
-      <p>UI/UX Developer • Front-End Specialist • Problem Solver</p>
-      <a href="#projects" class="btn">View My Work</a>
-    </div>
-  </section>
+  <!-- Sections -->
+  <main>
+    <section id="home" class="page active">
+      <div class="hero">
+        <h2>Hello, I'm <span>Gen Deu</span></h2>
+        <p>UI/UX Developer | Front-End Engineer</p>
+        <a href="#projects" class="btn nav-link">Explore My Work</a>
+      </div>
+    </section>
 
-  <!-- About -->
-  <section id="about">
-    <h2>About Me</h2>
-    <div class="card">
-      <p>I am a UI/UX Developer with extensive experience in front-end development, software design, 
-      and modern web technologies. Passionate about creating clean, user-focused digital experiences, 
-      I have worked with startups and established companies across various industries.</p>
-    </div>
-  </section>
+    <section id="about" class="page">
+      <h2>About Me</h2>
+      <p>I craft user-focused, visually engaging, and performant interfaces. 
+      With experience across multiple industries, I merge aesthetics with functionality.</p>
+    </section>
 
-  <!-- Experience -->
-  <section id="experience">
-    <h2>Experience</h2>
-    <div class="timeline">
-      <div class="card">
-        <h3>Web UI Specialist / Consultant</h3>
-        <p>Frontier Towers Associates PH — Jan 2025 – Present</p>
+    <section id="projects" class="page">
+      <h2>Projects</h2>
+      <div class="project-grid">
+        <div class="card glass">
+          <h3>KLP Lifestyle</h3>
+          <a href="https://klplifestyle.com/" target="_blank">View Project</a>
+        </div>
+        <div class="card glass">
+          <h3>Fixifoot</h3>
+          <a href="https://fixifoot.ph/" target="_blank">View Project</a>
+        </div>
+        <div class="card glass">
+          <h3>Cveez</h3>
+          <a href="https://cveez.com/" target="_blank">View Project</a>
+        </div>
       </div>
-      <div class="card">
-        <h3>UI/UX Developer III</h3>
-        <p>ADEC Innovation Inc — Aug 2022 – Jan 2025</p>
-      </div>
-      <div class="card">
-        <h3>Mid Software Developer</h3>
-        <p>Emids — May 2022 – Aug 2022</p>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Projects -->
-  <section id="projects">
-    <h2>Projects</h2>
-    <div class="project-grid">
-      <div class="card">
-        <h3>KLP Lifestyle</h3>
-        <a href="https://klplifestyle.com/" target="_blank">View Site</a>
+    <section id="skills" class="page">
+      <h2>Skills</h2>
+      <div class="skills-list">
+        <span class="chip">HTML5</span>
+        <span class="chip">CSS3</span>
+        <span class="chip">JavaScript</span>
+        <span class="chip">React</span>
+        <span class="chip">Figma</span>
+        <span class="chip">UI/UX Design</span>
       </div>
-      <div class="card">
-        <h3>Fixifoot</h3>
-        <a href="https://fixifoot.ph/" target="_blank">View Site</a>
-      </div>
-      <div class="card">
-        <h3>Cveez</h3>
-        <a href="https://cveez.com/" target="_blank">View Site</a>
-      </div>
-      <div class="card">
-        <h3>ADEC SiteRisk</h3>
-        <a href="https://www.adec-innovations.com/product/property-risk-map/" target="_blank">View Site</a>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Skills -->
-  <section id="skills">
-    <h2>Skills</h2>
-    <div class="skills-grid">
-      <div class="skill">HTML5</div>
-      <div class="skill">CSS3</div>
-      <div class="skill">JavaScript</div>
-      <div class="skill">React</div>
-      <div class="skill">UI/UX Design</div>
-      <div class="skill">Figma</div>
-    </div>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact">
-    <h2>Contact</h2>
-    <div class="card">
+    <section id="contact" class="page">
+      <h2>Contact Me</h2>
       <p>Email: <a href="mailto:gendeulgagarin@gmail.com">gendeulgagarin@gmail.com</a></p>
       <p>LinkedIn: <a href="https://linkedin.com/in/gen-deu-gagarin-952781165" target="_blank">linkedin.com/in/gen-deu-gagarin</a></p>
       <p>GitHub: <a href="https://github.com/gendeu" target="_blank">github.com/gendeu</a></p>
-      <p>Phone: +639665600602</p>
-    </div>
-  </section>
+    </section>
+  </main>
 
-  <!-- Footer -->
   <footer>
-    <p>&copy; 2025 Gen Deu Gagarin. Designed with ❤️</p>
+    <p>© 2025 Gen Deu Gagarin</p>
   </footer>
 
   <script src="script.js"></script>
