@@ -30,7 +30,7 @@ footer{text-align:center;padding:2rem;color:rgba(255,255,255,.7)}
   display:flex;
   gap:16px;
   padding:20px 12px;
-  overflow-x:auto;  /* we still allow scrollLeft updates; scrollbar will be hidden by viewport */
+  overflow-x:auto;  /* we still allow scrollLeft updates; scrollbar hidden by viewport wrapper */
   scroll-snap-type:x mandatory;
   scroll-behavior:smooth;
   -webkit-overflow-scrolling:touch;
