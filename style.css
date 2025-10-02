@@ -1,5 +1,5 @@
 :root {
-  /* Default (Dark mode = Starry Night) */
+  /* Dark mode (Starry Night) */
   --bg1: #0f2027;
   --bg2: #203a43;
   --bg3: #2c5364;
@@ -10,7 +10,7 @@
 }
 
 body.light {
-  /* Light Mode (Cloudy Morning) */
+  /* Light mode (Cloudy Morning) */
   --bg1: #dbe6f6;
   --bg2: #cfd9df;
   --bg3: #e2ebf0;
@@ -27,7 +27,6 @@ body {
   background: linear-gradient(-45deg, var(--bg1), var(--bg2), var(--bg3));
   background-size: 400% 400%;
   animation: gradientMove 25s ease infinite;
-  overflow-x: hidden;
   transition: background 0.8s ease, color 0.3s ease;
 }
 
@@ -37,7 +36,6 @@ body {
   100% { background-position: 0% 50%; }
 }
 
-/* Canvas background (particles) */
 #bgCanvas {
   position: fixed;
   top: 0; left: 0;
@@ -45,23 +43,29 @@ body {
   z-index: -2;
 }
 
+/* Progress Bar */
+#progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  background: var(--accent);
+  width: 0;
+  z-index: 2000;
+  transition: width 0.4s ease;
+}
+
 /* Navbar */
 header {
   position: sticky;
   top: 0;
-  z-index: 1000; /* fixed overlapping issue */
+  z-index: 1000;
   backdrop-filter: blur(12px);
   padding: 1rem 2rem;
 }
 
 nav { display: flex; justify-content: space-between; align-items: center; }
 nav ul { list-style: none; display: flex; gap: 1.5rem; transition: all 0.3s ease; }
-nav ul li a { 
-  text-decoration: none; 
-  color: var(--text); 
-  position: relative; 
-  transition: color 0.3s ease; 
-}
+nav ul li a { text-decoration: none; color: var(--text); position: relative; }
 nav ul li a::after {
   content: "";
   position: absolute; left: 0; bottom: -4px;
@@ -73,6 +77,21 @@ nav ul li a::after {
 nav ul li a:hover::after { transform: scaleX(1); }
 
 #menu-toggle { display: none; cursor: pointer; font-size: 1.5rem; }
+
+/* Pages with SPA transitions */
+.page {
+  display: none;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  min-height: 80vh;
+  padding: 4rem 2rem;
+}
+.page.active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
 
 /* Hero */
 .hero { text-align: center; margin-top: 15vh; padding: 2rem; }
@@ -123,14 +142,13 @@ nav ul li a:hover::after { transform: scaleX(1); }
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
 }
 
-/* Modal with zoom animation */
+/* Modal */
 .modal { 
   display: none; 
   position: fixed; inset: 0; 
   background: rgba(0,0,0,0.6); 
   justify-content: center; align-items: center; 
   z-index: 2000; 
-  animation: fadeIn 0.5s ease forwards;
 }
 .modal-content { 
   max-width: 600px; 
@@ -144,12 +162,11 @@ nav ul li a:hover::after { transform: scaleX(1); }
   transform: scale(1); 
   opacity: 1;
 }
-.close { 
-  position: absolute; 
-  top: 15px; right: 20px; 
-  font-size: 1.5rem; 
-  cursor: pointer; 
-}
+.close { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; }
+
+/* Skills */
+.skills-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+.chip { padding: 0.8rem 1.2rem; border-radius: 30px; background: var(--glass-bg); border: 1px solid var(--glass-border); backdrop-filter: blur(8px); }
 
 /* Responsive */
 @media (max-width: 768px) {
