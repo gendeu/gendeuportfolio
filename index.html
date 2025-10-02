@@ -7,10 +7,14 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Particle Canvas Background -->
+  <canvas id="bgCanvas"></canvas>
+
   <!-- Navbar -->
   <header>
     <nav>
       <h1 class="logo">GenDeu</h1>
+      <div id="menu-toggle">☰</div>
       <ul>
         <li><a href="#home" class="nav-link active">Home</a></li>
         <li><a href="#about" class="nav-link">About</a></li>
@@ -26,9 +30,7 @@
   <section id="home" class="page active">
     <div class="hero">
       <h2>Hello, I’m <span class="highlight">Gen Deu</span></h2>
-      <p class="tagline">
-        <span id="typewriter"></span>
-      </p>
+      <p class="tagline"><span id="typewriter"></span></p>
       <a href="#projects" class="btn nav-link">See My Work</a>
     </div>
   </section>
@@ -38,8 +40,8 @@
     <h2>About Me</h2>
     <div class="card glass fade-in">
       <p>I’m a UI/UX Developer and Frontend Engineer passionate about creating 
-         sleek, user-focused web experiences. My work bridges design and code, 
-         ensuring that beautiful interfaces also deliver smooth, intuitive interactions.</p>
+         sleek, user-focused web experiences. I bridge design and code, ensuring 
+         beautiful interfaces deliver smooth, intuitive interactions.</p>
     </div>
   </section>
 
@@ -48,16 +50,13 @@
     <h2>Case Studies</h2>
     <div class="project-grid">
       <div class="card glass project fade-in" onclick="openCaseStudy('klp')">
-        <h3>KLP Lifestyle</h3>
-        <p>E-commerce redesign</p>
+        <h3>KLP Lifestyle</h3><p>E-commerce redesign</p>
       </div>
       <div class="card glass project fade-in" onclick="openCaseStudy('fixifoot')">
-        <h3>Fixifoot</h3>
-        <p>Product showcase</p>
+        <h3>Fixifoot</h3><p>Product showcase</p>
       </div>
       <div class="card glass project fade-in" onclick="openCaseStudy('cveez')">
-        <h3>Cveez</h3>
-        <p>Service booking platform</p>
+        <h3>Cveez</h3><p>Service booking platform</p>
       </div>
     </div>
   </section>
