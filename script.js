@@ -1,4 +1,4 @@
-// SPA Navigation with smooth transitions + progress bar
+// SPA Navigation with progress bar
 const links = document.querySelectorAll('.nav-link');
 const pages = document.querySelectorAll('.page');
 const progressBar = document.getElementById('progress-bar');
@@ -8,15 +8,15 @@ links.forEach(link => {
     e.preventDefault();
     const targetId = link.getAttribute('href');
 
-    // progress bar animation
+    // Progress bar animation
     progressBar.style.width = "0";
     setTimeout(() => progressBar.style.width = "100%", 50);
 
-    // remove active classes
+    // Remove active classes
     links.forEach(l => l.classList.remove('active'));
     link.classList.add('active');
 
-    // fade out current
+    // Fade out current
     pages.forEach(p => {
       if (p.classList.contains('active')) {
         p.style.opacity = "0";
@@ -25,7 +25,7 @@ links.forEach(link => {
       }
     });
 
-    // fade in new page
+    // Fade in target
     setTimeout(() => {
       const targetPage = document.querySelector(targetId);
       targetPage.classList.add('active');
@@ -36,12 +36,12 @@ links.forEach(link => {
   });
 });
 
-// Mobile menu toggle
+// Mobile menu
 const menuToggle = document.getElementById("menu-toggle");
 const navMenu = document.querySelector("nav ul");
 menuToggle.addEventListener("click", () => navMenu.classList.toggle("show"));
 
-// Typewriter
+// Typewriter effect
 const roles = ["UI/UX Developer", "Frontend Engineer", "Creative Coder"];
 let roleIndex = 0, charIndex = 0;
 const typewriter = document.getElementById("typewriter");
@@ -72,32 +72,36 @@ const caseStudies = {
 const modal = document.getElementById("case-study");
 const closeBtn = modal.querySelector(".close");
 
-function openCaseStudy(key){
-  const d=caseStudies[key];
-  if(!d) return;
-  document.getElementById("case-title").textContent=d.title;
-  document.getElementById("case-problem").textContent="Problem: "+d.problem;
-  document.getElementById("case-process").textContent="Process: "+d.process;
-  document.getElementById("case-solution").textContent="Solution: "+d.solution;
-  document.getElementById("case-link").href=d.link;
-  modal.classList.add("show");
-  modal.style.display="flex";
+function openCaseStudy(key) {
+  const d = caseStudies[key];
+  if (!d) return;
+  document.getElementById("case-title").textContent = d.title;
+  document.getElementById("case-problem").textContent = "Problem: " + d.problem;
+  document.getElementById("case-process").textContent = "Process: " + d.process;
+  document.getElementById("case-solution").textContent = "Solution: " + d.solution;
+  document.getElementById("case-link").href = d.link;
+
+  modal.style.display = "flex";
+  setTimeout(() => modal.classList.add("show"), 20);
 }
-function closeCaseStudy(){
+function closeCaseStudy() {
   modal.classList.remove("show");
-  setTimeout(()=> modal.style.display="none", 300);
+  setTimeout(() => { modal.style.display = "none"; }, 300);
 }
 closeBtn.addEventListener("click", closeCaseStudy);
-window.addEventListener("click", e => { if(e.target === modal) closeCaseStudy(); });
+window.addEventListener("click", e => { if (e.target === modal) closeCaseStudy(); });
 
-// Dark/Light Mode Toggle
+// ESC to close modal
+window.addEventListener("keydown", e => { if (e.key === "Escape") closeCaseStudy(); });
+
+// Dark/Light toggle
 const toggleBtn = document.getElementById("theme-toggle");
 toggleBtn.addEventListener("click", () => {
   document.body.classList.toggle("light");
   toggleBtn.textContent = document.body.classList.contains("light") ? "🌞" : "🌙";
 });
 
-// Particle Background with Twinkles
+// Particle Background
 const canvas=document.getElementById("bgCanvas"),ctx=canvas.getContext("2d");
 canvas.width=window.innerWidth; canvas.height=window.innerHeight;
 let particles=[];
@@ -112,9 +116,7 @@ function animateParticles(){
       p.opacity += p.twinkleSpeed * (Math.random() > 0.5 ? 1 : -1);
       if(p.opacity > 1) p.opacity = 1;
       if(p.opacity < 0.2) p.opacity = 0.2;
-    } else {
-      p.opacity = 0.3;
-    }
+    } else { p.opacity = 0.3; }
     ctx.fillStyle=`rgba(255,255,255,${p.opacity})`;
     ctx.arc(p.x,p.y,p.radius,0,Math.PI*2); ctx.fill();
     p.x+=p.dx; p.y+=p.dy;
