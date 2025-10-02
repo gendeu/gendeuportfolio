@@ -6,9 +6,8 @@
   <title>Gen Deu Gagarin | UI/UX Portfolio</title>
   <meta name="description" content="Gen Deu Gagarin — UI/UX Developer & Frontend Engineer" />
   <style>
-/* ===========================
-   CSS (all styles inline)
-   =========================== */
+/* (same styles as before; omitted here to save space in explanation)
+   Full CSS included below for direct use */
 :root{--bg1:#0f2027;--bg2:#203a43;--bg3:#2c5364;--text:#f5f5f5;--accent:#00f2fe;--glass-bg:rgba(255,255,255,0.08);--glass-border:rgba(255,255,255,0.2)}
 body.light{--bg1:#dbe6f6;--bg2:#cfd9df;--bg3:#e2ebf0;--text:#222;--accent:#3f51b5;--glass-bg:rgba(255,255,255,0.5);--glass-border:rgba(0,0,0,0.1)}
 *{box-sizing:border-box}html,body{height:100%;margin:0;font-family:'Poppins',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial;color:var(--text);-webkit-font-smoothing:antialiased}
@@ -22,7 +21,7 @@ header{position:sticky;top:0;z-index:1000;backdrop-filter:blur(12px);padding:1re
 .card.glass{padding:2rem;border-radius:20px;background:var(--glass-bg);border:1px solid var(--glass-border);backdrop-filter:blur(15px);margin:1.5rem auto;width:90%;max-width:1000px;text-align:center;transition:transform .25s ease,box-shadow .25s ease}.card.glass:hover{transform:translateY(-5px) scale(1.02);box-shadow:0 10px 20px rgba(0,0,0,.3)}
 .btn{display:inline-block;margin-top:2rem;padding:.8rem 1.5rem;border-radius:30px;background:var(--glass-bg);border:1px solid var(--glass-border);backdrop-filter:blur(10px);color:var(--accent);font-weight:bold;text-decoration:none;transition:transform .2s ease,background .2s ease}.btn:hover{transform:scale(1.06);background:var(--accent);color:#111}
 .project-grid{display:grid;gap:1.5rem;grid-template-columns:repeat(3,1fr)}@media (max-width:1024px){.project-grid{grid-template-columns:repeat(2,1fr)}}@media (max-width:720px){.project-grid{grid-template-columns:1fr}}
-.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);justify-content:center;align-items:center;z-index:4000;opacity:0;transition:opacity .3s ease}.modal.show{opacity:1;display:flex}.modal-content{max-width:720px;padding:2rem;border-radius:20px;background:var(--glass-bg);border:1px solid var(--glass-border);backdrop-filter:blur(15px);transform:scale(.96);opacity:0;transition:transform .25s ease,opacity .25s ease;position:relative}.modal.show .modal-content{transform:scale(1);opacity:1}.close{position:absolute;top:15px;right:20px;font-size:1.6rem;cursor:pointer}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);justify-content:center;align-items:center;z-index:6000;opacity:0;transition:opacity .3s ease}.modal.show{opacity:1;display:flex}.modal-content{max-width:720px;padding:2rem;border-radius:20px;background:var(--glass-bg);border:1px solid var(--glass-border);backdrop-filter:blur(15px);transform:scale(.96);opacity:0;transition:transform .25s ease,opacity .25s ease;position:relative}.modal.show .modal-content{transform:scale(1);opacity:1}.close{position:absolute;top:15px;right:20px;font-size:1.6rem;cursor:pointer}
 .skills-list{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem}.chip{padding:.8rem 1.2rem;border-radius:30px;background:var(--glass-bg);border:1px solid var(--glass-border);backdrop-filter:blur(8px)}
 footer{text-align:center;padding:2rem;color:rgba(255,255,255,.7)}
 @media (max-width:768px){nav ul{display:none;flex-direction:column;gap:1rem;background:rgba(0,0,0,.85);padding:1rem;position:absolute;top:60px;right:20px;border-radius:12px}nav ul.show{display:flex;animation:slideIn .4s ease}@keyframes slideIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}#menu-toggle{display:block}.hero h2{font-size:1.8rem}.project-grid{grid-template-columns:1fr}}
@@ -126,12 +125,12 @@ footer{text-align:center;padding:2rem;color:rgba(255,255,255,.7)}
   header{padding:0.7rem 1rem}
   .hero{margin-top:8vh}
 }
-  
+
 /* Loader styles (floating GD circle) */
-#loader{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:6000;pointer-events:none;opacity:0;transition:opacity .28s ease}
+#loader{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:7000;pointer-events:none;opacity:0;transition:opacity .28s ease}
 .loader-logo{width:84px;height:84px;border-radius:50%;background:var(--glass-bg);border:2px solid var(--glass-border);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--accent);font-size:1.15rem;backdrop-filter:blur(8px);box-shadow:0 8px 30px rgba(0,0,0,0.35);transition:transform .28s ease,box-shadow .28s ease}
 .loader-logo span{user-select:none}
-#dim{position:fixed;inset:0;background:rgba(0,0,0,0.28);z-index:5900;opacity:0;pointer-events:none;transition:opacity .28s ease}
+#dim{position:fixed;inset:0;background:rgba(0,0,0,0.28);z-index:6900;opacity:0;pointer-events:none;transition:opacity .28s ease}
 .loader-visible{opacity:1}
   </style>
 </head>
@@ -143,7 +142,7 @@ footer{text-align:center;padding:2rem;color:rgba(255,255,255,.7)}
   <!-- Particle Background -->
   <canvas id="bgCanvas"></canvas>
 
-  <!-- Progress bar (kept but unused mainly) -->
+  <!-- Progress bar -->
   <div id="progress-bar" aria-hidden="true"></div>
 
   <!-- Navbar -->
@@ -297,11 +296,7 @@ footer{text-align:center;padding:2rem;color:rgba(255,255,255,.7)}
   </footer>
 
 <script>
-/* ============================
-   Full JS (inline)
-   ============================ */
-
-/* Helper query selectors used across script */
+/* JS (fixed behaviors) */
 const links = document.querySelectorAll('.nav-link');
 const pages = document.querySelectorAll('.page');
 const loaderEl = document.getElementById('loader');
@@ -315,159 +310,36 @@ const carouselTrack = document.querySelector('.carousel-track');
 const prevBtn = document.querySelector('.carousel-prev');
 const nextBtn = document.querySelector('.carousel-next');
 
-/* ============================
-   Floating GD Loader (pointer-follow)
-   - restored working version
-   ============================ */
-let pointer = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-let pos = { x: pointer.x, y: pointer.y };
-let rafId = null;
-const followEase = 0.16;
-const loaderMargin = 28;
+/* Loader (floating GD) */
+let pointer = { x: window.innerWidth/2, y: window.innerHeight/2 }, pos = { x: pointer.x, y: pointer.y }, rafId = null;
+const followEase = 0.16, loaderMargin = 28;
+function onPointerMove(e){ const ev = (e.touches && e.touches[0]) ? e.touches[0] : e; pointer.x = ev.clientX; pointer.y = ev.clientY; }
+window.addEventListener('mousemove', onPointerMove, { passive: true }); window.addEventListener('touchmove', onPointerMove, { passive: true });
+function animateLoader(){ pos.x += (pointer.x - pos.x) * followEase; pos.y += (pointer.y - pos.y) * followEase; const vw = window.innerWidth, vh = window.innerHeight; const x = Math.min(Math.max(pos.x, loaderMargin), vw - loaderMargin); const y = Math.min(Math.max(pos.y, loaderMargin), vh - loaderMargin); if(loaderEl){ loaderEl.style.left = x + 'px'; loaderEl.style.top = y + 'px'; } rafId = requestAnimationFrame(animateLoader); }
+function showLoader(){ if(!rafId) animateLoader(); if(loaderEl){ loaderEl.classList.add('loader-visible'); loaderEl.style.opacity='1'; } if(dimEl) dimEl.style.opacity='1'; }
+function hideLoader(){ if(loaderEl) loaderEl.style.opacity='0'; if(dimEl) dimEl.style.opacity='0'; if(loaderEl) loaderEl.classList.remove('loader-visible'); setTimeout(()=>{ if(rafId){ cancelAnimationFrame(rafId); rafId=null; } },320); }
+let pointerTimer=null; function ensureCenterOnIdle(){ clearTimeout(pointerTimer); pointerTimer = setTimeout(()=>{ pointer.x = window.innerWidth/2; pointer.y = window.innerHeight/2; },2200); }
+window.addEventListener('mousemove', ensureCenterOnIdle, { passive:true }); window.addEventListener('touchmove', ensureCenterOnIdle, { passive:true });
+window.showLoader = showLoader; window.hideLoader = hideLoader;
 
-function onPointerMove(e) {
-  const ev = (e.touches && e.touches[0]) ? e.touches[0] : e;
-  pointer.x = ev.clientX;
-  pointer.y = ev.clientY;
-}
-window.addEventListener('mousemove', onPointerMove, { passive: true });
-window.addEventListener('touchmove', onPointerMove, { passive: true });
-
-function animateLoader() {
-  pos.x += (pointer.x - pos.x) * followEase;
-  pos.y += (pointer.y - pos.y) * followEase;
-  const vw = window.innerWidth, vh = window.innerHeight;
-  const x = Math.min(Math.max(pos.x, loaderMargin), vw - loaderMargin);
-  const y = Math.min(Math.max(pos.y, loaderMargin), vh - loaderMargin);
-  if (loaderEl) {
-    loaderEl.style.left = x + 'px';
-    loaderEl.style.top = y + 'px';
-  }
-  rafId = requestAnimationFrame(animateLoader);
-}
-
-function showLoader() {
-  if (!rafId) animateLoader();
-  if (loaderEl) {
-    loaderEl.classList.add('loader-visible');
-    loaderEl.style.opacity = '1';
-  }
-  if (dimEl) dimEl.style.opacity = '1';
-}
-function hideLoader() {
-  if (loaderEl) loaderEl.style.opacity = '0';
-  if (dimEl) dimEl.style.opacity = '0';
-  if (loaderEl) loaderEl.classList.remove('loader-visible');
-  setTimeout(() => { if (rafId) { cancelAnimationFrame(rafId); rafId = null; } }, 320);
-}
-
-// center pointer when idle so loader drifts to center
-let pointerTimer = null;
-function ensureCenterOnIdle() {
-  clearTimeout(pointerTimer);
-  pointerTimer = setTimeout(() => {
-    pointer.x = window.innerWidth / 2;
-    pointer.y = window.innerHeight / 2;
-  }, 2200);
-}
-window.addEventListener('mousemove', ensureCenterOnIdle, { passive: true });
-window.addEventListener('touchmove', ensureCenterOnIdle, { passive: true });
-
-/* expose show/hide for manual use (nav) */
-window.showLoader = showLoader;
-window.hideLoader = hideLoader;
-
-/* ============================
-   Particle background
-   ============================ */
-const canvas = document.getElementById("bgCanvas");
-const ctx = canvas.getContext && canvas.getContext("2d");
+/* particles */
+const canvas = document.getElementById("bgCanvas"), ctx = canvas.getContext && canvas.getContext("2d");
 function fitCanvas(){ if(!canvas) return; canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
 fitCanvas();
 let particles = [];
-if (ctx) {
-  for (let i=0;i<90;i++){
-    particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,radius:1+Math.random()*2,dx:(Math.random()-.5)*.7,dy:(Math.random()-.5)*.7,opacity:Math.random(),twinkleSpeed:Math.random()*.02+.005});
-  }
-  function animateParticles(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    particles.forEach(p=>{
-      ctx.beginPath();
-      if (!document.body.classList.contains("light")){ p.opacity += p.twinkleSpeed * (Math.random()>0.5?1:-1); if(p.opacity>1)p.opacity=1; if(p.opacity<0.18)p.opacity=0.18; } else { p.opacity=0.35; }
-      ctx.fillStyle=`rgba(255,255,255,${p.opacity})`;
-      ctx.arc(p.x,p.y,p.radius,0,Math.PI*2); ctx.fill();
-      p.x+=p.dx; p.y+=p.dy;
-      if(p.x<0||p.x>canvas.width)p.dx*=-1;
-      if(p.y<0||p.y>canvas.height)p.dy*=-1;
-    });
-    requestAnimationFrame(animateParticles);
-  }
-  animateParticles();
-  window.addEventListener("resize", fitCanvas);
-}
+if(ctx){ for(let i=0;i<90;i++){ particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,radius:1+Math.random()*2,dx:(Math.random()-.5)*.7,dy:(Math.random()-.5)*.7,opacity:Math.random(),twinkleSpeed:Math.random()*.02+.005}); } function animateParticles(){ ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p=>{ ctx.beginPath(); if(!document.body.classList.contains("light")){ p.opacity += p.twinkleSpeed * (Math.random()>0.5?1:-1); if(p.opacity>1)p.opacity=1; if(p.opacity<0.18)p.opacity=0.18; } else { p.opacity=0.35; } ctx.fillStyle=`rgba(255,255,255,${p.opacity})`; ctx.arc(p.x,p.y,p.radius,0,Math.PI*2); ctx.fill(); p.x+=p.dx; p.y+=p.dy; if(p.x<0||p.x>canvas.width)p.dx*=-1; if(p.y<0||p.y>canvas.height)p.dy*=-1; }); requestAnimationFrame(animateParticles); } animateParticles(); window.addEventListener("resize", fitCanvas); }
 
-/* ============================
-   SPA Navigation (kept)
-   ============================ */
-document.addEventListener("DOMContentLoaded", () => {
-  // show loader for a brief moment on first load
-  showLoader();
-  setTimeout(() => hideLoader(), 1200);
-});
-links.forEach(link => {
-  link.addEventListener('click', e => {
-    e.preventDefault();
-    const targetId = link.getAttribute('href');
-    showLoader();
-    links.forEach(l => l.classList.remove('active'));
-    link.classList.add('active');
-    pages.forEach(p => {
-      if (p.classList.contains('active')) {
-        p.style.opacity = "0"; p.style.transform = "translateY(20px)";
-        setTimeout(() => p.classList.remove('active'), 360);
-      }
-    });
-    setTimeout(() => {
-      const targetPage = document.querySelector(targetId);
-      targetPage.classList.add('active');
-      targetPage.style.opacity = "1";
-      targetPage.style.transform = "translateY(0)";
-      hideLoader();
-    }, 900 + Math.random()*700);
-  });
-});
-const menuToggle = document.getElementById("menu-toggle");
-const navMenu = document.querySelector("nav ul");
-if (menuToggle) menuToggle.addEventListener("click", () => navMenu.classList.toggle("show"));
+/* SPA nav */
+document.addEventListener("DOMContentLoaded", () => { showLoader(); setTimeout(()=>hideLoader(),1200); });
+links.forEach(link => { link.addEventListener('click', e => { e.preventDefault(); const targetId = link.getAttribute('href'); showLoader(); links.forEach(l=>l.classList.remove('active')); link.classList.add('active'); pages.forEach(p => { if(p.classList.contains('active')){ p.style.opacity="0"; p.style.transform="translateY(20px)"; setTimeout(()=>p.classList.remove('active'),360); } }); setTimeout(()=>{ const targetPage = document.querySelector(targetId); targetPage.classList.add('active'); targetPage.style.opacity="1"; targetPage.style.transform="translateY(0)"; hideLoader(); },900 + Math.random()*700); }); });
+const menuToggle = document.getElementById("menu-toggle"); const navMenu = document.querySelector("nav ul"); if(menuToggle) menuToggle.addEventListener("click", ()=>navMenu.classList.toggle("show"));
 
-/* ============================
-   Typewriter
-   ============================ */
-const roles = ["UI/UX Developer", "Frontend Engineer", "Creative Coder"];
-let roleIndex = 0, charIndex = 0;
-const typewriter = document.getElementById("typewriter");
-function type() {
-  if (!typewriter) return;
-  if (charIndex < roles[roleIndex].length) {
-    typewriter.textContent += roles[roleIndex].charAt(charIndex++);
-    setTimeout(type, 90);
-  } else setTimeout(erase, 1800);
-}
-function erase() {
-  if (!typewriter) return;
-  if (charIndex > 0) {
-    typewriter.textContent = roles[roleIndex].substring(0, --charIndex);
-    setTimeout(erase, 40);
-  } else {
-    roleIndex = (roleIndex + 1) % roles.length;
-    setTimeout(type, 400);
-  }
-}
-type();
+/* typewriter */
+const roles = ["UI/UX Developer","Frontend Engineer","Creative Coder"]; let roleIndex=0,charIndex=0; const typewriter = document.getElementById("typewriter");
+function type(){ if(!typewriter) return; if(charIndex < roles[roleIndex].length){ typewriter.textContent += roles[roleIndex].charAt(charIndex++); setTimeout(type,90); } else setTimeout(erase,1800); }
+function erase(){ if(!typewriter) return; if(charIndex>0){ typewriter.textContent = roles[roleIndex].substring(0,--charIndex); setTimeout(erase,40); } else { roleIndex=(roleIndex+1)%roles.length; setTimeout(type,400); } } type();
 
-/* ============================
-   Case studies modal
-   ============================ */
+/* case studies modal */
 const caseStudies = {
   klp:{title:"KLP Lifestyle",problem:"E-commerce lacked responsive UI.",process:"Figma redesign + frontend build.",solution:"Delivered clean, mobile UI.",link:"https://klplifestyle.com/"},
   fixifoot:{title:"Fixifoot",problem:"Showcase not engaging.",process:"Interactive grids + responsive design.",solution:"Better UX & conversions.",link:"https://fixifoot.ph/"},
@@ -475,238 +347,155 @@ const caseStudies = {
   other1:{title:"Other 1",problem:"Reusable UI components.",process:"Component library.",solution:"Faster builds.",link:"#"},
   other2:{title:"Other 2",problem:"Landing optimization.",process:"A/B test + frontend.",solution:"Higher conversions.",link:"#"}
 };
-const modal = document.getElementById("case-study");
-const closeBtn = modal.querySelector(".close");
-function openCaseStudy(key) {
-  const d = caseStudies[key]; if (!d) return;
-  document.getElementById("case-title").textContent = d.title;
-  document.getElementById("case-problem").textContent = "Problem: " + d.problem;
-  document.getElementById("case-process").textContent = "Process: " + d.process;
-  document.getElementById("case-solution").textContent = "Solution: " + d.solution;
-  document.getElementById("case-link").href = d.link;
-  modal.style.display = "flex";
-  setTimeout(() => modal.classList.add("show"), 18);
-}
-function closeCaseStudy() {
-  modal.classList.remove('show');
-  setTimeout(() => { modal.style.display = "none"; }, 260);
-}
+const modal = document.getElementById("case-study"); const closeBtn = modal.querySelector(".close");
+function openCaseStudy(key){ const d = caseStudies[key]; if(!d) return; document.getElementById("case-title").textContent = d.title; document.getElementById("case-problem").textContent = "Problem: " + d.problem; document.getElementById("case-process").textContent = "Process: " + d.process; document.getElementById("case-solution").textContent = "Solution: " + d.solution; document.getElementById("case-link").href = d.link; modal.style.display = "flex"; setTimeout(()=>modal.classList.add("show"),18); }
+function closeCaseStudy(){ modal.classList.remove('show'); setTimeout(()=>{ modal.style.display = "none"; },260); }
 closeBtn.addEventListener("click", closeCaseStudy);
-window.addEventListener("click", e => { if (e.target === modal) closeCaseStudy(); });
-window.addEventListener("keydown", e => { if (e.key === "Escape") closeCaseStudy(); });
+window.addEventListener("click", e => { if(e.target === modal) closeCaseStudy(); });
+window.addEventListener("keydown", e => { if(e.key === "Escape") closeCaseStudy(); });
 
-/* ============================
-   View toggle (carousel / grid)
-   ============================ */
-function setProjectsView(mode) {
-  if (mode === 'grid') {
-    carouselView.classList.remove('active');
-    gridView.classList.remove('hidden');
-    btnCarousel.setAttribute('aria-pressed', 'false');
-    btnGrid.setAttribute('aria-pressed', 'true');
-    localStorage.setItem('projectsView', 'grid');
+/* view toggle: simple & reliable */
+function setProjectsView(mode){
+  if(mode === 'grid'){
+    carouselView.classList.add('hidden'); carouselView.classList.remove('active');
+    gridView.classList.remove('hidden'); gridView.classList.add('active');
+    btnCarousel && btnCarousel.setAttribute('aria-pressed','false');
+    btnGrid && btnGrid.setAttribute('aria-pressed','true');
+    localStorage.setItem('projectsView','grid');
   } else {
-    carouselView.classList.add('active');
-    gridView.classList.remove('hidden'); // keep grid hidden by default visually - we'll toggle class properly
-    gridView.classList.add('hidden');    // ensure hidden
-    gridView.classList.remove('hidden'); // force DOM repaint guard (safe)
-    gridView.classList.add('hidden');    // final state preserved
-    gridView.classList.remove('hidden'); // just avoid layout jumps
-    gridView.classList.add('hidden');
-    carouselView.classList.add('active');
-    gridView.classList.add('hidden');
-    btnCarousel.setAttribute('aria-pressed', 'true');
-    btnGrid.setAttribute('aria-pressed', 'false');
-    localStorage.setItem('projectsView', 'carousel');
+    carouselView.classList.remove('hidden'); carouselView.classList.add('active');
+    gridView.classList.add('hidden'); gridView.classList.remove('active');
+    btnCarousel && btnCarousel.setAttribute('aria-pressed','true');
+    btnGrid && btnGrid.setAttribute('aria-pressed','false');
+    localStorage.setItem('projectsView','carousel');
   }
 }
 const savedView = localStorage.getItem('projectsView') || 'carousel';
 setProjectsView(savedView);
-if (btnCarousel) btnCarousel.addEventListener('click', () => setProjectsView('carousel'));
-if (btnGrid) btnGrid.addEventListener('click', () => setProjectsView('grid'));
+btnCarousel && btnCarousel.addEventListener('click', ()=> setProjectsView('carousel'));
+btnGrid && btnGrid.addEventListener('click', ()=> setProjectsView('grid'));
 
-/* ============================
-   CENTER-STAGE CAROUSEL (hidden scrollbar + drag)
-   ============================ */
+/* CENTER-STAGE CAROUSEL (fixed click behavior + drag) */
 const carouselItems = carouselTrack ? Array.from(carouselTrack.querySelectorAll('.carousel-item')) : [];
-
-if (carouselTrack && carouselItems.length) {
-
-  function centerItem(item, smooth = true) {
+if(carouselTrack && carouselItems.length){
+  function centerItem(item, smooth=true){
     const trackRect = carouselTrack.getBoundingClientRect();
     const itemRect = item.getBoundingClientRect();
     const trackScrollLeft = carouselTrack.scrollLeft;
-    const itemCenter = (itemRect.left - trackRect.left) + (itemRect.width / 2);
-    const targetScroll = trackScrollLeft + itemCenter - (trackRect.width / 2);
+    const itemCenter = (itemRect.left - trackRect.left) + (itemRect.width/2);
+    const targetScroll = trackScrollLeft + itemCenter - (trackRect.width/2);
     carouselTrack.scrollTo({ left: targetScroll, behavior: smooth ? 'smooth' : 'auto' });
   }
-
-  function findCenteredItem() {
+  function findCenteredItem(){
     const trackRect = carouselTrack.getBoundingClientRect();
-    const trackCenterX = trackRect.left + trackRect.width / 2;
+    const trackCenterX = trackRect.left + trackRect.width/2;
     let minDist = Infinity, closest = null;
-    carouselItems.forEach(it => {
+    carouselItems.forEach(it=>{
       const r = it.getBoundingClientRect();
-      const itemCenter = r.left + r.width / 2;
+      const itemCenter = r.left + r.width/2;
       const dist = Math.abs(itemCenter - trackCenterX);
-      if (dist < minDist) { minDist = dist; closest = it; }
+      if(dist < minDist){ minDist = dist; closest = it; }
     });
     return closest;
   }
-
-  function updateActiveClasses() {
+  function updateActiveClasses(){
     const active = findCenteredItem();
-    if (!active) return;
-    carouselItems.forEach(it => {
-      it.classList.remove('active', 'sibling');
-      it.setAttribute('aria-selected', 'false');
-    });
-    active.classList.add('active');
-    active.setAttribute('aria-selected', 'true');
+    if(!active) return;
+    carouselItems.forEach(it => { it.classList.remove('active','sibling'); it.setAttribute('aria-selected','false'); });
+    active.classList.add('active'); active.setAttribute('aria-selected','true');
     const idx = carouselItems.indexOf(active);
-    if (idx > 0) carouselItems[idx - 1].classList.add('sibling');
-    if (idx < carouselItems.length - 1) carouselItems[idx + 1].classList.add('sibling');
+    if(idx > 0) carouselItems[idx-1].classList.add('sibling');
+    if(idx < carouselItems.length-1) carouselItems[idx+1].classList.add('sibling');
   }
 
-  // RAF throttle scroll
-  let ticking = false;
-  carouselTrack.addEventListener('scroll', () => {
-    if (!ticking) {
-      window.requestAnimationFrame(() => {
-        updateActiveClasses();
-        ticking = false;
-      });
-      ticking = true;
-    }
-  }, { passive: true });
+  let ticking=false;
+  carouselTrack.addEventListener('scroll', ()=>{ if(!ticking){ window.requestAnimationFrame(()=>{ updateActiveClasses(); ticking=false; }); ticking=true; } }, { passive:true });
 
-  // Initial centering: ALWAYS choose the middle index by default
-  window.addEventListener('load', () => {
-    const middleIndex = Math.floor(carouselItems.length / 2);
+  /* initial center = middle */
+  window.addEventListener('load', ()=>{
+    const middleIndex = Math.floor(carouselItems.length/2);
     const startItem = carouselItems[middleIndex] || carouselItems[0];
-    centerItem(startItem, false);
-    setTimeout(updateActiveClasses, 40);
-    // store default center if you need
+    centerItem(startItem,false);
+    setTimeout(updateActiveClasses,40);
     localStorage.setItem('carouselCenterIndex', middleIndex);
   });
 
-  // CLICK behavior:
-  // - Mobile/touch (< 900px): tapping any card immediately opens modal
-  // - Desktop: tapping inactive card centers it; tapping currently active card opens modal
-  carouselItems.forEach((it, i) => {
-    it.addEventListener('click', (e) => {
-      const viewportWidth = window.innerWidth;
-      const isMobile = viewportWidth < 900; // threshold
-      const isActive = it.classList.contains('active');
-
-      if (isMobile) {
+  /* CLICK behavior: use findCenteredItem() as source-of-truth for "isActive" */
+  carouselItems.forEach((it,i)=>{
+    it.addEventListener('click', (e)=>{
+      const isMobile = window.innerWidth < 900;
+      const centered = findCenteredItem();
+      const isActive = centered === it;
+      if(isMobile){
         const key = it.dataset.key;
-        if (key) openCaseStudy(key);
+        if(key) openCaseStudy(key);
         return;
       }
-
-      if (!isActive) {
+      if(!isActive){
         centerItem(it, true);
-        setTimeout(() => {
-          updateActiveClasses();
-          localStorage.setItem('carouselCenterIndex', i);
-        }, 260);
+        setTimeout(()=>{ updateActiveClasses(); localStorage.setItem('carouselCenterIndex', i); }, 260);
       } else {
         const key = it.dataset.key;
-        if (key) openCaseStudy(key);
+        if(key) openCaseStudy(key);
       }
     });
   });
 
-  // Prev / Next
-  if (prevBtn) prevBtn.addEventListener('click', () => {
-    const active = findCenteredItem(); if (!active) return;
+  /* prev/next */
+  if(prevBtn) prevBtn.addEventListener('click', ()=>{
+    const active = findCenteredItem(); if(!active) return;
     const idx = carouselItems.indexOf(active);
-    const targetIndex = Math.max(0, idx - 1);
-    const target = carouselItems[targetIndex];
-    centerItem(target, true);
+    const targetIndex = Math.max(0, idx-1);
+    centerItem(carouselItems[targetIndex], true);
     localStorage.setItem('carouselCenterIndex', targetIndex);
     setTimeout(updateActiveClasses, 180);
   });
-  if (nextBtn) nextBtn.addEventListener('click', () => {
-    const active = findCenteredItem(); if (!active) return;
+  if(nextBtn) nextBtn.addEventListener('click', ()=>{
+    const active = findCenteredItem(); if(!active) return;
     const idx = carouselItems.indexOf(active);
-    const targetIndex = Math.min(carouselItems.length - 1, idx + 1);
-    const target = carouselItems[targetIndex];
-    centerItem(target, true);
+    const targetIndex = Math.min(carouselItems.length-1, idx+1);
+    centerItem(carouselItems[targetIndex], true);
     localStorage.setItem('carouselCenterIndex', targetIndex);
     setTimeout(updateActiveClasses, 180);
   });
 
-  // Keyboard
-  carouselTrack.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowRight') { nextBtn && nextBtn.click(); }
-    if (e.key === 'ArrowLeft') { prevBtn && prevBtn.click(); }
-  });
+  /* keyboard */
+  carouselTrack.addEventListener('keydown', (e)=>{ if(e.key==='ArrowRight') nextBtn && nextBtn.click(); if(e.key==='ArrowLeft') prevBtn && prevBtn.click(); });
 
-  // Snap to nearest item when user stops scrolling
+  /* snap after scroll */
   let scrollEndTimer = null;
-  carouselTrack.addEventListener('scroll', () => {
+  carouselTrack.addEventListener('scroll', ()=>{
     clearTimeout(scrollEndTimer);
-    scrollEndTimer = setTimeout(() => {
+    scrollEndTimer = setTimeout(()=>{
       const center = findCenteredItem();
-      if (center) {
-        centerItem(center, true);
-        updateActiveClasses();
-        const idx = carouselItems.indexOf(center);
-        localStorage.setItem('carouselCenterIndex', idx);
-      }
+      if(center){ centerItem(center, true); updateActiveClasses(); const idx = carouselItems.indexOf(center); localStorage.setItem('carouselCenterIndex', idx); }
     }, 80);
-  }, { passive: true });
+  }, { passive:true });
 
-  // Resize re-center
-  window.addEventListener('resize', () => {
+  /* resize */
+  window.addEventListener('resize', ()=>{
     const active = findCenteredItem() || carouselItems[Math.floor(carouselItems.length/2)] || carouselItems[0];
     centerItem(active, false);
     setTimeout(updateActiveClasses, 60);
   });
 
-  /* Drag-to-scroll (pointer events) so scrollbar can be hidden */
-  let isDown = false, startX = 0, startScroll = 0;
-  carouselTrack.addEventListener('pointerdown', (e) => {
-    isDown = true;
-    carouselTrack.setPointerCapture(e.pointerId);
-    startX = e.clientX;
-    startScroll = carouselTrack.scrollLeft;
-    carouselTrack.style.cursor = 'grabbing';
+  /* pointer drag (so scrollbar can be hidden) */
+  let isDown=false, startX=0, startScroll=0;
+  carouselTrack.addEventListener('pointerdown', (e)=>{
+    isDown=true; carouselTrack.setPointerCapture(e.pointerId); startX = e.clientX; startScroll = carouselTrack.scrollLeft; carouselTrack.style.cursor='grabbing';
   });
-  carouselTrack.addEventListener('pointermove', (e) => {
-    if (!isDown) return;
-    e.preventDefault();
-    const dx = e.clientX - startX;
-    carouselTrack.scrollLeft = startScroll - dx;
-  }, { passive: false });
-  const endDrag = (e) => {
-    if (!isDown) return;
-    isDown = false;
-    try { carouselTrack.releasePointerCapture(e && e.pointerId); } catch {}
-    carouselTrack.style.cursor = 'grab';
-    const center = findCenteredItem();
-    if (center) centerItem(center, true);
-  };
-  carouselTrack.addEventListener('pointerup', endDrag);
-  carouselTrack.addEventListener('pointercancel', endDrag);
-  carouselTrack.addEventListener('pointerleave', endDrag);
-  carouselTrack.style.cursor = 'grab';
+  carouselTrack.addEventListener('pointermove', (e)=>{
+    if(!isDown) return; e.preventDefault(); const dx = e.clientX - startX; carouselTrack.scrollLeft = startScroll - dx;
+  }, { passive:false });
+  const endDrag = (e)=>{ if(!isDown) return; isDown=false; try{ carouselTrack.releasePointerCapture(e && e.pointerId);}catch{} carouselTrack.style.cursor='grab'; const center = findCenteredItem(); if(center) centerItem(center, true); };
+  carouselTrack.addEventListener('pointerup', endDrag); carouselTrack.addEventListener('pointercancel', endDrag); carouselTrack.addEventListener('pointerleave', endDrag);
+  carouselTrack.style.cursor='grab';
 }
 
-/* ============================
-   Theme toggle
-   ============================ */
+/* theme toggle */
 const toggleBtn = document.getElementById("theme-toggle");
-if (toggleBtn) toggleBtn.addEventListener("click", () => {
-  document.body.classList.toggle("light");
-  toggleBtn.textContent = document.body.classList.contains("light") ? "🌞" : "🌙";
-});
+if(toggleBtn) toggleBtn.addEventListener("click", ()=>{ document.body.classList.toggle("light"); toggleBtn.textContent = document.body.classList.contains("light") ? "🌞" : "🌙"; });
 
-/* ============================
-   End of script
-   ============================ */
 </script>
 </body>
 </html>
