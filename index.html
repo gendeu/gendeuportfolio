@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gen Deu Gagarin | Frontend & UI/UX Developer</title>
+  <title>Gen Deu Gagarin | UI/UX Portfolio</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Navigation -->
+  <!-- Navbar -->
   <header>
     <nav>
       <h1 class="logo">GenDeu</h1>
@@ -18,14 +18,17 @@
         <li><a href="#skills" class="nav-link">Skills</a></li>
         <li><a href="#contact" class="nav-link">Contact</a></li>
       </ul>
+      <button id="theme-toggle">🌙</button>
     </nav>
   </header>
 
-  <!-- Hero Section -->
+  <!-- Hero -->
   <section id="home" class="page active">
     <div class="hero">
-      <h2>Hello, I'm <span class="highlight">Gen Deu</span></h2>
-      <p class="tagline">UI/UX Developer • Frontend Engineer</p>
+      <h2>Hello, I’m <span class="highlight">Gen Deu</span></h2>
+      <p class="tagline">
+        <span id="typewriter"></span>
+      </p>
       <a href="#projects" class="btn nav-link">See My Work</a>
     </div>
   </section>
@@ -33,37 +36,48 @@
   <!-- About -->
   <section id="about" class="page">
     <h2>About Me</h2>
-    <div class="card glass">
-      <p>I am a passionate Frontend Developer and UI/UX Designer with hands-on experience
-         in crafting responsive, modern web applications. I specialize in transforming ideas
-         into interactive, user-friendly experiences using HTML, CSS, JavaScript, and modern
-         frameworks.</p>
+    <div class="card glass fade-in">
+      <p>I’m a UI/UX Developer and Frontend Engineer passionate about creating 
+         sleek, user-focused web experiences. My work bridges design and code, 
+         ensuring that beautiful interfaces also deliver smooth, intuitive interactions.</p>
     </div>
   </section>
 
   <!-- Projects -->
   <section id="projects" class="page">
-    <h2>Projects</h2>
+    <h2>Case Studies</h2>
     <div class="project-grid">
-      <div class="card glass project">
+      <div class="card glass project fade-in" onclick="openCaseStudy('klp')">
         <h3>KLP Lifestyle</h3>
-        <a href="https://klplifestyle.com/" target="_blank">View Live</a>
+        <p>E-commerce redesign</p>
       </div>
-      <div class="card glass project">
+      <div class="card glass project fade-in" onclick="openCaseStudy('fixifoot')">
         <h3>Fixifoot</h3>
-        <a href="https://fixifoot.ph/" target="_blank">View Live</a>
+        <p>Product showcase</p>
       </div>
-      <div class="card glass project">
+      <div class="card glass project fade-in" onclick="openCaseStudy('cveez')">
         <h3>Cveez</h3>
-        <a href="https://cveez.com/" target="_blank">View Live</a>
+        <p>Service booking platform</p>
       </div>
     </div>
   </section>
 
+  <!-- Case Study Modal -->
+  <div id="case-study" class="modal">
+    <div class="modal-content glass">
+      <span class="close" onclick="closeCaseStudy()">&times;</span>
+      <h3 id="case-title"></h3>
+      <p id="case-problem"></p>
+      <p id="case-process"></p>
+      <p id="case-solution"></p>
+      <a id="case-link" href="#" target="_blank" class="btn">View Live</a>
+    </div>
+  </div>
+
   <!-- Skills -->
   <section id="skills" class="page">
     <h2>Skills</h2>
-    <div class="skills-list">
+    <div class="skills-list fade-in">
       <span class="chip">HTML5</span>
       <span class="chip">CSS3</span>
       <span class="chip">JavaScript</span>
@@ -76,7 +90,7 @@
   <!-- Contact -->
   <section id="contact" class="page">
     <h2>Contact</h2>
-    <div class="card glass">
+    <div class="card glass fade-in">
       <p>Email: <a href="mailto:gendeulgagarin@gmail.com">gendeulgagarin@gmail.com</a></p>
       <p>LinkedIn: <a href="https://linkedin.com/in/gen-deu-gagarin-952781165" target="_blank">linkedin.com/in/gen-deu-gagarin</a></p>
       <p>GitHub: <a href="https://github.com/gendeu" target="_blank">github.com/gendeu</a></p>
@@ -84,7 +98,7 @@
   </section>
 
   <footer>
-    <p>© 2025 Gen Deu Gagarin | Built with ❤️</p>
+    <p>© 2025 Gen Deu Gagarin | Designed with ❤️</p>
   </footer>
 
   <script src="script.js"></script>
