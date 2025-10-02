@@ -57,18 +57,60 @@
 
   <!-- Projects -->
   <section id="projects" class="page">
-    <h2>Case Studies</h2>
-    <div class="project-grid">
-      <div class="card glass project fade-in" onclick="openCaseStudy('klp')">
-        <h3>KLP Lifestyle</h3><p>E-commerce redesign</p>
-      </div>
-      <div class="card glass project fade-in" onclick="openCaseStudy('fixifoot')">
-        <h3>Fixifoot</h3><p>Product showcase</p>
-      </div>
-      <div class="card glass project fade-in" onclick="openCaseStudy('cveez')">
-        <h3>Cveez</h3><p>Service booking platform</p>
+    <div class="projects-header">
+      <h2>Case Studies</h2>
+
+      <!-- View toggle -->
+      <div class="view-toggle" role="tablist" aria-label="Projects view toggle">
+        <button id="btn-carousel" class="view-btn" aria-pressed="false" title="Carousel view">🎮</button>
+        <button id="btn-grid" class="view-btn" aria-pressed="true" title="Grid view">▦</button>
       </div>
     </div>
+
+    <!-- CAROUSEL VIEW -->
+    <div id="carouselView" class="carousel-view" aria-hidden="true">
+      <button class="carousel-nav carousel-prev" aria-label="Previous">‹</button>
+      <div class="carousel-track" tabindex="0">
+        <!-- carousel items (same card markup; data-key used to open case study) -->
+        <div class="card glass carousel-item" data-key="klp" onclick="openCaseStudy('klp')">
+          <div class="carousel-thumb" style="background-image:url('assets/klp.jpg')"></div>
+          <h3>KLP Lifestyle</h3>
+          <p class="muted">E-commerce redesign</p>
+        </div>
+
+        <div class="card glass carousel-item" data-key="fixifoot" onclick="openCaseStudy('fixifoot')">
+          <div class="carousel-thumb" style="background-image:url('assets/fixifoot.jpg')"></div>
+          <h3>Fixifoot</h3>
+          <p class="muted">Product showcase</p>
+        </div>
+
+        <div class="card glass carousel-item" data-key="cveez" onclick="openCaseStudy('cveez')">
+          <div class="carousel-thumb" style="background-image:url('assets/cveez.jpg')"></div>
+          <h3>Cveez</h3>
+          <p class="muted">Service booking platform</p>
+        </div>
+
+        <!-- add more carousel items as needed -->
+      </div>
+      <button class="carousel-nav carousel-next" aria-label="Next">›</button>
+    </div>
+
+    <!-- GRID / CARD LIST VIEW -->
+    <div id="gridView" class="grid-view">
+      <div class="project-grid">
+        <div class="card glass project" data-key="klp" onclick="openCaseStudy('klp')">
+          <h3>KLP Lifestyle</h3><p>E-commerce redesign</p>
+        </div>
+        <div class="card glass project" data-key="fixifoot" onclick="openCaseStudy('fixifoot')">
+          <h3>Fixifoot</h3><p>Product showcase</p>
+        </div>
+        <div class="card glass project" data-key="cveez" onclick="openCaseStudy('cveez')">
+          <h3>Cveez</h3><p>Service booking platform</p>
+        </div>
+        <!-- add more grid cards as needed -->
+      </div>
+    </div>
+
   </section>
 
   <!-- Case Study Modal -->
