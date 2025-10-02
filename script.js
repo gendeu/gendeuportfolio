@@ -1,22 +1,37 @@
 // SPA Navigation with progress bar
 const links = document.querySelectorAll('.nav-link');
 const pages = document.querySelectorAll('.page');
-const progressBar = document.getElementById('progress-bar');
+// Loader animation (on first load + during navigation)
+const loader = document.getElementById("loader");
 
+function showLoader() {
+  loader.style.display = "flex";
+  setTimeout(() => loader.style.opacity = "1", 20);
+}
+
+function hideLoader() {
+  loader.style.opacity = "0";
+  setTimeout(() => loader.style.display = "none", 800);
+}
+
+// Show loader for 2s on first page load
+document.addEventListener("DOMContentLoaded", () => {
+  setTimeout(() => hideLoader(), 2000);
+});
+
+// Show loader on SPA navigation instead of progress bar
 links.forEach(link => {
-  link.addEventListener('click', e => {
+  link.addEventListener("click", e => {
     e.preventDefault();
     const targetId = link.getAttribute('href');
 
-    // Progress bar animation
-    progressBar.style.width = "0";
-    setTimeout(() => progressBar.style.width = "100%", 50);
+    // loader instead of bar
+    showLoader();
 
-    // Remove active classes
     links.forEach(l => l.classList.remove('active'));
     link.classList.add('active');
 
-    // Fade out current
+    // fade out current
     pages.forEach(p => {
       if (p.classList.contains('active')) {
         p.style.opacity = "0";
@@ -25,16 +40,17 @@ links.forEach(link => {
       }
     });
 
-    // Fade in target
+    // fade in target after loader
     setTimeout(() => {
       const targetPage = document.querySelector(targetId);
       targetPage.classList.add('active');
       targetPage.style.opacity = "1";
       targetPage.style.transform = "translateY(0)";
-      progressBar.style.width = "0"; // reset bar
-    }, 500);
+      hideLoader();
+    }, 2000);
   });
 });
+
 
 // Mobile menu
 const menuToggle = document.getElementById("menu-toggle");
