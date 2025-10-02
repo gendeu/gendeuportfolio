@@ -23,13 +23,14 @@ footer{text-align:center;padding:2rem;color:rgba(255,255,255,.7)}
 .view-btn{width:40px;height:40px;border-radius:8px;border:1px solid rgba(255,255,255,.06);background:transparent;color:var(--text);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center}
 .view-btn[aria-pressed="true"]{background:var(--accent);color:#071225;box-shadow:0 8px 18px rgba(0,0,0,.35);border-color:rgba(255,255,255,.08)}
 
-/* ---------- CAROUSEL STYLES (CENTER-STAGE, NO SCROLLBAR) ---------- */
+/* ---------- CAROUSEL STYLES (CENTER-STAGE, NO VISIBLE SCROLLBAR) ---------- */
 .carousel-view{display:flex;position:relative;align-items:center;gap:12px;margin:0 0 1.75rem 0}
+.carousel-viewport{overflow:hidden;width:100%} /* hides native scrollbar visually */
 .carousel-track{
   display:flex;
   gap:16px;
   padding:20px 12px;
-  overflow-x:auto;
+  overflow-x:auto;  /* we still allow scrollLeft updates; scrollbar will be hidden by viewport */
   scroll-snap-type:x mandatory;
   scroll-behavior:smooth;
   -webkit-overflow-scrolling:touch;
@@ -39,8 +40,8 @@ footer{text-align:center;padding:2rem;color:rgba(255,255,255,.7)}
   padding-right: calc(50% - 140px);
 }
 
-/* hide scrollbar visually while preserving swipe/scroll functionality */
-.carousel-track::-webkit-scrollbar{display:none}
+/* additionally hide webkit scrollbar (defensive) */
+.carousel-track::-webkit-scrollbar{height:0;display:none}
 .carousel-track{ -ms-overflow-style: none; scrollbar-width: none; }
 
 /* item sizes */
