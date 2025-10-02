@@ -11,12 +11,14 @@ links.forEach(link => {
   });
 });
 
-// Mobile menu toggle
+// Mobile menu toggle with smooth transition
 const menuToggle = document.getElementById("menu-toggle");
 const navMenu = document.querySelector("nav ul");
-menuToggle.addEventListener("click", () => navMenu.classList.toggle("show"));
+menuToggle.addEventListener("click", () => {
+  navMenu.classList.toggle("show");
+});
 
-// Typewriter
+// Typewriter effect
 const roles = ["UI/UX Developer", "Frontend Engineer", "Creative Coder"];
 let roleIndex = 0, charIndex = 0;
 const typewriter = document.getElementById("typewriter");
@@ -37,12 +39,7 @@ function erase() {
 }
 type();
 
-// Case Studies
-const caseStudies = {
-  klp:{title:"KLP Lifestyle",problem:"E-commerce lacked responsive UI.",process:"Figma redesign + frontend build.",solution:"Delivered clean, mobile UI.",link:"https://klplifestyle.com/"},
-  fixifoot:{title:"Fixifoot",problem:"Showcase not engaging.",process:"Interactive grids + responsive design.",solution:"Better UX & conversions.",link:"https://fixifoot.ph/"},
-  cveez:{title:"Cveez",problem:"Needed sleek booking UX.",process:"Designed flows + coded frontend.",solution:"Modern booking platform.",link:"https://cveez.com/"}
-};
+// Case Studies with popup zoom animation
 const modal = document.getElementById("case-study");
 function openCaseStudy(key){
   const d=caseStudies[key];
@@ -51,22 +48,34 @@ function openCaseStudy(key){
   document.getElementById("case-process").textContent="Process: "+d.process;
   document.getElementById("case-solution").textContent="Solution: "+d.solution;
   document.getElementById("case-link").href=d.link;
+  modal.classList.add("show");
   modal.style.display="flex";
 }
-function closeCaseStudy(){modal.style.display="none";}
+function closeCaseStudy(){
+  modal.classList.remove("show");
+  setTimeout(()=> modal.style.display="none", 300);
+}
+
+// Dark/Light Mode Toggle
+const toggleBtn = document.getElementById("theme-toggle");
+toggleBtn.addEventListener("click", () => {
+  document.body.classList.toggle("light");
+  toggleBtn.textContent = document.body.classList.contains("light") ? "🌞" : "🌙";
+});
 
 // Particle Background
 const canvas=document.getElementById("bgCanvas"),ctx=canvas.getContext("2d");
 canvas.width=window.innerWidth; canvas.height=window.innerHeight;
 let particles=[];
-for(let i=0;i<60;i++){
-  particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,radius:2+Math.random()*2,dx:(Math.random()-.5)*1,dy:(Math.random()-.5)*1});
+for(let i=0;i<80;i++){
+  particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,radius:1+Math.random()*2,dx:(Math.random()-.5)*.7,dy:(Math.random()-.5)*.7});
 }
 function animateParticles(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
   particles.forEach(p=>{
     ctx.beginPath();ctx.arc(p.x,p.y,p.radius,0,Math.PI*2);
-    ctx.fillStyle="rgba(255,255,255,0.5)";ctx.fill();
+    ctx.fillStyle="rgba(255,255,255,0.4)";
+    ctx.fill();
     p.x+=p.dx;p.y+=p.dy;
     if(p.x<0||p.x>canvas.width)p.dx*=-1;
     if(p.y<0||p.y>canvas.height)p.dy*=-1;
