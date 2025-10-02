@@ -19,6 +19,54 @@ body.light {
   --glass-bg: rgba(255, 255, 255, 0.5);
   --glass-border: rgba(0, 0, 0, 0.1);
 }
+/* Loader */
+#loader {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--bg1);
+  z-index: 3000;
+  transition: opacity 0.8s ease;
+}
+
+.loader-logo {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: var(--glass-bg);
+  border: 2px solid var(--glass-border);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--accent);
+  position: relative;
+  overflow: hidden;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+/* Cloud/Moon background effect */
+body.light .loader-logo {
+  background: linear-gradient(to bottom, #f0f4ff, #dbe6f6);
+  box-shadow: 0 0 30px rgba(150, 180, 255, 0.6);
+}
+body:not(.light) .loader-logo {
+  background: radial-gradient(circle at 30% 30%, #fdfdfd, #aaa);
+  box-shadow: 0 0 40px rgba(255, 255, 200, 0.7);
+}
+
+.loader-logo span {
+  z-index: 2;
+}
+
+/* Pulse animation */
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
 
 body {
   margin: 0;
