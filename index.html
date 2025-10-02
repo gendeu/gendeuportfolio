@@ -70,40 +70,44 @@
     <!-- CAROUSEL VIEW -->
     <div id="carouselView" class="carousel-view active" aria-hidden="false">
       <button class="carousel-nav carousel-prev" aria-label="Previous">‹</button>
-      <div class="carousel-track" tabindex="0" role="listbox" aria-label="Project carousel">
-        <!-- carousel items (same card markup; data-key used to open case study) -->
-        <div class="card glass carousel-item" data-key="klp" onclick="openCaseStudy('klp')" role="option" aria-label="KLP Lifestyle">
-          <div class="carousel-thumb" style="background-image:url('assets/klp.jpg')"></div>
-          <h3>KLP Lifestyle</h3>
-          <p class="muted">E-commerce redesign</p>
-        </div>
 
-        <div class="card glass carousel-item" data-key="fixifoot" onclick="openCaseStudy('fixifoot')" role="option" aria-label="Fixifoot">
-          <div class="carousel-thumb" style="background-image:url('assets/fixifoot.jpg')"></div>
-          <h3>Fixifoot</h3>
-          <p class="muted">Product showcase</p>
-        </div>
+      <!-- WRAP: hides native scrollbar; inner track is draggable -->
+      <div class="carousel-viewport">
+        <div class="carousel-track" tabindex="0" role="listbox" aria-label="Project carousel">
+          <!-- carousel items -->
+          <div class="card glass carousel-item" data-key="klp" onclick="openCaseStudy('klp')" role="option" aria-label="KLP Lifestyle">
+            <div class="carousel-thumb" style="background-image:url('assets/klp.jpg')"></div>
+            <h3>KLP Lifestyle</h3>
+            <p class="muted">E-commerce redesign</p>
+          </div>
 
-        <div class="card glass carousel-item" data-key="cveez" onclick="openCaseStudy('cveez')" role="option" aria-label="Cveez">
-          <div class="carousel-thumb" style="background-image:url('assets/cveez.jpg')"></div>
-          <h3>Cveez</h3>
-          <p class="muted">Service booking platform</p>
-        </div>
+          <div class="card glass carousel-item" data-key="fixifoot" onclick="openCaseStudy('fixifoot')" role="option" aria-label="Fixifoot">
+            <div class="carousel-thumb" style="background-image:url('assets/fixifoot.jpg')"></div>
+            <h3>Fixifoot</h3>
+            <p class="muted">Product showcase</p>
+          </div>
 
-        <div class="card glass carousel-item" data-key="other1" onclick="openCaseStudy('other1')" role="option" aria-label="Other Project 1">
-          <div class="carousel-thumb" style="background-image:url('assets/other1.jpg')"></div>
-          <h3>Other 1</h3>
-          <p class="muted">UI components</p>
-        </div>
+          <div class="card glass carousel-item" data-key="cveez" onclick="openCaseStudy('cveez')" role="option" aria-label="Cveez">
+            <div class="carousel-thumb" style="background-image:url('assets/cveez.jpg')"></div>
+            <h3>Cveez</h3>
+            <p class="muted">Service booking platform</p>
+          </div>
 
-        <div class="card glass carousel-item" data-key="other2" onclick="openCaseStudy('other2')" role="option" aria-label="Other Project 2">
-          <div class="carousel-thumb" style="background-image:url('assets/other2.jpg')"></div>
-          <h3>Other 2</h3>
-          <p class="muted">Landing page</p>
-        </div>
+          <div class="card glass carousel-item" data-key="other1" onclick="openCaseStudy('other1')" role="option" aria-label="Other Project 1">
+            <div class="carousel-thumb" style="background-image:url('assets/other1.jpg')"></div>
+            <h3>Other 1</h3>
+            <p class="muted">UI components</p>
+          </div>
 
-        <!-- add more carousel items as needed -->
+          <div class="card glass carousel-item" data-key="other2" onclick="openCaseStudy('other2')" role="option" aria-label="Other Project 2">
+            <div class="carousel-thumb" style="background-image:url('assets/other2.jpg')"></div>
+            <h3>Other 2</h3>
+            <p class="muted">Landing page</p>
+          </div>
+
+        </div>
       </div>
+
       <button class="carousel-nav carousel-next" aria-label="Next">›</button>
     </div>
 
