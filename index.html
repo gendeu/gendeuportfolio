@@ -3,273 +3,372 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Carousel Demo</title>
+  <title>Gen Deu Gagarin | UI/UX Portfolio</title>
+  <meta name="description" content="Gen Deu Gagarin — UI/UX Developer & Frontend Engineer" />
   <style>
-  /* ---- your carousel CSS (kept mostly as provided) ---- */
-  .custom-carousel{
-    position:relative;
-    max-width:1000px;
-    margin:0 auto;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-  }
+/* ---------- Base + Theme ---------- */
+:root{--bg1:#0f2027;--bg2:#203a43;--bg3:#2c5364;--text:#f5f5f5;--accent:#00f2fe;--glass-bg:rgba(255,255,255,0.08);--glass-border:rgba(255,255,255,0.2)}
+body.light{--bg1:#dbe6f6;--bg2:#cfd9df;--bg3:#e2ebf0;--text:#222;--accent:#3f51b5;--glass-bg:rgba(255,255,255,0.5);--glass-border:rgba(0,0,0,0.1)}
+*{box-sizing:border-box}html,body{height:100%;margin:0;font-family:'Poppins',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial;color:var(--text);-webkit-font-smoothing:antialiased}
+body{background:linear-gradient(-45deg,var(--bg1),var(--bg2),var(--bg3));background-size:400% 400%;animation:gradientMove 25s ease infinite;transition:background .8s ease,color .3s ease}
+@keyframes gradientMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+a{color:var(--accent);text-decoration:none}
 
-  .carousel-track-container{
-    width:100%;
-    min-height:303px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    overflow:hidden;
-    position:relative;
-  }
+/* ---------- Layout ---------- */
+header{position:sticky;top:0;z-index:1000;backdrop-filter:blur(12px);padding:1rem 2rem}
+nav{display:flex;justify-content:space-between;align-items:center;gap:1rem}nav ul{list-style:none;display:flex;gap:1.5rem;margin:0;padding:0}nav ul li a{text-decoration:none;color:var(--text);position:relative}nav ul li a::after{content:"";position:absolute;left:0;bottom:-4px;width:100%;height:2px;background:var(--accent);transform:scaleX(0);transition:transform .3s ease;transform-origin:left}nav ul li a:hover::after{transform:scaleX(1)}#menu-toggle{display:none;cursor:pointer;font-size:1.5rem}
+.page{display:none;opacity:0;transform:translateY(20px);transition:opacity .45s ease,transform .45s ease;min-height:80vh;padding:3.5rem 2rem}.page.active{display:block;opacity:1;transform:translateY(0)}
+.hero{text-align:center;margin-top:12vh;padding:2rem}.highlight{color:var(--accent)}
+.card.glass{padding:2rem;border-radius:20px;background:var(--glass-bg);border:1px solid var(--glass-border);backdrop-filter:blur(15px);margin:1.5rem auto;width:90%;max-width:1000px;text-align:center;transition:transform .25s ease,box-shadow .25s ease}
+.btn{display:inline-block;margin-top:1rem;padding:.6rem 1.2rem;border-radius:30px;background:var(--glass-bg);border:1px solid var(--glass-border);backdrop-filter:blur(10px);color:var(--accent);font-weight:bold;text-decoration:none;transition:transform .2s ease,background .2s ease}
+.btn:hover{transform:scale(1.04)}
+.muted{color:rgba(255,255,255,.7);font-size:.95rem}
 
-  .carousel-track{
-    display:flex;
-    transition:transform .5s ease;
-    will-change:transform;
-    position: absolute;
-    left: 0;
-    top: 0;
-  }
+/* ---------- Projects header + view toggle ---------- */
+.projects-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.view-toggle{display:flex;gap:8px}
+.view-btn{width:40px;height:40px;border-radius:8px;border:1px solid rgba(255,255,255,.06);background:transparent;color:var(--text);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center}
+.view-btn[aria-pressed="true"]{background:var(--accent);color:#071225;box-shadow:0 8px 18px rgba(0,0,0,.35);border-color:rgba(255,255,255,.08)}
 
-  .carousel-slide{
-    flex:0 0 auto;
-    width:190px;
-    max-height: 240px;
-    margin:0 10px;
-    background:#fff;
-    overflow:hidden;
-    text-align:center;
-    opacity:.5;
-    transition:all .3s ease;
-    display:flex;
-    flex-direction:column;
-    cursor:pointer;
-    border: 3px gray solid;
-    border-radius:8px;
-  }
+/* ---------- Grid view ---------- */
+.project-grid{display:grid;gap:1.25rem;grid-template-columns:repeat(3,1fr)}@media (max-width:1024px){.project-grid{grid-template-columns:repeat(2,1fr)}}@media (max-width:720px){.project-grid{grid-template-columns:1fr}}
+.project-grid .project{padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.02);cursor:pointer;transition:transform .2s ease}
+.project-grid .project:hover{transform:translateY(-6px)}
 
-  .carousel-slide img{
-    width:100%;
-    object-fit:cover;
-    display:block;
-  }
+/* ---------- CAROUSEL (your original API-ready) ---------- */
+.custom-carousel{
+  position:relative;
+  max-width:1000px;
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.carousel-track-container{
+  width:100%;
+  min-height:303px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  position:relative;
+}
+.carousel-track{
+  display:flex;
+  transition:transform .5s ease;
+  will-change:transform;
+  position: absolute;
+  left: 0;
+}
+.carousel-slide{
+  flex:0 0 auto;
+  width:190px;
+  max-height: 240px;
+  margin:0 10px;
+  background:#fff;
+  overflow:hidden;
+  text-align:center;
+  opacity:.5;
+  transition:all .3s ease;
+  display:flex;
+  flex-direction:column;
+  cursor:pointer;
+  border: 3px gray solid;
+  border-radius:8px;
+}
+.carousel-slide img{ width:100%; display:block; object-fit:cover; }
+.carousel-slide p{ background:#f5f5f5;margin:0;height:90px;padding:10px;font-size:14px;font-weight:600;color:#333;display:flex;align-items:center;justify-content:center }
+.carousel-slide p.hidden{display:none}
+.carousel-slide.no-title img{height:100%;object-fit:scale-down}
+.carousel-slide.no-title{flex-direction:row}
+.carousel-slide.active{ transform:scale(1.2); opacity:1; box-shadow:0 2px 6px rgba(0,0,0,0.1); z-index:2; margin:0 7px; }
+.arrow-btn{ position:absolute; top:50%; transform:translateY(-50%); background:#fff; border:none; width:44px; height:44px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; box-shadow:rgba(0,0,0,0.19) 0px 6px 8px; z-index:3; transition:background 0.2s ease; }
+.arrow-btn svg{ width:36px;height:36px; fill:#333 } .arrow-btn:hover{ background:#f0f0f0 }
+.arrow-btn.prev{ left:6px } .arrow-btn.next{ right:6px } .arrow-btn:disabled{ opacity:.3; cursor:not-allowed }
+.carousel-description{ max-width:800px; margin:20px auto 0; padding:15px; font-size:16px; color:#444; line-height:1.4; text-align:center; } .carousel-description.hidden{ display:none }
 
-  .carousel-slide p{
-      background: #f5f5f5;
-      margin: 0;
-      height: 90px;
-      padding: 10px;
-      font-size: 14px;
-      font-weight: 600;
-      color: #333;
-      align-items: center;
-      text-align: center;
-      justify-content: center;
-      display: flex;
-  }
+/* ---------- Modal ---------- */
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);justify-content:center;align-items:center;z-index:6000;opacity:0;transition:opacity .25s ease}
+.modal.show{display:flex;opacity:1}
+.modal-content{max-width:720px;padding:2rem;border-radius:20px;background:var(--glass-bg);border:1px solid var(--glass-border);backdrop-filter:blur(15px);transform:translateY(0);opacity:1;position:relative}
+.close{position:absolute;top:12px;right:16px;font-size:1.4rem;cursor:pointer}
 
-  .carousel-slide p.hidden { display:none; }
-  .carousel-slide.no-title img { height:100%; object-fit:scale-down; }
-  .carousel-slide.no-title { flex-direction:row; }
+/* ---------- Loader + Particles ---------- */
+#loader{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:7000;pointer-events:none;opacity:0;transition:opacity .28s ease}
+.loader-logo{width:84px;height:84px;border-radius:50%;background:var(--glass-bg);border:2px solid var(--glass-border);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--accent);font-size:1.15rem;backdrop-filter:blur(8px);box-shadow:0 8px 30px rgba(0,0,0,0.35);transition:transform .28s ease,box-shadow .28s ease}
+#dim{position:fixed;inset:0;background:rgba(0,0,0,0.28);z-index:6900;opacity:0;pointer-events:none;transition:opacity .28s ease}
+.loader-visible{opacity:1}
 
-  .carousel-slide.active{
-    transform: scale(1.2);
-    opacity:1;
-    box-shadow:0 2px 6px rgba(0,0,0,0.1);
-    z-index:2;
-    margin: 0 7px;
-  }
+/* ---------- Responsive ---------- */
+@media (max-width:768px){nav ul{display:none}#menu-toggle{display:block} .project-grid{grid-template-columns:1fr}}
+@media (max-width:560px){ .carousel-slide{ width:150px } }
 
-  /* Arrow buttons */
-  .arrow-btn {
-    position:absolute;
-    top:50%;
-    transform:translateY(-50%);
-    background:#fff;
-    border:none;
-    width:44px;
-    height:44px;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    cursor:pointer;
-    box-shadow:rgba(0,0,0,0.19) 0px 6px 8px;
-    z-index:3;
-    transition:background 0.2s ease;
-  }
-
-  .arrow-btn svg { width:36px; height:36px; fill:#333; }
-  .arrow-btn:hover { background:#f0f0f0; }
-  .arrow-btn.prev { left:6px; }
-  .arrow-btn.next { right:6px; }
-  .arrow-btn:disabled { opacity:.3; cursor:not-allowed; }
-
-  .carousel-description{
-    max-width:800px;
-    margin:20px auto 0;
-    padding:15px;
-    font-size:16px;
-    color:#444;
-    line-height:1.4;
-    text-align:center;
-  }
-  .carousel-description.hidden { display:none; }
-
-  /* small responsive tweak */
-  @media (max-width:560px){
-    .carousel-slide{ width:150px; }
-  }
   </style>
 </head>
 <body>
 
-  <!-- MARKUP (use this exact structure) -->
-  <div class="custom-carousel" aria-hidden="false">
-    <button class="arrow-btn prev" tabindex="0" aria-label="Previous">
-      <svg viewBox="0 0 256 512" aria-hidden="true"><path d="M31.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L127.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L201.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34z"></path></svg>
-    </button>
+  <!-- Loader (floating) -->
+  <div id="loader" aria-hidden="true"><div class="loader-logo"><span>GD</span></div></div>
+  <div id="dim" aria-hidden="true"></div>
 
-    <div class="carousel-track-container">
-      <div class="carousel-track" role="list"><!-- slides injected here --></div>
+  <!-- Particle Background -->
+  <canvas id="bgCanvas"></canvas>
+
+  <!-- Navbar -->
+  <header>
+    <nav>
+      <h1 class="logo">GenDeu</h1>
+      <div id="menu-toggle">☰</div>
+      <ul>
+        <li><a href="#home" class="nav-link active">Home</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#projects" class="nav-link">Projects</a></li>
+        <li><a href="#skills" class="nav-link">Skills</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+      <button id="theme-toggle">🌙</button>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section id="home" class="page active">
+    <div class="hero">
+      <h2>Hello, I’m <span class="highlight">Gen Deu</span></h2>
+      <p class="tagline"><span id="typewriter"></span></p>
+      <a href="#projects" class="btn nav-link">See My Work</a>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="page">
+    <h2>About Me</h2>
+    <div class="card glass fade-in">
+      <p>I’m a UI/UX Developer and Frontend Engineer passionate about creating sleek, user-focused web experiences.</p>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="page">
+    <div class="projects-header">
+      <h2>Case Studies</h2>
+      <div class="view-toggle" role="tablist" aria-label="Projects view toggle">
+        <button id="btn-carousel" class="view-btn" aria-pressed="true" title="Carousel view">🎮</button>
+        <button id="btn-grid" class="view-btn" aria-pressed="false" title="Grid view">▦</button>
+      </div>
     </div>
 
-    <button class="arrow-btn next" tabindex="0" aria-label="Next">
-      <svg viewBox="0 0 256 512" aria-hidden="true"><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9L128.1 256 31.7 159.6c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"></path></svg>
-    </button>
+    <!-- CAROUSEL VIEW (default) -->
+    <div id="carouselView" class="custom-carousel" aria-hidden="false">
+      <button class="arrow-btn prev" tabindex="0" aria-label="Previous">
+        <svg viewBox="0 0 256 512" aria-hidden="true"><path d="M31.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L127.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L201.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34z"></path></svg>
+      </button>
+
+      <div class="carousel-track-container">
+        <div class="carousel-track" role="listbox" aria-label="Project carousel"><!-- slides injected by JS --></div>
+      </div>
+
+      <button class="arrow-btn next" tabindex="0" aria-label="Next">
+        <svg viewBox="0 0 256 512" aria-hidden="true"><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9L128.1 256 31.7 159.6c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"></path></svg>
+      </button>
+    </div>
+
+    <!-- Description below carousel -->
+    <div class="carousel-description hidden" aria-hidden="true"></div>
+
+    <!-- GRID / CARD LIST VIEW -->
+    <div id="gridView" class="project-grid" style="display:none;">
+      <div class="card glass project" data-key="klp"><h3>KLP Lifestyle</h3><p>E-commerce redesign</p></div>
+      <div class="card glass project" data-key="fixifoot"><h3>Fixifoot</h3><p>Product showcase</p></div>
+      <div class="card glass project" data-key="cveez"><h3>Cveez</h3><p>Service booking platform</p></div>
+      <div class="card glass project" data-key="other1"><h3>Other 1</h3><p>UI components</p></div>
+      <div class="card glass project" data-key="other2"><h3>Other 2</h3><p>Landing page</p></div>
+    </div>
+
+  </section>
+
+  <!-- Case Study Modal (re-usable) -->
+  <div id="case-study" class="modal" aria-hidden="true">
+    <div class="modal-content glass" role="dialog" aria-modal="true">
+      <span class="close" title="Close modal">&times;</span>
+      <h3 id="case-title"></h3>
+      <p id="case-problem"></p>
+      <p id="case-process"></p>
+      <p id="case-solution"></p>
+      <a id="case-link" href="#" target="_blank" class="btn">View Live</a>
+    </div>
   </div>
 
-  <!-- Description -->
-  <div class="carousel-description hidden" aria-live="polite"></div>
+  <!-- Skills -->
+  <section id="skills" class="page">
+    <h2>Skills</h2>
+    <div class="card glass fade-in">
+      <p>HTML5 · CSS3 · JavaScript · React · Figma · UI/UX</p>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="page">
+    <h2>Contact</h2>
+    <div class="card glass fade-in">
+      <p>Email: <a href="mailto:gendeulgagarin@gmail.com">gendeulgagarin@gmail.com</a></p>
+    </div>
+  </section>
+
+  <footer style="text-align:center;padding:2rem;color:rgba(255,255,255,.7)">© 2025 Gen Deu Gagarin | Designed with ❤️</footer>
 
 <script>
-/* Complete JS: improved centering + modal + setCarouselMode
-   Replace DATA_URL below if you have an API endpoint.
-*/
-document.addEventListener('DOMContentLoaded', async () => {
-  // ---- CONFIG ----
-  const DATA_URL = '/path/to/your/carousel.json'; // <-- replace with your API endpoint or leave as-is
-  const INITIAL_INDEX = 2; // default starting index (0-based)
+/* -------------------------
+   App JS: SPA + Loader + Particles
+   + Typewriter + Theme + Carousel (API-ready)
+   ------------------------- */
 
-  // ---- FALLBACK DATA (from your example) ----
+const links = document.querySelectorAll('.nav-link');
+const pages = document.querySelectorAll('.page');
+const loaderEl = document.getElementById('loader');
+const dimEl = document.getElementById('dim');
+const btnCarousel = document.getElementById('btn-carousel');
+const btnGrid = document.getElementById('btn-grid');
+const carouselView = document.getElementById('carouselView');
+const gridView = document.getElementById('gridView');
+const carouselTrack = document.querySelector('.carousel-track');
+const prevBtn = document.querySelector('.arrow-btn.prev');
+const nextBtn = document.querySelector('.arrow-btn.next');
+const descriptionBox = document.querySelector('.carousel-description');
+const caseModal = document.getElementById('case-study');
+const closeBtn = caseModal.querySelector('.close');
+
+/* Loader helpers */
+function showLoader(){ loaderEl && (loaderEl.style.opacity = '1'); dimEl && (dimEl.style.opacity = '1'); }
+function hideLoader(){ loaderEl && (loaderEl.style.opacity = '0'); dimEl && (dimEl.style.opacity = '0'); }
+
+/* Particles canvas (simple) */
+const canvas = document.getElementById('bgCanvas');
+const ctx = canvas && canvas.getContext && canvas.getContext('2d');
+function fitCanvas(){ if(!canvas) return; canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+fitCanvas();
+let particles = [];
+if(ctx){
+  for(let i=0;i<80;i++){ particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:1+Math.random()*2,dx:(Math.random()-.5)*.6,dy:(Math.random()-.5)*.6,opacity:Math.random()}); }
+  function animateParticles(){ ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p=>{ ctx.beginPath(); ctx.fillStyle=`rgba(255,255,255,${(document.body.classList.contains('light')?0.22:p.opacity)})`; ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill(); p.x+=p.dx; p.y+=p.dy; if(p.x<0||p.x>canvas.width)p.dx*=-1; if(p.y<0||p.y>canvas.height)p.dy*=-1; }); requestAnimationFrame(animateParticles); }
+  animateParticles(); window.addEventListener('resize', fitCanvas);
+}
+
+/* SPA nav */
+document.addEventListener('DOMContentLoaded', () => { showLoader(); setTimeout(()=>hideLoader(),800); });
+links.forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const href = link.getAttribute('href');
+    links.forEach(l => l.classList.remove('active'));
+    link.classList.add('active');
+    pages.forEach(p => { if(p.classList.contains('active')){ p.style.opacity='0'; p.style.transform='translateY(20px)'; setTimeout(()=>p.classList.remove('active'),340); } });
+    setTimeout(()=>{
+      const target = document.querySelector(href);
+      if(target){ target.classList.add('active'); target.style.opacity='1'; target.style.transform='translateY(0)'; }
+      hideLoader();
+    }, 700);
+  });
+});
+
+/* hamburger */
+const menuToggle = document.getElementById('menu-toggle');
+const navMenu = document.querySelector('nav ul');
+if(menuToggle) menuToggle.addEventListener('click', ()=> navMenu.classList.toggle('show'));
+
+/* typewriter */
+const roles = ["UI/UX Developer","Frontend Engineer","Creative Coder"]; let roleIndex=0,charIndex=0; const typewriter = document.getElementById("typewriter");
+function type(){ if(!typewriter) return; if(charIndex < roles[roleIndex].length){ typewriter.textContent += roles[roleIndex].charAt(charIndex++); setTimeout(type,90); } else setTimeout(erase,1600); }
+function erase(){ if(!typewriter) return; if(charIndex>0){ typewriter.textContent = roles[roleIndex].substring(0,--charIndex); setTimeout(erase,40);} else { roleIndex=(roleIndex+1)%roles.length; setTimeout(type,400);} } type();
+
+/* theme toggle */
+const themeBtn = document.getElementById('theme-toggle');
+if(themeBtn) themeBtn.addEventListener('click', ()=>{ document.body.classList.toggle('light'); themeBtn.textContent = document.body.classList.contains('light') ? '🌞' : '🌙'; });
+
+/* -------------------------
+   CASE STUDIES DATA + Modal
+   ------------------------- */
+const caseStudies = {
+  klp:{title:"KLP Lifestyle",problem:"E-commerce lacked responsive UI.",process:"Figma redesign + frontend build.",solution:"Delivered clean, mobile UI.",link:"https://klplifestyle.com/"},
+  fixifoot:{title:"Fixifoot",problem:"Showcase not engaging.",process:"Interactive grids + responsive design.",solution:"Better UX & conversions.",link:"https://fixifoot.ph/"},
+  cveez:{title:"Cveez",problem:"Needed sleek booking UX.",process:"Designed flows + coded frontend.",solution:"Modern booking platform.",link:"https://cveez.com/"},
+  other1:{title:"Other 1",problem:"Reusable UI components.",process:"Component library.",solution:"Faster builds.",link:"#"},
+  other2:{title:"Other 2",problem:"Landing optimization.",process:"A/B test + frontend.",solution:"Higher conversions.",link:"#"}
+};
+
+function openCaseStudy(key){
+  const d = caseStudies[key];
+  if(!d) return;
+  document.getElementById("case-title").textContent = d.title;
+  document.getElementById("case-problem").textContent = "Problem: " + d.problem;
+  document.getElementById("case-process").textContent = "Process: " + d.process;
+  document.getElementById("case-solution").textContent = "Solution: " + d.solution;
+  document.getElementById("case-link").href = d.link;
+  caseModal.style.display = "flex";
+  setTimeout(()=> caseModal.classList.add('show'), 16);
+}
+function closeCaseStudy(){ caseModal.classList.remove('show'); setTimeout(()=> caseModal.style.display = "none", 220); }
+if(closeBtn) closeBtn.addEventListener('click', closeCaseStudy);
+window.addEventListener('click', e => { if(e.target === caseModal) closeCaseStudy(); });
+window.addEventListener('keydown', e => { if(e.key === 'Escape') closeCaseStudy(); });
+
+/* Grid cards open modal */
+document.querySelectorAll('.project-grid .project').forEach(p => {
+  p.addEventListener('click', ()=> openCaseStudy(p.dataset.key));
+});
+
+/* -------------------------
+   View toggle between carousel/grid
+   ------------------------- */
+function setProjectsView(mode){
+  if(mode === 'grid'){
+    carouselView.style.display = 'none';
+    gridView.style.display = '';
+    btnCarousel && btnCarousel.setAttribute('aria-pressed','false');
+    btnGrid && btnGrid.setAttribute('aria-pressed','true');
+    localStorage.setItem('projectsView','grid');
+  } else {
+    carouselView.style.display = '';
+    gridView.style.display = 'none';
+    btnCarousel && btnCarousel.setAttribute('aria-pressed','true');
+    btnGrid && btnGrid.setAttribute('aria-pressed','false');
+    localStorage.setItem('projectsView','carousel');
+    // re-center later by calling centerActive inside carousel init
+  }
+}
+const savedView = localStorage.getItem('projectsView') || 'carousel';
+setProjectsView(savedView);
+btnCarousel && btnCarousel.addEventListener('click', ()=> setProjectsView('carousel'));
+btnGrid && btnGrid.addEventListener('click', ()=> setProjectsView('grid'));
+
+/* -------------------------
+   CAROUSEL: your API-ready implementation (integrated)
+   ------------------------- */
+document.addEventListener('DOMContentLoaded', async function () {
+  // ---- CONFIG ----
+  const DATA_URL = '/path/to/your/carousel.json'; // replace with real endpoint if you have one
+  const INITIAL_INDEX = 2;
+
+  // FALLBACK data (copied from your example)
   const FALLBACK = [
-    {
-      img: "https://frontiertowersphilippines.com/wp-content/uploads/2025/08/1-1.png",
-      alt: "Card 1",
-      title: "Frontier Tree-Planting with EVSU and Tacloban Officials",
-      description: "<h2 style='color:#b30000;margin-bottom:10px;'>Frontier Tree-Planting with EVSU and Tacloban Officials</h2><p>Frontier employees based in Leyte, Cebu, and Bohol volunteered with Eastern Visayas University in Tacloban and the Provincial Environment and Natural Resources (PENRO).</p>"
-    },
-    {
-      img: "https://frontiertowersphilippines.com/wp-content/uploads/2025/08/2.png",
-      alt: "Card 2",
-      title: "Frontier Brigada Eskwela Program",
-      description: "<h2 style='color:#b30000;margin-bottom:10px;'>Frontier Brigada Eskwela Program</h2><p>An outreach program for the elementary students of Laurel, Batangas, that covers donation of school supplies and materials together with the LGU.</p>"
-    },
-    {
-      img: "https://frontiertowersphilippines.com/wp-content/uploads/2025/08/3.png",
-      alt: "Card 3",
-      title: "",
-      description: ""
-    },
-    {
-      img: "https://frontiertowersphilippines.com/wp-content/uploads/2025/08/4.png",
-      alt: "Card 4",
-      title: "Libreng Gulay Partnership with GoodFood Community",
-      description: "<h2 style='color:#b30000;margin-bottom:10px;'>Libreng Gulay Partnership with GoodFood Community</h2><p>Supports a community farm, helping local farmers in crop distribution, and, at the same time, promoting sustainable behavior among its employees with Libreng Gulay.</p>"
-    },
-    {
-      img: "https://frontiertowersphilippines.com/wp-content/uploads/2025/08/5.png",
-      alt: "Card 5",
-      title: "Project Flip in Baguio in 2022",
-      description: "<h2 style='color:#b30000;margin-bottom:10px;'>Project Flip in Baguio in 2022</h2><p>As part of our Annual Conference in 2022, we volunteered for an outreach program and tutoring services for the children of Bancua, Dontogan led by BFLI (Breakfast Feeding for Learning Inc.).</p>"
-    },
-    {
-      img: "https://frontiertowersphilippines.com/wp-content/uploads/2025/08/6.png",
-      alt: "Card 6",
-      title: "Other Donations, Sponsorships, and Charitable Assistance",
-      description: `
-        <h2 style="color:#b30000; margin-bottom:10px;">
-          Other Donations, Sponsorships, and Charitable Assistance
-        </h2>
-        <p>
-          Frontier also made and will continue to provide support to community development initiatives, immediate disaster relief operations to areas in need and charitable assistance to its existing and future recipient organizations and communities.
-        </p>
-        <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-top:15px;">
-          <img src="https://frontiertowersphilippines.com/wp-content/uploads/2025/08/1-2.png" alt="Logo1" style="height:60px;">
-          <img src="https://frontiertowersphilippines.com/wp-content/uploads/2025/08/2-1.png" alt="Logo2" style="height:60px;">
-          <img src="https://frontiertowersphilippines.com/wp-content/uploads/2025/08/3-1.png" alt="Logo3" style="height:60px;">
-          <img src="https://frontiertowersphilippines.com/wp-content/uploads/2025/08/4-1.png" alt="Logo4" style="height:60px;">
-        </div>
-      `
-    }
+    { img: "https://frontiertowersphilippines.com/wp-content/uploads/2025/08/1-1.png", alt: "Card 1", title: "Frontier Tree-Planting with EVSU and Tacloban Officials", description: "<h2 style='color:#b30000;margin-bottom:10px;'>Frontier Tree-Planting with EVSU and Tacloban Officials</h2><p>Frontier employees based in Leyte, Cebu, and Bohol volunteered with Eastern Visayas University in Tacloban and the Provincial Environment and Natural Resources (PENRO).</p>" },
+    { img: "https://frontiertowersphilippines.com/wp-content/uploads/2025/08/2.png", alt: "Card 2", title: "Frontier Brigada Eskwela Program", description: "<h2 style='color:#b30000;margin-bottom:10px;'>Frontier Brigada Eskwela Program</h2><p>An outreach program for the elementary students of Laurel, Batangas, that covers donation of school supplies and materials together with the LGU.</p>" },
+    { img: "https://frontiertowersphilippines.com/wp-content/uploads/2025/08/3.png", alt: "Card 3", title: "", description: "" },
+    { img: "https://frontiertowersphilippines.com/wp-content/uploads/2025/08/4.png", alt: "Card 4", title: "Libreng Gulay Partnership with GoodFood Community", description: "<h2 style='color:#b30000;margin-bottom:10px;'>Libreng Gulay Partnership with GoodFood Community</h2><p>Supports a community farm, helping local farmers in crop distribution, and, at the same time, promoting sustainable behavior among its employees with Libreng Gulay.</p>" },
+    { img: "https://frontiertowersphilippines.com/wp-content/uploads/2025/08/5.png", alt: "Card 5", title: "Project Flip in Baguio in 2022", description: "<h2 style='color:#b30000;margin-bottom:10px;'>Project Flip in Baguio in 2022</h2><p>As part of our Annual Conference in 2022, we volunteered for an outreach program and tutoring services for the children of Bancua, Dontogan led by BFLI (Breakfast Feeding for Learning Inc.).</p>" },
+    { img: "https://frontiertowersphilippines.com/wp-content/uploads/2025/08/6.png", alt: "Card 6", title: "Other Donations, Sponsorships, and Charitable Assistance", description: `<h2 style="color:#b30000; margin-bottom:10px;">Other Donations, Sponsorships, and Charitable Assistance</h2><p>Frontier also made and will continue to provide support to community development initiatives, immediate disaster relief operations to areas in need and charitable assistance to its existing and future recipient organizations and communities.</p>` }
   ];
 
   // ---- ELEMENTS ----
   const container = document.querySelector('.carousel-track-container');
   const track = document.querySelector('.carousel-track');
-  const prevBtn = document.querySelector('.arrow-btn.prev');
-  const nextBtn = document.querySelector('.arrow-btn.next');
-  const descriptionBox = document.querySelector('.carousel-description');
-  const carouselRoot = document.querySelector('.custom-carousel');
+  const prev = document.querySelector('.arrow-btn.prev');
+  const next = document.querySelector('.arrow-btn.next');
+  const descBox = document.querySelector('.carousel-description');
 
-  if (!container || !track || !prevBtn || !nextBtn) {
-    console.warn('Carousel: required elements missing.');
-    return;
-  }
-
-  // ---- Modal (create if missing) ----
-  let modal = document.getElementById('carousel-modal');
-  if (!modal) {
-    modal = document.createElement('div');
-    modal.id = 'carousel-modal';
-    modal.style.cssText = 'position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.6);z-index:9999;';
-    modal.innerHTML = `
-      <div role="dialog" aria-modal="true" style="max-width:820px;width:90%;background:#fff;border-radius:12px;padding:18px;position:relative;box-shadow:0 10px 40px rgba(0,0,0,.35);color:#111;">
-        <button aria-label="Close" id="carousel-modal-close" style="position:absolute;right:14px;top:10px;border:none;background:transparent;font-size:20px;cursor:pointer">✕</button>
-        <div id="carousel-modal-body" style="display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap;">
-          <img id="carousel-modal-img" src="" alt="" style="max-width:320px;width:100%;height:auto;border-radius:8px;object-fit:cover;">
-          <div style="flex:1;min-width:220px">
-            <h3 id="carousel-modal-title" style="margin:0 0 10px 0"></h3>
-            <div id="carousel-modal-desc" style="color:#333;line-height:1.45"></div>
-          </div>
-        </div>
-      </div>
-    `;
-    document.body.appendChild(modal);
-
-    document.getElementById('carousel-modal-close').addEventListener('click', () => {
-      modal.style.opacity = 0;
-      setTimeout(() => modal.style.display = 'none', 200);
-    });
-    modal.addEventListener('click', (ev) => { if (ev.target === modal) { modal.style.opacity = 0; setTimeout(()=> modal.style.display='none',200); }});
-    window.addEventListener('keydown', (ev) => { if (ev.key === 'Escape') { modal.style.opacity = 0; setTimeout(()=> modal.style.display='none',200); }});
-  }
-
-  function openModal(data) {
-    if (!data) return;
-    const img = document.getElementById('carousel-modal-img');
-    const title = document.getElementById('carousel-modal-title');
-    const desc = document.getElementById('carousel-modal-desc');
-
-    img.src = data.img || '';
-    img.alt = data.alt || '';
-    title.textContent = data.title || '';
-    // NOTE: innerHTML only set if description trusted
-    desc.innerHTML = data.description || '';
-
-    modal.style.display = 'flex';
-    modal.style.opacity = 0;
-    requestAnimationFrame(()=> modal.style.opacity = 1);
-  }
-
-  // ---- Carousel internals ----
   let slides = [];
   let currentIndex = 0;
 
-  function clamp(n, a, b) { return Math.max(a, Math.min(b, n)); }
+  function clamp(n, min, max) { return Math.max(min, Math.min(max, n)); }
 
   function buildSlides(data) {
     const frag = document.createDocumentFragment();
@@ -287,6 +386,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       const p = document.createElement('p');
       p.textContent = (item.title || '').trim();
+
       if (!p.textContent) {
         p.classList.add('hidden');
         slide.classList.add('no-title');
@@ -301,71 +401,65 @@ document.addEventListener('DOMContentLoaded', async () => {
     track.appendChild(frag);
     slides = Array.from(track.querySelectorAll('.carousel-slide'));
 
-    slides.forEach((s, idx) => {
-      s.addEventListener('click', () => {
-        if (isSlideCentered(s)) {
-          openModal({
-            img: s.dataset.img,
-            alt: s.dataset.alt,
-            title: s.dataset.title,
-            description: s.dataset.description
-          });
+    slides.forEach((slide, index) => {
+      slide.addEventListener('click', () => {
+        // If slide is centered, open the case-study modal using dataset.title match
+        if (isSlideCentered(slide)) {
+          // try to find a key based on title matching (graceful)
+          const key = mapTitleToKey(slide.dataset.title);
+          if (key) openCaseStudy(key);
+          else {
+            // fallback: show description modal (simple)
+            if (slide.dataset.description && slide.dataset.description.trim()) {
+              descBox.innerHTML = slide.dataset.description;
+              descBox.classList.remove('hidden');
+            }
+          }
         } else {
-          currentIndex = idx;
+          currentIndex = index;
           centerActive();
         }
       });
 
-      s.tabIndex = 0;
-      s.addEventListener('keydown', (ev) => {
-        if (ev.key === 'Enter' || ev.key === ' ') {
-          ev.preventDefault();
-          s.click();
-        }
-      });
+      slide.tabIndex = 0;
+      slide.addEventListener('keydown', (ev) => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); slide.click(); } });
     });
+  }
+
+  function updateButtons() {
+    prev.disabled = currentIndex === 0;
+    next.disabled = currentIndex === slides.length - 1;
+  }
+
+  function updateDescription() {
+    const desc = (slides[currentIndex] && slides[currentIndex].dataset.description) || '';
+    if (desc.trim()) {
+      descBox.innerHTML = desc;
+      descBox.classList.remove('hidden');
+    } else {
+      descBox.innerHTML = '';
+      descBox.classList.add('hidden');
+    }
   }
 
   function centerActive() {
     if (!slides.length) return;
-
-    slides.forEach(s => s.classList.remove('active'));
+    slides.forEach(s=>s.classList.remove('active'));
     const active = slides[currentIndex];
     if (!active) return;
     active.classList.add('active');
 
     const containerWidth = container.clientWidth;
-    const trackWidth = track.scrollWidth;
-    // center the active slide
     const targetCenter = active.offsetLeft + (active.offsetWidth / 2);
     let translate = (containerWidth / 2) - targetCenter;
-
-    // clamp translate so no blank space is revealed
+    const trackWidth = track.scrollWidth;
     const maxTranslate = 0;
     const minTranslate = Math.min(containerWidth - trackWidth, 0);
     translate = clamp(translate, minTranslate, maxTranslate);
-
     track.style.transform = `translateX(${translate}px)`;
 
     updateButtons();
     updateDescription();
-  }
-
-  function updateButtons() {
-    prevBtn.disabled = currentIndex === 0;
-    nextBtn.disabled = currentIndex === slides.length - 1;
-  }
-
-  function updateDescription() {
-    if (!slides[currentIndex]) return;
-    const desc = slides[currentIndex].dataset.description || '';
-    if (desc.trim()) {
-      descriptionBox.innerHTML = desc;
-      descriptionBox.classList.remove('hidden');
-    } else {
-      descriptionBox.innerHTML = '';
-      descriptionBox.classList.add('hidden');
-    }
   }
 
   function isSlideCentered(slideEl) {
@@ -374,113 +468,77 @@ document.addEventListener('DOMContentLoaded', async () => {
     const slideRect = slideEl.getBoundingClientRect();
     const slideCenter = slideRect.left + (slideRect.width / 2);
     const containerCenter = containerRect.left + (containerRect.width / 2);
-    // centered if distance < 40% of slide width (tweakable)
-    return Math.abs(slideCenter - containerCenter) < (slideRect.width * 0.4);
+    return Math.abs(slideCenter - containerCenter) < (slideRect.width * 0.35);
   }
 
-  // ---- Data loader ----
-  async function loadData() {
-    if (Array.isArray(window.CAROUSEL_DATA)) return window.CAROUSEL_DATA;
-    try {
+  // helper to map title -> case key (so centered click opens your case modal)
+  function mapTitleToKey(title){
+    if(!title) return null;
+    const t = title.toLowerCase();
+    if(t.includes('klp')) return 'klp';
+    if(t.includes('fixifoot')) return 'fixifoot';
+    if(t.includes('cveez')) return 'cveez';
+    if(t.includes('other 1') || t.includes('other1')) return 'other1';
+    if(t.includes('other 2') || t.includes('other2')) return 'other2';
+    // try exact matching by titles in caseStudies
+    for(const k in caseStudies){ if(caseStudies[k].title && caseStudies[k].title.toLowerCase() === t) return k; }
+    return null;
+  }
+
+  async function loadData(){
+    if(Array.isArray(window.CAROUSEL_DATA)) return window.CAROUSEL_DATA;
+    try{
       const res = await fetch(DATA_URL, { cache: 'no-store' });
-      if (!res.ok) throw new Error('Bad response');
+      if(!res.ok) throw new Error('Bad response');
       const json = await res.json();
-      if (!Array.isArray(json)) throw new Error('JSON must be an array');
+      if(!Array.isArray(json)) throw new Error('JSON must be an array');
       return json;
-    } catch (err) {
-      console.warn('Carousel: falling back. Reason:', err);
-      return FALLBACK.slice();
+    }catch(err){
+      console.warn('Carousel: using fallback data. Reason:', err);
+      return FALLBACK;
     }
   }
 
-  // ---- Init ----
+  // init
   const data = await loadData();
-  buildSlides(data || []);
+  buildSlides(data);
   currentIndex = clamp(INITIAL_INDEX, 0, Math.max(0, slides.length - 1));
+  // prev/next wiring
+  prev.addEventListener('click', ()=>{ if(currentIndex>0){ currentIndex--; centerActive(); }});
+  next.addEventListener('click', ()=>{ if(currentIndex<slides.length-1){ currentIndex++; centerActive(); }});
+  window.addEventListener('resize', ()=> setTimeout(centerActive,60));
+  setTimeout(centerActive,60);
 
-  prevBtn.addEventListener('click', () => {
-    if (currentIndex > 0) {
-      currentIndex--;
-      centerActive();
-    }
-  });
-  nextBtn.addEventListener('click', () => {
-    if (currentIndex < slides.length - 1) {
-      currentIndex++;
-      centerActive();
-    }
-  });
-
-  prevBtn.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); prevBtn.click(); } });
-  nextBtn.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); nextBtn.click(); } });
-
-  window.addEventListener('resize', () => setTimeout(centerActive, 60));
-  setTimeout(centerActive, 40);
-
-  // ---- Drag support (basic) ----
-  let isDown = false, startX = 0, startTranslate = 0;
-  track.addEventListener('pointerdown', (ev) => {
-    isDown = true;
-    track.setPointerCapture(ev.pointerId);
-    startX = ev.clientX;
+  // basic drag support for the track (pointer)
+  let isDown=false, startX=0, startTranslate=0;
+  track.addEventListener('pointerdown',(e)=>{
+    isDown=true; track.setPointerCapture(e.pointerId); startX=e.clientX;
     const m = getComputedStyle(track).transform.match(/matrix\\(([^)]+)\\)/);
-    startTranslate = 0;
-    if (m) {
-      const vals = m[1].split(',').map(v => parseFloat(v.trim()));
-      startTranslate = vals[4] || 0;
-    }
+    startTranslate = m ? parseFloat(m[1].split(',')[4]) : 0;
     track.style.transition = 'none';
   }, { passive: true });
-
-  track.addEventListener('pointermove', (ev) => {
-    if (!isDown) return;
-    const dx = ev.clientX - startX;
-    const trackWidth = track.scrollWidth;
-    const minTranslate = Math.min(container.clientWidth - trackWidth, 0);
-    const maxTranslate = 0;
+  track.addEventListener('pointermove',(e)=>{
+    if(!isDown) return;
+    const dx = e.clientX - startX;
+    const trackWidth = track.scrollWidth; const minTranslate = Math.min(container.clientWidth - trackWidth, 0); const maxTranslate = 0;
     let next = startTranslate + dx;
     next = clamp(next, minTranslate, maxTranslate);
     track.style.transform = `translateX(${next}px)`;
   }, { passive: true });
-
-  const endDrag = (ev) => {
-    if (!isDown) return;
-    isDown = false;
-    try { track.releasePointerCapture(ev && ev.pointerId); } catch (e) {}
-    track.style.transition = '';
-    // snap to nearest slide
-    let bestIndex = 0, bestDist = Infinity;
-    const containerRect = container.getBoundingClientRect();
-    const containerCenterX = containerRect.left + (containerRect.width / 2);
-    slides.forEach((s, i) => {
-      const r = s.getBoundingClientRect();
-      const sCenter = r.left + (r.width / 2);
-      const d = Math.abs(sCenter - containerCenterX);
-      if (d < bestDist) { bestDist = d; bestIndex = i; }
-    });
-    currentIndex = bestIndex;
-    centerActive();
+  const endDrag = (e)=>{ if(!isDown) return; isDown=false; try{ track.releasePointerCapture(e && e.pointerId);}catch{} track.style.transition=''; // snap nearest
+    let bestIndex=0, bestDist=Infinity; const containerRect = container.getBoundingClientRect(); const centerX = containerRect.left + (containerRect.width/2);
+    slides.forEach((s,i)=>{ const r=s.getBoundingClientRect(); const c=r.left + (r.width/2); const d=Math.abs(c-centerX); if(d<bestDist){bestDist=d;bestIndex=i;} });
+    currentIndex=bestIndex; centerActive();
   };
-  track.addEventListener('pointerup', endDrag);
-  track.addEventListener('pointercancel', endDrag);
-  track.addEventListener('pointerleave', endDrag);
+  track.addEventListener('pointerup', endDrag); track.addEventListener('pointercancel', endDrag); track.addEventListener('pointerleave', endDrag);
 
-  // ---- Mode helper ----
-  window.setCarouselMode = function(mode) {
-    if (!carouselRoot) return;
-    if (mode === 'game') {
-      carouselRoot.style.display = ''; // show
-    } else {
-      carouselRoot.style.display = 'none'; // hide for list or other modes
-      descriptionBox.classList.add('hidden');
-    }
-  };
+}); // end carousel DOMContentLoaded
 
-  // optionally set initial mode:
-  // window.setCarouselMode('game');
+/* -------------------------
+   Small UX: close modal with overlay click or esc handled earlier
+   ------------------------- */
 
-}); // DOMContentLoaded
+/* End of script */
 </script>
-
 </body>
 </html>
