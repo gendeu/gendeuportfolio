@@ -5,27 +5,30 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Gen Deu Gagarin | UI/UX Portfolio</title>
   <meta name="description" content="Gen Deu Gagarin — UI/UX Developer & Frontend Engineer" />
+  <!-- Inter font for the new Case Studies section -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
   
-  <!-- External CSS -->
+
+  <!-- New Case Studies (scoped CSS) -->
+  
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <!-- Loader -->
-  <div id="loader" aria-hidden="true">
-    <div>GD</div>
+  <div id="loader" aria-hidden="true" style="position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:7000;opacity:0;pointer-events:none;">
+    <div style="width:72px;height:72px;border-radius:50%;background:var(--glass-bg);border:2px solid var(--glass-border);display:flex;align-items:center;justify-content:center;color:var(--accent);font-weight:700">GD</div>
   </div>
-  <div id="dim" aria-hidden="true"></div>
+  <div id="dim" aria-hidden="true" style="position:fixed;inset:0;background:rgba(0,0,0,.28);z-index:6900;opacity:0;pointer-events:none;"></div>
 
   <!-- Particle Background -->
-  <canvas id="bgCanvas"></canvas>
+  <canvas id="bgCanvas" style="position:fixed;inset:0;z-index:-2"></canvas>
 
   <!-- Navbar -->
   <header>
     <nav>
-      <h1 class="logo">GenDeu</h1>
+      <h1 class="logo" style="margin:0;font-size:1.05rem">GenDeu</h1>
       <div id="menu-toggle">☰</div>
       <ul>
         <li><a href="#home" class="nav-link active">Home</a></li>
@@ -51,50 +54,184 @@
   <section id="about" class="page">
     <h2>About Me</h2>
     <div class="card glass">
-      <p></p>
+      <p>I’m a UI/UX Developer and Frontend Engineer passionate about creating sleek, user-focused web experiences.</p>
     </div>
   </section>
 
-  <!-- Projects -->
+  <!-- Projects / Case Studies: REPLACED with your standalone uix1-root -->
   <section id="projects" class="page">
     <h2>Case Studies</h2>
+
     <main>
-      <div class="uix1-root"></div>
+      <div class="uix1-root">
+        <section>
+          <div class="uix1-head">
+            <h2>Boost your professional workflow and productivity</h2>
+
+            <div class="uix1-controls">
+              <button id="uix1-prev" class="uix1-nav-btn" aria-label="Prev">‹</button>
+              <button id="uix1-next" class="uix1-nav-btn" aria-label="Next">›</button>
+            </div>
+          </div>
+
+          <div class="uix1-slider">
+            <div class="uix1-track" id="uix1-track">
+
+              <article class="uix1-card" data-active="true">
+                <img class="uix1-bg" src="https://cdn-front.freepik.com/home/anon-rvmp/professionals/designers.webp" alt="Designers background">
+                <div class="uix1-content">
+                  <img class="uix1-thumb" src="https://cdn-front.freepik.com/home/anon-rvmp/professionals/img-designer.webp?w=480" alt="Designer thumb">
+                  <div>
+                    <h3 class="uix1-title">Designers</h3>
+                    <p class="uix1-desc">Tools that work like you do.</p>
+                    <button class="uix1-btn" type="button">Details</button>
+                  </div>
+                </div>
+              </article>
+
+              <article class="uix1-card">
+                <img class="uix1-bg" src="https://cdn-front.freepik.com/home/anon-rvmp/professionals/marketers.webp" alt="Marketers background">
+                <div class="uix1-content">
+                  <img class="uix1-thumb" src="https://cdn-front.freepik.com/home/anon-rvmp/professionals/img-marketer.webp?w=480" alt="Marketer thumb">
+                  <div>
+                    <h3 class="uix1-title">Marketers</h3>
+                    <p class="uix1-desc">Create faster, explore new possibilities.</p>
+                    <button class="uix1-btn" type="button">Details</button>
+                  </div>
+                </div>
+              </article>
+
+              <article class="uix1-card">
+                <img class="uix1-bg" src="https://cdn-front.freepik.com/home/anon-rvmp/professionals/filmmakers.webp" alt="Filmmakers background">
+                <div class="uix1-content">
+                  <img class="uix1-thumb" src="https://cdn-front.freepik.com/home/anon-rvmp/professionals/img-film.webp?w=480" alt="Filmmaker thumb">
+                  <div>
+                    <h3 class="uix1-title">VFX filmmakers</h3>
+                    <p class="uix1-desc">From concept to cut, faster.</p>
+                    <button class="uix1-btn" type="button">Details</button>
+                  </div>
+                </div>
+              </article>
+
+              <article class="uix1-card">
+                <img class="uix1-bg" src="https://cdn-front.freepik.com/home/anon-rvmp/professionals/content-creators.webp" alt="Content creators background">
+                <div class="uix1-content">
+                  <img class="uix1-thumb" src="https://cdn-front.freepik.com/home/anon-rvmp/professionals/img-content.webp?w=480" alt="Content creator thumb">
+                  <div>
+                    <h3 class="uix1-title">Content creators</h3>
+                    <p class="uix1-desc">Make scroll-stopping content, easily.</p>
+                    <button class="uix1-btn" type="button">Details</button>
+                  </div>
+                </div>
+              </article>
+
+              <article class="uix1-card">
+                <img class="uix1-bg" src="https://cdn-front.freepik.com/home/anon-rvmp/professionals/art-directors.webp" alt="Art directors background">
+                <div class="uix1-content">
+                  <img class="uix1-thumb" src="https://cdn-front.freepik.com/home/anon-rvmp/professionals/img-art.webp?w=480" alt="Art director thumb">
+                  <div>
+                    <h3 class="uix1-title">Art directors</h3>
+                    <p class="uix1-desc">Creative control at every stage.</p>
+                    <button class="uix1-btn" type="button">Details</button>
+                  </div>
+                </div>
+              </article>
+
+            </div>
+          </div>
+
+          <div class="uix1-dots" id="uix1-dots" aria-hidden="false"></div>
+        </section>
+
+        <!-- Modal: scoped inside the root -->
+        <div class="uix1-modal" role="dialog" aria-modal="true" aria-hidden="true" uix1-open="false" id="uix1-modal">
+          <div class="uix1-modal__overlay" data-uix1-overlay></div>
+
+          <div class="uix1-modal__dialog" role="document" aria-labelledby="uix1-modal-title">
+            <div class="uix1-modal__header">
+              <h3 class="uix1-modal__title" id="uix1-modal-title">Title</h3>
+              <div style="display:flex;gap:8px;align-items:center">
+                <button class="uix1-modal__close" aria-label="Close details" data-uix1-close>&times;</button>
+              </div>
+            </div>
+
+            <div class="uix1-modal__body">
+              <img src="" alt="" class="uix1-modal__img" id="uix1-modal-img">
+              <div class="uix1-modal__content">
+                <p class="uix1-modal__desc" id="uix1-modal-desc">Description text goes here.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </main>
+
   </section>
 
-  <!-- Skills -->
+  <!-- Skills page: now hosts the previous case studies carousel/grid (default design) -->
   <section id="skills" class="page">
     <h2>Skills</h2>
 
     <div class="projects-header">
       <h3>Skills & Selected Work</h3>
       <div class="view-toggle" role="tablist" aria-label="Skills view toggle">
-        <button id="btn-skills-carousel" class="view-btn" aria-pressed="true">🎮</button>
-        <button id="btn-skills-grid" class="view-btn" aria-pressed="false">▦</button>
+        <button id="btn-skills-carousel" class="view-btn" aria-pressed="true" title="Carousel view">🎮</button>
+        <button id="btn-skills-grid" class="view-btn" aria-pressed="false" title="Grid view">▦</button>
       </div>
     </div>
 
-    <div id="skillsCarouselView" class="custom-carousel"></div>
-    <div id="skillsCarouselDetail" class="carousel-detail"></div>
-    <div id="skillsGridView" class="project-grid"></div>
-
-    <div id="case-study" class="modal" aria-hidden="true">
-      <div class="modal-content"></div>
+    <div id="skillsCarouselView" class="custom-carousel" aria-hidden="false">
+      <div class="carousel-wrap">
+        <button class="arrow left" id="skills-arrow-left" aria-label="Previous"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path></svg></button>
+        <div class="carousel" id="skillsCarousel" role="listbox" aria-label="Skills carousel"></div>
+        <button class="arrow right" id="skills-arrow-right" aria-label="Next"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"></path></svg></button>
+      </div>
     </div>
+
+    <div id="skillsCarouselDetail" class="carousel-detail" aria-live="polite" style="display:none;"><h4 id="skills-detail-title"></h4><p id="skills-detail-short"></p></div>
+
+    <div id="skillsGridView" class="project-grid" style="display:none;margin-top:12px;">
+      <div class="card glass project" data-key="proj-portfolio"><h3>Portfolio Site</h3><p>Personal portfolio & case study</p></div>
+      <div class="card glass project" data-key="proj-redesign"><h3>Redesign Concept</h3><p>Website redesign case</p></div>
+      <div class="card glass project" data-key="proj-dashboard"><h3>Analytics Dashboard</h3><p>Data dashboard UI</p></div>
+      <div class="card glass project" data-key="proj-mobile"><h3>Mobile App</h3><p>Mobile UX flows</p></div>
+      <div class="card glass project" data-key="proj-ecom"><h3>E-commerce UI</h3><p>Product & checkout UX</p></div>
+      <div class="card glass project" data-key="proj-designsystem"><h3>Design System</h3><p>Component library</p></div>
+    </div>
+
+    <!-- Modal for grid items (kept) -->
+    <div id="case-study" class="modal" aria-hidden="true">
+      <div class="modal-content" role="dialog" aria-modal="true">
+        <span class="close" title="Close modal">&times;</span>
+        <div class="modal-left">
+          <img id="modal-thumb" src="" alt="">
+          <div>
+            <h3 id="modal-title"></h3>
+            <p id="modal-role" class="muted"></p>
+            <div id="modal-body" style="margin-top:8px;line-height:1.45;"></div>
+            <p style="margin-top:12px;"><a id="modal-link" href="#" target="_blank" class="btn">View Live</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </section>
 
   <!-- Contact -->
   <section id="contact" class="page">
     <h2>Contact</h2>
     <div class="card glass">
-      <p>Email: <a href="mailto:gendeulgagarin@gmail.com"></a></p>
+      <p>Email: <a href="mailto:gendeulgagarin@gmail.com">gendeulgagarin@gmail.com</a></p>
     </div>
   </section>
 
-  <footer>© 2025 Gen Deu Gagarin</footer>
+<footer style="text-align:center;padding:1.25rem;color:rgba(255,255,255,.7)">© 2025 Gen Deu Gagarin</footer>
 
-  <!-- External JS -->
+
+<!-- Scoped script for uix1 (inserted at end so DOM is ready) -->
+
+
   <script src="jsondata.js"></script>
   <script src="script.js"></script>
 </body>
