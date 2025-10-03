@@ -10,21 +10,21 @@ const siteContent = {
     text: "I’m a UI/UX Developer and Frontend Engineer passionate about creating sleek, user-focused web experiences."
   },
   caseStudies: [
-    { title: "Designers", desc: "Tools that work like you do.",
-      bg: "images/FTAP-desktop.png",
-      thumb: "https://cdn-front.freepik.com/home/anon-rvmp/professionals/img-designer.webp?w=480" },
+    { title: "Frontier Towers Associates Philippines", desc: "Frontier Tower Associates Philippines Inc. is the Philippines' largest independent telecommunications tower company, focused on investing in, building, and operating cell towers and related infrastructure. As a subsidiary of Pinnacle Towers, it is a major player in enabling digital inclusion and improving connectivity for Filipinos. The company holds a DICT operating license and partners with mobile network operators, offering solutions like build-to-suit towers, small cells, and in-building systems.",
+      bg: "images/FTAP-cover.png",
+      thumb: "images/FTAP-mobile.png" },
     { title: "Marketers", desc: "Create faster, explore new possibilities.",
-      bg: "images/FTAP-desktop.png",
-      thumb: "https://cdn-front.freepik.com/home/anon-rvmp/professionals/img-marketer.webp?w=480" },
+      bg: "images/FTAP-cover.png",
+      thumb: "images/FTAP-mobile.png" },
     { title: "VFX filmmakers", desc: "From concept to cut, faster.",
-      bg: "images/FTAP-desktop.png",
-      thumb: "https://cdn-front.freepik.com/home/anon-rvmp/professionals/img-film.webp?w=480" },
+      bg: "images/FTAP-cover.png",
+      thumb: "images/FTAP-mobile.png" },
     { title: "Content creators", desc: "Make scroll-stopping content, easily.",
-      bg: "images/FTAP-desktop.png",
-      thumb: "https://cdn-front.freepik.com/home/anon-rvmp/professionals/img-content.webp?w=480" },
+      bg: "images/FTAP-cover.png",
+      thumb: "images/FTAP-mobile.png" },
     { title: "Art directors", desc: "Creative control at every stage.",
-      bg: "images/FTAP-desktop.png",
-      thumb: "https://cdn-front.freepik.com/home/anon-rvmp/professionals/img-art.webp?w=480" }
+      bg: "images/FTAP-cover.png",
+      thumb: "images/FTAP-mobile.png" }
   ],
   skills: [
     { key:'proj-portfolio', title:'Portfolio Site', role:'UI/UX / Frontend',
