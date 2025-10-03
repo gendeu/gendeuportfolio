@@ -3,308 +3,209 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Gen Deu Gagarin | UI/UX Portfolio</title>
-  <meta name="description" content="Gen Deu Gagarin — UI/UX Developer & Frontend Engineer" />
+  <title>Carousel Demo</title>
   <style>
-:root{--bg1:#0f2027;--bg2:#203a43;--bg3:#2c5364;--text:#f5f5f5;--accent:#00f2fe;--glass-bg:rgba(255,255,255,0.08);--glass-border:rgba(255,255,255,0.2)}
-body.light{--bg1:#dbe6f6;--bg2:#cfd9df;--bg3:#e2ebf0;--text:#222;--accent:#3f51b5;--glass-bg:rgba(255,255,255,0.5);--glass-border:rgba(0,0,0,0.1)}
-*{box-sizing:border-box}html,body{height:100%;margin:0;font-family:'Poppins',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial;color:var(--text);-webkit-font-smoothing:antialiased}
-body{background:linear-gradient(-45deg,var(--bg1),var(--bg2),var(--bg3));background-size:400% 400%;animation:gradientMove 25s ease infinite;transition:background .8s ease,color .3s ease}
-@keyframes gradientMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-#bgCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2}
-#progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--accent);width:0;z-index:2000;transition:width .4s ease}
-header{position:sticky;top:0;z-index:1000;backdrop-filter:blur(12px);padding:1rem 2rem}nav{display:flex;justify-content:space-between;align-items:center;gap:1rem}nav ul{list-style:none;display:flex;gap:1.5rem;margin:0;padding:0}nav ul li a{text-decoration:none;color:var(--text);position:relative}nav ul li a::after{content:"";position:absolute;left:0;bottom:-4px;width:100%;height:2px;background:var(--accent);transform:scaleX(0);transition:transform .3s ease;transform-origin:left}nav ul li a:hover::after{transform:scaleX(1)}#menu-toggle{display:none;cursor:pointer;font-size:1.5rem}
-.page{display:none;opacity:0;transform:translateY(20px);transition:opacity .45s ease,transform .45s ease;min-height:80vh;padding:4rem 2rem}.page.active{display:block;opacity:1;transform:translateY(0)}
-.hero{text-align:center;margin-top:15vh;padding:2rem}.highlight{color:var(--accent)}
-.card.glass{padding:2rem;border-radius:20px;background:var(--glass-bg);border:1px solid var(--glass-border);backdrop-filter:blur(15px);margin:1.5rem auto;width:90%;max-width:1000px;text-align:center;transition:transform .25s ease,box-shadow .25s ease}.card.glass:hover{transform:translateY(-5px) scale(1.02);box-shadow:0 10px 20px rgba(0,0,0,.3)}
-.btn{display:inline-block;margin-top:2rem;padding:.8rem 1.5rem;border-radius:30px;background:var(--glass-bg);border:1px solid var(--glass-border);backdrop-filter:blur(10px);color:var(--accent);font-weight:bold;text-decoration:none;transition:transform .2s ease,background .2s ease}.btn:hover{transform:scale(1.06);background:var(--accent);color:#111}
-.project-grid{display:grid;gap:1.5rem;grid-template-columns:repeat(3,1fr)}@media (max-width:1024px){.project-grid{grid-template-columns:repeat(2,1fr)}}@media (max-width:720px){.project-grid{grid-template-columns:1fr}}
-.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);justify-content:center;align-items:center;z-index:6000;opacity:0;transition:opacity .3s ease}.modal.show{opacity:1;display:flex}.modal-content{max-width:720px;padding:2rem;border-radius:20px;background:var(--glass-bg);border:1px solid var(--glass-border);backdrop-filter:blur(15px);transform:scale(.96);opacity:0;transition:transform .25s ease,opacity .25s ease;position:relative}.modal.show .modal-content{transform:scale(1);opacity:1}.close{position:absolute;top:15px;right:20px;font-size:1.6rem;cursor:pointer}
-.skills-list{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem}.chip{padding:.8rem 1.2rem;border-radius:30px;background:var(--glass-bg);border:1px solid var(--glass-border);backdrop-filter:blur(8px)}
-footer{text-align:center;padding:2rem;color:rgba(255,255,255,.7)}
-@media (max-width:768px){nav ul{display:none;flex-direction:column;gap:1rem;background:rgba(0,0,0,.85);padding:1rem;position:absolute;top:60px;right:20px;border-radius:12px}nav ul.show{display:flex;animation:slideIn .4s ease}@keyframes slideIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}#menu-toggle{display:block}.hero h2{font-size:1.8rem}.project-grid{grid-template-columns:1fr}}
-.muted{color:rgba(255,255,255,.65);font-size:.95rem}
+  /* ---- your carousel CSS (kept mostly as provided) ---- */
+  .custom-carousel{
+    position:relative;
+    max-width:1000px;
+    margin:0 auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
 
-/* Projects header + view toggle */
-.projects-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
-.view-toggle{display:flex;gap:8px}
-.view-btn{width:40px;height:40px;border-radius:8px;border:1px solid rgba(255,255,255,.06);background:transparent;color:var(--text);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center}
-.view-btn[aria-pressed="true"]{background:var(--accent);color:#071225;box-shadow:0 8px 18px rgba(0,0,0,.35);border-color:rgba(255,255,255,.08)}
+  .carousel-track-container{
+    width:100%;
+    min-height:303px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    position:relative;
+  }
 
-/* ---------- CAROUSEL STYLES (CENTER-STAGE, NO VISIBLE SCROLLBAR) ---------- */
-.carousel-view{display:flex;position:relative;align-items:center;gap:12px;margin:0 0 1.75rem 0}
-.carousel-view.hidden{display:none} /* <-- IMPORTANT: allow JS to hide carousel */
-.carousel-viewport{overflow:hidden;width:100%}
-.carousel-track{
-  display:flex;
-  gap:18px;
-  padding:22px 12px;
-  overflow-x:auto;
-  scroll-snap-type:x mandatory;
-  scroll-behavior:smooth;
-  -webkit-overflow-scrolling:touch;
-  align-items:center;
-  padding-left: calc(50% - 150px);
-  padding-right: calc(50% - 150px);
-}
-.carousel-track::-webkit-scrollbar{height:0;display:none}
-.carousel-track{ -ms-overflow-style: none; scrollbar-width: none; }
+  .carousel-track{
+    display:flex;
+    transition:transform .5s ease;
+    will-change:transform;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
 
-.carousel-item{
-  min-width:300px;
-  flex:0 0 300px;
-  scroll-snap-align:center;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-  padding:12px;
-  border-radius:14px;
-  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  border:1px solid rgba(255,255,255,0.03);
-  cursor:pointer;
-  transform-origin:center center;
-  transition: transform 180ms cubic-bezier(.18,.85,.32,1), box-shadow 180ms cubic-bezier(.18,.85,.32,1), z-index 180ms;
-  will-change: transform, box-shadow;
-  transform: translateY(0) scale(0.96);
-  z-index: 1;
-  opacity: 0.98;
-}
-.carousel-thumb{height:160px;border-radius:10px;background-size:cover;background-position:center;box-shadow:0 8px 30px rgba(0,0,0,.35)}
+  .carousel-slide{
+    flex:0 0 auto;
+    width:190px;
+    max-height: 240px;
+    margin:0 10px;
+    background:#fff;
+    overflow:hidden;
+    text-align:center;
+    opacity:.5;
+    transition:all .3s ease;
+    display:flex;
+    flex-direction:column;
+    cursor:pointer;
+    border: 3px gray solid;
+    border-radius:8px;
+  }
 
-/* Active (center) item: larger & lifted */
-.carousel-item.active{
-  transform: translateY(-18px) scale(1.1);
-  z-index: 30;
-  box-shadow: 0 40px 100px rgba(2,6,23,0.72), 0 14px 44px rgba(0,0,0,0.44);
-  opacity: 1;
-}
+  .carousel-slide img{
+    width:100%;
+    object-fit:cover;
+    display:block;
+  }
 
-/* neighbor styling */
-.carousel-item.sibling{
-  transform: translateY(-10px) scale(0.99);
-  z-index: 10;
-  box-shadow: 0 16px 36px rgba(0,0,0,0.32);
-}
+  .carousel-slide p{
+      background: #f5f5f5;
+      margin: 0;
+      height: 90px;
+      padding: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #333;
+      align-items: center;
+      text-align: center;
+      justify-content: center;
+      display: flex;
+  }
 
-/* bigger arrows */
-.carousel-nav{
-  position:relative;
-  z-index:40;
-  border:none;
-  background:rgba(0,0,0,0.55);
-  color:var(--text);
-  padding:16px 18px;
-  border-radius:14px;
-  cursor:pointer;
-  min-width:72px;
-  font-size:30px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  transition:transform .12s ease,background .15s ease;
-}
-.carousel-nav:hover{transform:scale(1.04);background:rgba(0,0,0,0.65)}
-.carousel-prev{margin-right:12px}
-.carousel-next{margin-left:12px}
+  .carousel-slide p.hidden { display:none; }
+  .carousel-slide.no-title img { height:100%; object-fit:scale-down; }
+  .carousel-slide.no-title { flex-direction:row; }
 
-/* Grid view */
-.grid-view{display:block}
-.grid-view.hidden{display:none}
-.project-grid .project{padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.02);cursor:pointer;transition:transform .2s ease}
-.project-grid .project:hover{transform:translateY(-6px)}
+  .carousel-slide.active{
+    transform: scale(1.2);
+    opacity:1;
+    box-shadow:0 2px 6px rgba(0,0,0,0.1);
+    z-index:2;
+    margin: 0 7px;
+  }
 
-/* responsive tweaks */
-@media (max-width:900px){
-  .carousel-item{min-width:220px;flex:0 0 220px}
-  .carousel-thumb{height:120px}
-  .carousel-track{padding-left: calc(50% - 110px); padding-right: calc(50% - 110px);}
-  .carousel-nav{min-width:48px;padding:10px 12px;font-size:22px}
-}
-@media (max-width:520px){
-  header{padding:0.7rem 1rem}
-  .hero{margin-top:8vh}
-}
+  /* Arrow buttons */
+  .arrow-btn {
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    background:#fff;
+    border:none;
+    width:44px;
+    height:44px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    box-shadow:rgba(0,0,0,0.19) 0px 6px 8px;
+    z-index:3;
+    transition:background 0.2s ease;
+  }
 
-/* Loader styles (floating GD circle) */
-#loader{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:7000;pointer-events:none;opacity:0;transition:opacity .28s ease}
-.loader-logo{width:84px;height:84px;border-radius:50%;background:var(--glass-bg);border:2px solid var(--glass-border);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--accent);font-size:1.15rem;backdrop-filter:blur(8px);box-shadow:0 8px 30px rgba(0,0,0,0.35);transition:transform .28s ease,box-shadow .28s ease}
-.loader-logo span{user-select:none}
-#dim{position:fixed;inset:0;background:rgba(0,0,0,0.28);z-index:6900;opacity:0;pointer-events:none;transition:opacity .28s ease}
-.loader-visible{opacity:1}
+  .arrow-btn svg { width:36px; height:36px; fill:#333; }
+  .arrow-btn:hover { background:#f0f0f0; }
+  .arrow-btn.prev { left:6px; }
+  .arrow-btn.next { right:6px; }
+  .arrow-btn:disabled { opacity:.3; cursor:not-allowed; }
+
+  .carousel-description{
+    max-width:800px;
+    margin:20px auto 0;
+    padding:15px;
+    font-size:16px;
+    color:#444;
+    line-height:1.4;
+    text-align:center;
+  }
+  .carousel-description.hidden { display:none; }
+
+  /* small responsive tweak */
+  @media (max-width:560px){
+    .carousel-slide{ width:150px; }
+  }
   </style>
 </head>
 <body>
-  <!-- Loader (floating) -->
-  <div id="loader" aria-hidden="true"><div class="loader-logo"><span>GD</span></div></div>
-  <div id="dim" aria-hidden="true"></div>
 
-  <!-- Particle Background -->
-  <canvas id="bgCanvas"></canvas>
+  <!-- MARKUP (use this exact structure) -->
+  <div class="custom-carousel" aria-hidden="false">
+    <button class="arrow-btn prev" tabindex="0" aria-label="Previous">
+      <svg viewBox="0 0 256 512" aria-hidden="true"><path d="M31.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L127.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L201.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34z"></path></svg>
+    </button>
 
-  <!-- Progress bar -->
-  <div id="progress-bar" aria-hidden="true"></div>
-
-  <!-- Navbar -->
-  <header>
-    <nav>
-      <h1 class="logo">GenDeu</h1>
-      <div id="menu-toggle">☰</div>
-      <ul>
-        <li><a href="#home" class="nav-link active">Home</a></li>
-        <li><a href="#about" class="nav-link">About</a></li>
-        <li><a href="#projects" class="nav-link">Projects</a></li>
-        <li><a href="#skills" class="nav-link">Skills</a></li>
-        <li><a href="#contact" class="nav-link">Contact</a></li>
-      </ul>
-      <button id="theme-toggle">🌙</button>
-    </nav>
-  </header>
-
-  <!-- Hero -->
-  <section id="home" class="page active">
-    <div class="hero">
-      <h2>Hello, I’m <span class="highlight">Gen Deu</span></h2>
-      <p class="tagline"><span id="typewriter"></span></p>
-      <a href="#projects" class="btn nav-link">See My Work</a>
-    </div>
-  </section>
-
-  <!-- About -->
-  <section id="about" class="page">
-    <h2>About Me</h2>
-    <div class="card glass fade-in">
-      <p>I’m a UI/UX Developer and Frontend Engineer passionate about creating sleek, user-focused web experiences. I bridge design and code, ensuring beautiful interfaces deliver smooth, intuitive interactions.</p>
-    </div>
-  </section>
-
-  <!-- Projects -->
-  <section id="projects" class="page">
-    <div class="projects-header">
-      <h2>Case Studies</h2>
-
-      <!-- View toggle -->
-      <div class="view-toggle" role="tablist" aria-label="Projects view toggle">
-        <button id="btn-carousel" class="view-btn" aria-pressed="true" title="Carousel view">🎮</button>
-        <button id="btn-grid" class="view-btn" aria-pressed="false" title="Grid view">▦</button>
-      </div>
+    <div class="carousel-track-container">
+      <div class="carousel-track" role="list"><!-- slides injected here --></div>
     </div>
 
-    <!-- CAROUSEL VIEW -->
-    <div id="carouselView" class="carousel-view active" aria-hidden="false">
-      <button class="carousel-nav carousel-prev" aria-label="Previous">‹</button>
-
-      <div class="carousel-viewport">
-        <div class="carousel-track" tabindex="0" role="listbox" aria-label="Project carousel">
-          <!-- carousel items -->
-          <div class="card glass carousel-item" data-key="klp" role="option" aria-label="KLP Lifestyle">
-            <div class="carousel-thumb" style="background-image:url('assets/klp.jpg')"></div>
-            <h3>KLP Lifestyle</h3>
-            <p class="muted">E-commerce redesign</p>
-          </div>
-
-          <div class="card glass carousel-item" data-key="fixifoot" role="option" aria-label="Fixifoot">
-            <div class="carousel-thumb" style="background-image:url('assets/fixifoot.jpg')"></div>
-            <h3>Fixifoot</h3>
-            <p class="muted">Product showcase</p>
-          </div>
-
-          <div class="card glass carousel-item" data-key="cveez" role="option" aria-label="Cveez">
-            <div class="carousel-thumb" style="background-image:url('assets/cveez.jpg')"></div>
-            <h3>Cveez</h3>
-            <p class="muted">Service booking platform</p>
-          </div>
-
-          <div class="card glass carousel-item" data-key="other1" role="option" aria-label="Other Project 1">
-            <div class="carousel-thumb" style="background-image:url('assets/other1.jpg')"></div>
-            <h3>Other 1</h3>
-            <p class="muted">UI components</p>
-          </div>
-
-          <div class="card glass carousel-item" data-key="other2" role="option" aria-label="Other Project 2">
-            <div class="carousel-thumb" style="background-image:url('assets/other2.jpg')"></div>
-            <h3>Other 2</h3>
-            <p class="muted">Landing page</p>
-          </div>
-
-        </div>
-      </div>
-
-      <button class="carousel-nav carousel-next" aria-label="Next">›</button>
-    </div>
-
-    <!-- GRID / CARD LIST VIEW -->
-    <div id="gridView" class="grid-view hidden">
-      <div class="project-grid">
-        <div class="card glass project" data-key="klp" onclick="openCaseStudy('klp')">
-          <h3>KLP Lifestyle</h3><p>E-commerce redesign</p>
-        </div>
-        <div class="card glass project" data-key="fixifoot" onclick="openCaseStudy('fixifoot')">
-          <h3>Fixifoot</h3><p>Product showcase</p>
-        </div>
-        <div class="card glass project" data-key="cveez" onclick="openCaseStudy('cveez')">
-          <h3>Cveez</h3><p>Service booking platform</p>
-        </div>
-        <div class="card glass project" data-key="other1" onclick="openCaseStudy('other1')">
-          <h3>Other 1</h3><p>UI components</p>
-        </div>
-        <div class="card glass project" data-key="other2" onclick="openCaseStudy('other2')">
-          <h3>Other 2</h3><p>Landing page</p>
-        </div>
-      </div>
-    </div>
-
-  </section>
-
-  <!-- Case Study Modal -->
-  <div id="case-study" class="modal" aria-hidden="true">
-    <div class="modal-content glass" role="dialog" aria-modal="true">
-      <span class="close" title="Close modal">&times;</span>
-      <h3 id="case-title"></h3>
-      <p id="case-problem"></p>
-      <p id="case-process"></p>
-      <p id="case-solution"></p>
-      <a id="case-link" href="#" target="_blank" class="btn">View Live</a>
-    </div>
+    <button class="arrow-btn next" tabindex="0" aria-label="Next">
+      <svg viewBox="0 0 256 512" aria-hidden="true"><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9L128.1 256 31.7 159.6c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"></path></svg>
+    </button>
   </div>
 
-  <!-- Skills -->
-  <section id="skills" class="page">
-    <h2>Skills</h2>
-    <div class="skills-list fade-in">
-      <span class="chip">HTML5</span>
-      <span class="chip">CSS3</span>
-      <span class="chip">JavaScript</span>
-      <span class="chip">React</span>
-      <span class="chip">Figma</span>
-      <span class="chip">UI/UX Design</span>
-    </div>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact" class="page">
-    <h2>Contact</h2>
-    <div class="card glass fade-in">
-      <p>Email: <a href="mailto:gendeulgagarin@gmail.com">gendeulgagarin@gmail.com</a></p>
-      <p>LinkedIn: <a href="https://linkedin.com/in/gen-deu-gagarin-952781165" target="_blank">linkedin.com/in/gen-deu-gagarin</a></p>
-      <p>GitHub: <a href="https://github.com/gendeu" target="_blank">github.com/gendeu</a></p>
-    </div>
-  </section>
-
-  <footer>
-    <p>© 2025 Gen Deu Gagarin | Designed with ❤️</p>
-  </footer>
+  <!-- Description -->
+  <div class="carousel-description hidden" aria-live="polite"></div>
 
 <script>
-/* Dynamic carousel + centered-click modal + mode toggle
-   Drop-in replacement for the script you provided.
-   IMPORTANT: description innerHTML is set only from trusted sources (same as your original note). */
+/* Complete JS: improved centering + modal + setCarouselMode
+   Replace DATA_URL below if you have an API endpoint.
+*/
 document.addEventListener('DOMContentLoaded', async () => {
   // ---- CONFIG ----
-  const DATA_URL = '/path/to/your/carousel.json'; // keep or replace
-  const INITIAL_INDEX = 2; // default starting index
+  const DATA_URL = '/path/to/your/carousel.json'; // <-- replace with your API endpoint or leave as-is
+  const INITIAL_INDEX = 2; // default starting index (0-based)
 
-  // FALLBACK: keep your FALLBACK data here or refer to existing variable (omitted for brevity)
-  const FALLBACK = window.CAROUSEL_FALLBACK || [];
+  // ---- FALLBACK DATA (from your example) ----
+  const FALLBACK = [
+    {
+      img: "https://frontiertowersphilippines.com/wp-content/uploads/2025/08/1-1.png",
+      alt: "Card 1",
+      title: "Frontier Tree-Planting with EVSU and Tacloban Officials",
+      description: "<h2 style='color:#b30000;margin-bottom:10px;'>Frontier Tree-Planting with EVSU and Tacloban Officials</h2><p>Frontier employees based in Leyte, Cebu, and Bohol volunteered with Eastern Visayas University in Tacloban and the Provincial Environment and Natural Resources (PENRO).</p>"
+    },
+    {
+      img: "https://frontiertowersphilippines.com/wp-content/uploads/2025/08/2.png",
+      alt: "Card 2",
+      title: "Frontier Brigada Eskwela Program",
+      description: "<h2 style='color:#b30000;margin-bottom:10px;'>Frontier Brigada Eskwela Program</h2><p>An outreach program for the elementary students of Laurel, Batangas, that covers donation of school supplies and materials together with the LGU.</p>"
+    },
+    {
+      img: "https://frontiertowersphilippines.com/wp-content/uploads/2025/08/3.png",
+      alt: "Card 3",
+      title: "",
+      description: ""
+    },
+    {
+      img: "https://frontiertowersphilippines.com/wp-content/uploads/2025/08/4.png",
+      alt: "Card 4",
+      title: "Libreng Gulay Partnership with GoodFood Community",
+      description: "<h2 style='color:#b30000;margin-bottom:10px;'>Libreng Gulay Partnership with GoodFood Community</h2><p>Supports a community farm, helping local farmers in crop distribution, and, at the same time, promoting sustainable behavior among its employees with Libreng Gulay.</p>"
+    },
+    {
+      img: "https://frontiertowersphilippines.com/wp-content/uploads/2025/08/5.png",
+      alt: "Card 5",
+      title: "Project Flip in Baguio in 2022",
+      description: "<h2 style='color:#b30000;margin-bottom:10px;'>Project Flip in Baguio in 2022</h2><p>As part of our Annual Conference in 2022, we volunteered for an outreach program and tutoring services for the children of Bancua, Dontogan led by BFLI (Breakfast Feeding for Learning Inc.).</p>"
+    },
+    {
+      img: "https://frontiertowersphilippines.com/wp-content/uploads/2025/08/6.png",
+      alt: "Card 6",
+      title: "Other Donations, Sponsorships, and Charitable Assistance",
+      description: `
+        <h2 style="color:#b30000; margin-bottom:10px;">
+          Other Donations, Sponsorships, and Charitable Assistance
+        </h2>
+        <p>
+          Frontier also made and will continue to provide support to community development initiatives, immediate disaster relief operations to areas in need and charitable assistance to its existing and future recipient organizations and communities.
+        </p>
+        <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-top:15px;">
+          <img src="https://frontiertowersphilippines.com/wp-content/uploads/2025/08/1-2.png" alt="Logo1" style="height:60px;">
+          <img src="https://frontiertowersphilippines.com/wp-content/uploads/2025/08/2-1.png" alt="Logo2" style="height:60px;">
+          <img src="https://frontiertowersphilippines.com/wp-content/uploads/2025/08/3-1.png" alt="Logo3" style="height:60px;">
+          <img src="https://frontiertowersphilippines.com/wp-content/uploads/2025/08/4-1.png" alt="Logo4" style="height:60px;">
+        </div>
+      `
+    }
+  ];
 
   // ---- ELEMENTS ----
   const container = document.querySelector('.carousel-track-container');
@@ -312,14 +213,14 @@ document.addEventListener('DOMContentLoaded', async () => {
   const prevBtn = document.querySelector('.arrow-btn.prev');
   const nextBtn = document.querySelector('.arrow-btn.next');
   const descriptionBox = document.querySelector('.carousel-description');
-  const carouselRoot = document.querySelector('.custom-carousel'); // wrapper
+  const carouselRoot = document.querySelector('.custom-carousel');
 
   if (!container || !track || !prevBtn || !nextBtn) {
-    console.warn('Carousel: missing DOM elements');
+    console.warn('Carousel: required elements missing.');
     return;
   }
 
-  // Modal: create lightweight modal if not present
+  // ---- Modal (create if missing) ----
   let modal = document.getElementById('carousel-modal');
   if (!modal) {
     modal = document.createElement('div');
@@ -339,15 +240,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     `;
     document.body.appendChild(modal);
 
-    // close handlers
-    const closeBtn = document.getElementById('carousel-modal-close');
-    closeBtn.addEventListener('click', closeModal);
-    modal.addEventListener('click', (ev) => { if (ev.target === modal) closeModal(); });
-    window.addEventListener('keydown', (ev) => { if (ev.key === 'Escape') closeModal(); });
+    document.getElementById('carousel-modal-close').addEventListener('click', () => {
+      modal.style.opacity = 0;
+      setTimeout(() => modal.style.display = 'none', 200);
+    });
+    modal.addEventListener('click', (ev) => { if (ev.target === modal) { modal.style.opacity = 0; setTimeout(()=> modal.style.display='none',200); }});
+    window.addEventListener('keydown', (ev) => { if (ev.key === 'Escape') { modal.style.opacity = 0; setTimeout(()=> modal.style.display='none',200); }});
   }
 
   function openModal(data) {
-    // data: {img, alt, title, description}
     if (!data) return;
     const img = document.getElementById('carousel-modal-img');
     const title = document.getElementById('carousel-modal-title');
@@ -356,17 +257,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     img.src = data.img || '';
     img.alt = data.alt || '';
     title.textContent = data.title || '';
-    // set trusted HTML (only when API is trusted)
+    // NOTE: innerHTML only set if description trusted
     desc.innerHTML = data.description || '';
 
     modal.style.display = 'flex';
-    // small entrance
-    requestAnimationFrame(() => { modal.style.opacity = 1; });
-  }
-
-  function closeModal() {
     modal.style.opacity = 0;
-    setTimeout(() => modal.style.display = 'none', 180);
+    requestAnimationFrame(()=> modal.style.opacity = 1);
   }
 
   // ---- Carousel internals ----
@@ -405,11 +301,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     track.appendChild(frag);
     slides = Array.from(track.querySelectorAll('.carousel-slide'));
 
-    // click handler will either center or open modal when centered
     slides.forEach((s, idx) => {
       s.addEventListener('click', () => {
         if (isSlideCentered(s)) {
-          // open modal using slide dataset
           openModal({
             img: s.dataset.img,
             alt: s.dataset.alt,
@@ -422,7 +316,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
       });
 
-      // make each slide focusable for keyboard users
       s.tabIndex = 0;
       s.addEventListener('keydown', (ev) => {
         if (ev.key === 'Enter' || ev.key === ' ') {
@@ -433,7 +326,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
-  // compute and set transform to center currentIndex slide
   function centerActive() {
     if (!slides.length) return;
 
@@ -442,16 +334,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (!active) return;
     active.classList.add('active');
 
-    // compute desired translateX so active is centered inside container
     const containerWidth = container.clientWidth;
     const trackWidth = track.scrollWidth;
+    // center the active slide
     const targetCenter = active.offsetLeft + (active.offsetWidth / 2);
-    // desired translate so targetCenter becomes container center:
     let translate = (containerWidth / 2) - targetCenter;
 
-    // clamp translate so we don't reveal blank edges
-    const maxTranslate = 0; // can't move right past 0
-    const minTranslate = Math.min(containerWidth - trackWidth, 0); // negative or 0
+    // clamp translate so no blank space is revealed
+    const maxTranslate = 0;
+    const minTranslate = Math.min(containerWidth - trackWidth, 0);
     translate = clamp(translate, minTranslate, maxTranslate);
 
     track.style.transform = `translateX(${translate}px)`;
@@ -483,7 +374,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const slideRect = slideEl.getBoundingClientRect();
     const slideCenter = slideRect.left + (slideRect.width / 2);
     const containerCenter = containerRect.left + (containerRect.width / 2);
-    // Consider centered if distance < 40% of slide width (tweakable)
+    // centered if distance < 40% of slide width (tweakable)
     return Math.abs(slideCenter - containerCenter) < (slideRect.width * 0.4);
   }
 
@@ -497,8 +388,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       if (!Array.isArray(json)) throw new Error('JSON must be an array');
       return json;
     } catch (err) {
-      console.warn('Carousel: using fallback data. Reason:', err);
-      return FALLBACK.slice(); // clone
+      console.warn('Carousel: falling back. Reason:', err);
+      return FALLBACK.slice();
     }
   }
 
@@ -513,7 +404,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       centerActive();
     }
   });
-
   nextBtn.addEventListener('click', () => {
     if (currentIndex < slides.length - 1) {
       currentIndex++;
@@ -521,49 +411,22 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   });
 
-  // keyboard prev/next for accessibility
   prevBtn.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); prevBtn.click(); } });
   nextBtn.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); nextBtn.click(); } });
 
-  // keep centered on resize
-  window.addEventListener('resize', () => {
-    // small timeout to let layout settle
-    setTimeout(centerActive, 60);
-  });
-
-  // initial centering
+  window.addEventListener('resize', () => setTimeout(centerActive, 60));
   setTimeout(centerActive, 40);
 
-  // ---- Expose mode helper (game/list toggles) ----
-  // Use setCarouselMode('game') or setCarouselMode('list') to toggle visibility.
-  // This prevents the carousel showing when not in game mode.
-  window.setCarouselMode = function (mode) {
-    if (!carouselRoot) return;
-    if (mode === 'game') {
-      carouselRoot.style.display = ''; // show (fall back to CSS)
-    } else {
-      // hide carousel when not game mode; keep description hidden too
-      carouselRoot.style.display = 'none';
-      descriptionBox.classList.add('hidden');
-    }
-  };
-
-  // optionally set initial mode (if you keep a data attribute or localStorage)
-  // e.g. window.setCarouselMode(localStorage.getItem('carouselMode') || 'game');
-
-  // ---- Optional: click-to-drag (basic) ----
-  // This is a minimal draggable track to behave like a carousel scrollbar.
+  // ---- Drag support (basic) ----
   let isDown = false, startX = 0, startTranslate = 0;
   track.addEventListener('pointerdown', (ev) => {
     isDown = true;
     track.setPointerCapture(ev.pointerId);
     startX = ev.clientX;
-    // extract current translateX from transform
     const m = getComputedStyle(track).transform.match(/matrix\\(([^)]+)\\)/);
     startTranslate = 0;
     if (m) {
       const vals = m[1].split(',').map(v => parseFloat(v.trim()));
-      // matrix(a, b, c, d, tx, ty) -> tx is translateX
       startTranslate = vals[4] || 0;
     }
     track.style.transition = 'none';
@@ -572,11 +435,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   track.addEventListener('pointermove', (ev) => {
     if (!isDown) return;
     const dx = ev.clientX - startX;
-    let next = startTranslate + dx;
-    // clamp to bounds
     const trackWidth = track.scrollWidth;
     const minTranslate = Math.min(container.clientWidth - trackWidth, 0);
     const maxTranslate = 0;
+    let next = startTranslate + dx;
     next = clamp(next, minTranslate, maxTranslate);
     track.style.transform = `translateX(${next}px)`;
   }, { passive: true });
@@ -585,9 +447,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (!isDown) return;
     isDown = false;
     try { track.releasePointerCapture(ev && ev.pointerId); } catch (e) {}
-    track.style.transition = ''; // restore
-    // snap to closest slide
-    // find centered slide and set currentIndex
+    track.style.transition = '';
+    // snap to nearest slide
     let bestIndex = 0, bestDist = Infinity;
     const containerRect = container.getBoundingClientRect();
     const containerCenterX = containerRect.left + (containerRect.width / 2);
@@ -604,7 +465,21 @@ document.addEventListener('DOMContentLoaded', async () => {
   track.addEventListener('pointercancel', endDrag);
   track.addEventListener('pointerleave', endDrag);
 
-});
+  // ---- Mode helper ----
+  window.setCarouselMode = function(mode) {
+    if (!carouselRoot) return;
+    if (mode === 'game') {
+      carouselRoot.style.display = ''; // show
+    } else {
+      carouselRoot.style.display = 'none'; // hide for list or other modes
+      descriptionBox.classList.add('hidden');
+    }
+  };
+
+  // optionally set initial mode:
+  // window.setCarouselMode('game');
+
+}); // DOMContentLoaded
 </script>
 
 </body>
