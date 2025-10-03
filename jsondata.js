@@ -1,6 +1,3 @@
-/* -------------------------
-   JSON CMS Content
-------------------------- */
 const siteContent = {
   hero: {
     greeting: "Hello, I’m",
