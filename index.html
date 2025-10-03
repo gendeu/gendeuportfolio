@@ -295,225 +295,317 @@ footer{text-align:center;padding:2rem;color:rgba(255,255,255,.7)}
   </footer>
 
 <script>
-/* JS (fixed behaviors) */
-const links = document.querySelectorAll('.nav-link');
-const pages = document.querySelectorAll('.page');
-const loaderEl = document.getElementById('loader');
-const dimEl = document.getElementById('dim');
-const progressBar = document.getElementById('progress-bar');
-const btnCarousel = document.getElementById('btn-carousel');
-const btnGrid = document.getElementById('btn-grid');
-const carouselView = document.getElementById('carouselView');
-const gridView = document.getElementById('gridView');
-const carouselTrack = document.querySelector('.carousel-track');
-const prevBtn = document.querySelector('.carousel-prev');
-const nextBtn = document.querySelector('.carousel-next');
+/* Dynamic carousel + centered-click modal + mode toggle
+   Drop-in replacement for the script you provided.
+   IMPORTANT: description innerHTML is set only from trusted sources (same as your original note). */
+document.addEventListener('DOMContentLoaded', async () => {
+  // ---- CONFIG ----
+  const DATA_URL = '/path/to/your/carousel.json'; // keep or replace
+  const INITIAL_INDEX = 2; // default starting index
 
-/* Loader (floating GD) */
-let pointer = { x: window.innerWidth/2, y: window.innerHeight/2 }, pos = { x: pointer.x, y: pointer.y }, rafId = null;
-const followEase = 0.16, loaderMargin = 28;
-function onPointerMove(e){ const ev = (e.touches && e.touches[0]) ? e.touches[0] : e; pointer.x = ev.clientX; pointer.y = ev.clientY; }
-window.addEventListener('mousemove', onPointerMove, { passive: true }); window.addEventListener('touchmove', onPointerMove, { passive: true });
-function animateLoader(){ pos.x += (pointer.x - pos.x) * followEase; pos.y += (pointer.y - pos.y) * followEase; const vw = window.innerWidth, vh = window.innerHeight; const x = Math.min(Math.max(pos.x, loaderMargin), vw - loaderMargin); const y = Math.min(Math.max(pos.y, loaderMargin), vh - loaderMargin); if(loaderEl){ loaderEl.style.left = x + 'px'; loaderEl.style.top = y + 'px'; } rafId = requestAnimationFrame(animateLoader); }
-function showLoader(){ if(!rafId) animateLoader(); if(loaderEl){ loaderEl.classList.add('loader-visible'); loaderEl.style.opacity='1'; } if(dimEl) dimEl.style.opacity='1'; }
-function hideLoader(){ if(loaderEl) loaderEl.style.opacity='0'; if(dimEl) dimEl.style.opacity='0'; if(loaderEl) loaderEl.classList.remove('loader-visible'); setTimeout(()=>{ if(rafId){ cancelAnimationFrame(rafId); rafId=null; } },320); }
-let pointerTimer=null; function ensureCenterOnIdle(){ clearTimeout(pointerTimer); pointerTimer = setTimeout(()=>{ pointer.x = window.innerWidth/2; pointer.y = window.innerHeight/2; },2200); }
-window.addEventListener('mousemove', ensureCenterOnIdle, { passive:true }); window.addEventListener('touchmove', ensureCenterOnIdle, { passive:true });
-window.showLoader = showLoader; window.hideLoader = hideLoader;
+  // FALLBACK: keep your FALLBACK data here or refer to existing variable (omitted for brevity)
+  const FALLBACK = window.CAROUSEL_FALLBACK || [];
 
-/* particles */
-const canvas = document.getElementById("bgCanvas"), ctx = canvas.getContext && canvas.getContext("2d");
-function fitCanvas(){ if(!canvas) return; canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-fitCanvas();
-let particles = [];
-if(ctx){ for(let i=0;i<90;i++){ particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,radius:1+Math.random()*2,dx:(Math.random()-.5)*.7,dy:(Math.random()-.5)*.7,opacity:Math.random(),twinkleSpeed:Math.random()*.02+.005}); } function animateParticles(){ ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p=>{ ctx.beginPath(); if(!document.body.classList.contains("light")){ p.opacity += p.twinkleSpeed * (Math.random()>0.5?1:-1); if(p.opacity>1)p.opacity=1; if(p.opacity<0.18)p.opacity=0.18; } else { p.opacity=0.35; } ctx.fillStyle=`rgba(255,255,255,${p.opacity})`; ctx.arc(p.x,p.y,p.radius,0,Math.PI*2); ctx.fill(); p.x+=p.dx; p.y+=p.dy; if(p.x<0||p.x>canvas.width)p.dx*=-1; if(p.y<0||p.y>canvas.height)p.dy*=-1; }); requestAnimationFrame(animateParticles); } animateParticles(); window.addEventListener("resize", fitCanvas); }
+  // ---- ELEMENTS ----
+  const container = document.querySelector('.carousel-track-container');
+  const track = document.querySelector('.carousel-track');
+  const prevBtn = document.querySelector('.arrow-btn.prev');
+  const nextBtn = document.querySelector('.arrow-btn.next');
+  const descriptionBox = document.querySelector('.carousel-description');
+  const carouselRoot = document.querySelector('.custom-carousel'); // wrapper
 
-/* SPA nav */
-document.addEventListener("DOMContentLoaded", () => { showLoader(); setTimeout(()=>hideLoader(),1200); });
-links.forEach(link => { link.addEventListener('click', e => { e.preventDefault(); const targetId = link.getAttribute('href'); showLoader(); links.forEach(l=>l.classList.remove('active')); link.classList.add('active'); pages.forEach(p => { if(p.classList.contains('active')){ p.style.opacity="0"; p.style.transform="translateY(20px)"; setTimeout(()=>p.classList.remove('active'),360); } }); setTimeout(()=>{ const targetPage = document.querySelector(targetId); targetPage.classList.add('active'); targetPage.style.opacity="1"; targetPage.style.transform="translateY(0)"; hideLoader(); },900 + Math.random()*700); }); });
-const menuToggle = document.getElementById("menu-toggle"); const navMenu = document.querySelector("nav ul"); if(menuToggle) menuToggle.addEventListener("click", ()=>navMenu.classList.toggle("show"));
-
-/* typewriter */
-const roles = ["UI/UX Developer","Frontend Engineer","Creative Coder"]; let roleIndex=0,charIndex=0; const typewriter = document.getElementById("typewriter");
-function type(){ if(!typewriter) return; if(charIndex < roles[roleIndex].length){ typewriter.textContent += roles[roleIndex].charAt(charIndex++); setTimeout(type,90); } else setTimeout(erase,1800); }
-function erase(){ if(!typewriter) return; if(charIndex>0){ typewriter.textContent = roles[roleIndex].substring(0,--charIndex); setTimeout(erase,40); } else { roleIndex=(roleIndex+1)%roles.length; setTimeout(type,400); } } type();
-
-/* case studies modal */
-const caseStudies = {
-  klp:{title:"KLP Lifestyle",problem:"E-commerce lacked responsive UI.",process:"Figma redesign + frontend build.",solution:"Delivered clean, mobile UI.",link:"https://klplifestyle.com/"},
-  fixifoot:{title:"Fixifoot",problem:"Showcase not engaging.",process:"Interactive grids + responsive design.",solution:"Better UX & conversions.",link:"https://fixifoot.ph/"},
-  cveez:{title:"Cveez",problem:"Needed sleek booking UX.",process:"Designed flows + coded frontend.",solution:"Modern booking platform.",link:"https://cveez.com/"},
-  other1:{title:"Other 1",problem:"Reusable UI components.",process:"Component library.",solution:"Faster builds.",link:"#"},
-  other2:{title:"Other 2",problem:"Landing optimization.",process:"A/B test + frontend.",solution:"Higher conversions.",link:"#"}
-};
-const modal = document.getElementById("case-study"); const closeBtn = modal && modal.querySelector(".close");
-function openCaseStudy(key){ const d = caseStudies[key]; if(!d) return; document.getElementById("case-title").textContent = d.title; document.getElementById("case-problem").textContent = "Problem: " + d.problem; document.getElementById("case-process").textContent = "Process: " + d.process; document.getElementById("case-solution").textContent = "Solution: " + d.solution; document.getElementById("case-link").href = d.link; modal.style.display = "flex"; setTimeout(()=>modal.classList.add("show"),18); }
-function closeCaseStudy(){ if(!modal) return; modal.classList.remove('show'); setTimeout(()=>{ modal.style.display = "none"; },260); }
-if(closeBtn) closeBtn.addEventListener("click", closeCaseStudy);
-window.addEventListener("click", e => { if(e.target === modal) closeCaseStudy(); });
-window.addEventListener("keydown", e => { if(e.key === "Escape") closeCaseStudy(); });
-
-/* view toggle: simple & reliable */
-function setProjectsView(mode){
-  if(mode === 'grid'){
-    carouselView.classList.add('hidden'); carouselView.classList.remove('active');
-    gridView.classList.remove('hidden'); gridView.classList.add('active');
-    btnCarousel && btnCarousel.setAttribute('aria-pressed','false');
-    btnGrid && btnGrid.setAttribute('aria-pressed','true');
-    localStorage.setItem('projectsView','grid');
-  } else {
-    carouselView.classList.remove('hidden'); carouselView.classList.add('active');
-    gridView.classList.add('hidden'); gridView.classList.remove('active');
-    btnCarousel && btnCarousel.setAttribute('aria-pressed','true');
-    btnGrid && btnGrid.setAttribute('aria-pressed','false');
-    localStorage.setItem('projectsView','carousel');
-    // after revealing carousel, re-center to stored index
-    setTimeout(()=>{
-      try{
-        const idx = parseInt(localStorage.getItem('carouselCenterIndex')||'0',10);
-        const items = carouselTrack ? Array.from(carouselTrack.querySelectorAll('.carousel-item')) : [];
-        const target = items[idx] || items[Math.floor(items.length/2)] || items[0];
-        if(target) centerItem(target,false);
-        setTimeout(updateActiveClasses,60);
-      }catch(e){}
-    },60);
-  }
-}
-const savedView = localStorage.getItem('projectsView') || 'carousel';
-setProjectsView(savedView);
-btnCarousel && btnCarousel.addEventListener('click', ()=> setProjectsView('carousel'));
-btnGrid && btnGrid.addEventListener('click', ()=> setProjectsView('grid'));
-
-/* CENTER-STAGE CAROUSEL (fixed click behavior + drag) */
-const carouselItems = carouselTrack ? Array.from(carouselTrack.querySelectorAll('.carousel-item')) : [];
-if(carouselTrack && carouselItems.length){
-  function centerItem(item, smooth=true){
-    const trackRect = carouselTrack.getBoundingClientRect();
-    const itemRect = item.getBoundingClientRect();
-    const trackScrollLeft = carouselTrack.scrollLeft;
-    const itemCenter = (itemRect.left - trackRect.left) + (itemRect.width/2);
-    const targetScroll = trackScrollLeft + itemCenter - (trackRect.width/2);
-    carouselTrack.scrollTo({ left: targetScroll, behavior: smooth ? 'smooth' : 'auto' });
-  }
-  function findCenteredItem(){
-    const trackRect = carouselTrack.getBoundingClientRect();
-    const trackCenterX = trackRect.left + trackRect.width/2;
-    let minDist = Infinity, closest = null;
-    carouselItems.forEach(it=>{
-      const r = it.getBoundingClientRect();
-      const itemCenter = r.left + r.width/2;
-      const dist = Math.abs(itemCenter - trackCenterX);
-      if(dist < minDist){ minDist = dist; closest = it; }
-    });
-    return closest;
-  }
-  function isItemCentered(item){
-    const trackRect = carouselTrack.getBoundingClientRect();
-    const r = item.getBoundingClientRect();
-    const itemCenter = r.left + r.width/2;
-    const trackCenterX = trackRect.left + trackRect.width/2;
-    const dist = Math.abs(itemCenter - trackCenterX);
-    // consider centered if within 35% of item width (tweakable)
-    return dist < (r.width * 0.35);
-  }
-  function updateActiveClasses(){
-    const active = findCenteredItem();
-    if(!active) return;
-    carouselItems.forEach(it => { it.classList.remove('active','sibling'); it.setAttribute('aria-selected','false'); });
-    active.classList.add('active'); active.setAttribute('aria-selected','true');
-    const idx = carouselItems.indexOf(active);
-    if(idx > 0) carouselItems[idx-1].classList.add('sibling');
-    if(idx < carouselItems.length-1) carouselItems[idx+1].classList.add('sibling');
+  if (!container || !track || !prevBtn || !nextBtn) {
+    console.warn('Carousel: missing DOM elements');
+    return;
   }
 
-  let ticking=false;
-  carouselTrack.addEventListener('scroll', ()=>{ if(!ticking){ window.requestAnimationFrame(()=>{ updateActiveClasses(); ticking=false; }); ticking=true; } }, { passive:true });
+  // Modal: create lightweight modal if not present
+  let modal = document.getElementById('carousel-modal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'carousel-modal';
+    modal.style.cssText = 'position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.6);z-index:9999;';
+    modal.innerHTML = `
+      <div role="dialog" aria-modal="true" style="max-width:820px;width:90%;background:#fff;border-radius:12px;padding:18px;position:relative;box-shadow:0 10px 40px rgba(0,0,0,.35);color:#111;">
+        <button aria-label="Close" id="carousel-modal-close" style="position:absolute;right:14px;top:10px;border:none;background:transparent;font-size:20px;cursor:pointer">✕</button>
+        <div id="carousel-modal-body" style="display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap;">
+          <img id="carousel-modal-img" src="" alt="" style="max-width:320px;width:100%;height:auto;border-radius:8px;object-fit:cover;">
+          <div style="flex:1;min-width:220px">
+            <h3 id="carousel-modal-title" style="margin:0 0 10px 0"></h3>
+            <div id="carousel-modal-desc" style="color:#333;line-height:1.45"></div>
+          </div>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
 
-  /* initial center = middle */
-  window.addEventListener('load', ()=>{
-    const middleIndex = Math.floor(carouselItems.length/2);
-    const startItem = carouselItems[middleIndex] || carouselItems[0];
-    centerItem(startItem,false);
-    setTimeout(updateActiveClasses,40);
-    localStorage.setItem('carouselCenterIndex', middleIndex);
-  });
+    // close handlers
+    const closeBtn = document.getElementById('carousel-modal-close');
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (ev) => { if (ev.target === modal) closeModal(); });
+    window.addEventListener('keydown', (ev) => { if (ev.key === 'Escape') closeModal(); });
+  }
 
-  /* CLICK behavior: improved center detection + open modal when truly centered */
-  carouselItems.forEach((it,i)=>{
-    it.addEventListener('click', (e)=>{
-      const isMobile = window.innerWidth < 900;
-      const centered = findCenteredItem();
-      const isActive = isItemCentered(it) || centered === it;
-      if(isMobile){
-        const key = it.dataset.key;
-        if(key) openCaseStudy(key);
-        return;
+  function openModal(data) {
+    // data: {img, alt, title, description}
+    if (!data) return;
+    const img = document.getElementById('carousel-modal-img');
+    const title = document.getElementById('carousel-modal-title');
+    const desc = document.getElementById('carousel-modal-desc');
+
+    img.src = data.img || '';
+    img.alt = data.alt || '';
+    title.textContent = data.title || '';
+    // set trusted HTML (only when API is trusted)
+    desc.innerHTML = data.description || '';
+
+    modal.style.display = 'flex';
+    // small entrance
+    requestAnimationFrame(() => { modal.style.opacity = 1; });
+  }
+
+  function closeModal() {
+    modal.style.opacity = 0;
+    setTimeout(() => modal.style.display = 'none', 180);
+  }
+
+  // ---- Carousel internals ----
+  let slides = [];
+  let currentIndex = 0;
+
+  function clamp(n, a, b) { return Math.max(a, Math.min(b, n)); }
+
+  function buildSlides(data) {
+    const frag = document.createDocumentFragment();
+    data.forEach(item => {
+      const slide = document.createElement('div');
+      slide.className = 'carousel-slide';
+      slide.dataset.description = item.description ? String(item.description) : '';
+      slide.dataset.img = item.img || '';
+      slide.dataset.alt = item.alt || '';
+      slide.dataset.title = item.title || '';
+
+      const img = document.createElement('img');
+      img.src = item.img || '';
+      img.alt = item.alt || '';
+
+      const p = document.createElement('p');
+      p.textContent = (item.title || '').trim();
+      if (!p.textContent) {
+        p.classList.add('hidden');
+        slide.classList.add('no-title');
       }
-      if(!isActive){
-        centerItem(it, true);
-        setTimeout(()=>{ updateActiveClasses(); localStorage.setItem('carouselCenterIndex', i); }, 260);
-      } else {
-        const key = it.dataset.key;
-        if(key) openCaseStudy(key);
-      }
+
+      slide.appendChild(img);
+      slide.appendChild(p);
+      frag.appendChild(slide);
     });
+
+    track.innerHTML = '';
+    track.appendChild(frag);
+    slides = Array.from(track.querySelectorAll('.carousel-slide'));
+
+    // click handler will either center or open modal when centered
+    slides.forEach((s, idx) => {
+      s.addEventListener('click', () => {
+        if (isSlideCentered(s)) {
+          // open modal using slide dataset
+          openModal({
+            img: s.dataset.img,
+            alt: s.dataset.alt,
+            title: s.dataset.title,
+            description: s.dataset.description
+          });
+        } else {
+          currentIndex = idx;
+          centerActive();
+        }
+      });
+
+      // make each slide focusable for keyboard users
+      s.tabIndex = 0;
+      s.addEventListener('keydown', (ev) => {
+        if (ev.key === 'Enter' || ev.key === ' ') {
+          ev.preventDefault();
+          s.click();
+        }
+      });
+    });
+  }
+
+  // compute and set transform to center currentIndex slide
+  function centerActive() {
+    if (!slides.length) return;
+
+    slides.forEach(s => s.classList.remove('active'));
+    const active = slides[currentIndex];
+    if (!active) return;
+    active.classList.add('active');
+
+    // compute desired translateX so active is centered inside container
+    const containerWidth = container.clientWidth;
+    const trackWidth = track.scrollWidth;
+    const targetCenter = active.offsetLeft + (active.offsetWidth / 2);
+    // desired translate so targetCenter becomes container center:
+    let translate = (containerWidth / 2) - targetCenter;
+
+    // clamp translate so we don't reveal blank edges
+    const maxTranslate = 0; // can't move right past 0
+    const minTranslate = Math.min(containerWidth - trackWidth, 0); // negative or 0
+    translate = clamp(translate, minTranslate, maxTranslate);
+
+    track.style.transform = `translateX(${translate}px)`;
+
+    updateButtons();
+    updateDescription();
+  }
+
+  function updateButtons() {
+    prevBtn.disabled = currentIndex === 0;
+    nextBtn.disabled = currentIndex === slides.length - 1;
+  }
+
+  function updateDescription() {
+    if (!slides[currentIndex]) return;
+    const desc = slides[currentIndex].dataset.description || '';
+    if (desc.trim()) {
+      descriptionBox.innerHTML = desc;
+      descriptionBox.classList.remove('hidden');
+    } else {
+      descriptionBox.innerHTML = '';
+      descriptionBox.classList.add('hidden');
+    }
+  }
+
+  function isSlideCentered(slideEl) {
+    if (!slideEl) return false;
+    const containerRect = container.getBoundingClientRect();
+    const slideRect = slideEl.getBoundingClientRect();
+    const slideCenter = slideRect.left + (slideRect.width / 2);
+    const containerCenter = containerRect.left + (containerRect.width / 2);
+    // Consider centered if distance < 40% of slide width (tweakable)
+    return Math.abs(slideCenter - containerCenter) < (slideRect.width * 0.4);
+  }
+
+  // ---- Data loader ----
+  async function loadData() {
+    if (Array.isArray(window.CAROUSEL_DATA)) return window.CAROUSEL_DATA;
+    try {
+      const res = await fetch(DATA_URL, { cache: 'no-store' });
+      if (!res.ok) throw new Error('Bad response');
+      const json = await res.json();
+      if (!Array.isArray(json)) throw new Error('JSON must be an array');
+      return json;
+    } catch (err) {
+      console.warn('Carousel: using fallback data. Reason:', err);
+      return FALLBACK.slice(); // clone
+    }
+  }
+
+  // ---- Init ----
+  const data = await loadData();
+  buildSlides(data || []);
+  currentIndex = clamp(INITIAL_INDEX, 0, Math.max(0, slides.length - 1));
+
+  prevBtn.addEventListener('click', () => {
+    if (currentIndex > 0) {
+      currentIndex--;
+      centerActive();
+    }
   });
 
-  /* prev/next */
-  if(prevBtn) prevBtn.addEventListener('click', ()=>{
-    const active = findCenteredItem(); if(!active) return;
-    const idx = carouselItems.indexOf(active);
-    const targetIndex = Math.max(0, idx-1);
-    centerItem(carouselItems[targetIndex], true);
-    localStorage.setItem('carouselCenterIndex', targetIndex);
-    setTimeout(updateActiveClasses, 180);
-  });
-  if(nextBtn) nextBtn.addEventListener('click', ()=>{
-    const active = findCenteredItem(); if(!active) return;
-    const idx = carouselItems.indexOf(active);
-    const targetIndex = Math.min(carouselItems.length-1, idx+1);
-    centerItem(carouselItems[targetIndex], true);
-    localStorage.setItem('carouselCenterIndex', targetIndex);
-    setTimeout(updateActiveClasses, 180);
+  nextBtn.addEventListener('click', () => {
+    if (currentIndex < slides.length - 1) {
+      currentIndex++;
+      centerActive();
+    }
   });
 
-  /* keyboard */
-  carouselTrack.addEventListener('keydown', (e)=>{ if(e.key==='ArrowRight') nextBtn && nextBtn.click(); if(e.key==='ArrowLeft') prevBtn && prevBtn.click(); });
+  // keyboard prev/next for accessibility
+  prevBtn.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); prevBtn.click(); } });
+  nextBtn.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); nextBtn.click(); } });
 
-  /* snap after scroll */
-  let scrollEndTimer = null;
-  carouselTrack.addEventListener('scroll', ()=>{
-    clearTimeout(scrollEndTimer);
-    scrollEndTimer = setTimeout(()=>{
-      const center = findCenteredItem();
-      if(center){ centerItem(center, true); updateActiveClasses(); const idx = carouselItems.indexOf(center); localStorage.setItem('carouselCenterIndex', idx); }
-    }, 80);
-  }, { passive:true });
-
-  /* resize */
-  window.addEventListener('resize', ()=>{
-    const active = findCenteredItem() || carouselItems[Math.floor(carouselItems.length/2)] || carouselItems[0];
-    centerItem(active, false);
-    setTimeout(updateActiveClasses, 60);
+  // keep centered on resize
+  window.addEventListener('resize', () => {
+    // small timeout to let layout settle
+    setTimeout(centerActive, 60);
   });
 
-  /* pointer drag (so scrollbar can be hidden) */
-  let isDown=false, startX=0, startScroll=0;
-  carouselTrack.addEventListener('pointerdown', (e)=>{
-    isDown=true; carouselTrack.setPointerCapture(e.pointerId); startX = e.clientX; startScroll = carouselTrack.scrollLeft; carouselTrack.style.cursor='grabbing';
-  });
-  carouselTrack.addEventListener('pointermove', (e)=>{
-    if(!isDown) return; e.preventDefault(); const dx = e.clientX - startX; carouselTrack.scrollLeft = startScroll - dx;
-  }, { passive:false });
-  const endDrag = (e)=>{ if(!isDown) return; isDown=false; try{ if(e && e.pointerId) carouselTrack.releasePointerCapture(e.pointerId);}catch{} carouselTrack.style.cursor='grab'; const center = findCenteredItem(); if(center) centerItem(center, true); };
-  carouselTrack.addEventListener('pointerup', endDrag); carouselTrack.addEventListener('pointercancel', endDrag); carouselTrack.addEventListener('pointerleave', endDrag);
-  carouselTrack.style.cursor='grab';
-}
+  // initial centering
+  setTimeout(centerActive, 40);
 
-/* theme toggle */
-const toggleBtn = document.getElementById("theme-toggle");
-if(toggleBtn) toggleBtn.addEventListener("click", ()=>{ document.body.classList.toggle("light"); toggleBtn.textContent = document.body.classList.contains("light") ? "🌞" : "🌙" });
+  // ---- Expose mode helper (game/list toggles) ----
+  // Use setCarouselMode('game') or setCarouselMode('list') to toggle visibility.
+  // This prevents the carousel showing when not in game mode.
+  window.setCarouselMode = function (mode) {
+    if (!carouselRoot) return;
+    if (mode === 'game') {
+      carouselRoot.style.display = ''; // show (fall back to CSS)
+    } else {
+      // hide carousel when not game mode; keep description hidden too
+      carouselRoot.style.display = 'none';
+      descriptionBox.classList.add('hidden');
+    }
+  };
 
+  // optionally set initial mode (if you keep a data attribute or localStorage)
+  // e.g. window.setCarouselMode(localStorage.getItem('carouselMode') || 'game');
+
+  // ---- Optional: click-to-drag (basic) ----
+  // This is a minimal draggable track to behave like a carousel scrollbar.
+  let isDown = false, startX = 0, startTranslate = 0;
+  track.addEventListener('pointerdown', (ev) => {
+    isDown = true;
+    track.setPointerCapture(ev.pointerId);
+    startX = ev.clientX;
+    // extract current translateX from transform
+    const m = getComputedStyle(track).transform.match(/matrix\\(([^)]+)\\)/);
+    startTranslate = 0;
+    if (m) {
+      const vals = m[1].split(',').map(v => parseFloat(v.trim()));
+      // matrix(a, b, c, d, tx, ty) -> tx is translateX
+      startTranslate = vals[4] || 0;
+    }
+    track.style.transition = 'none';
+  }, { passive: true });
+
+  track.addEventListener('pointermove', (ev) => {
+    if (!isDown) return;
+    const dx = ev.clientX - startX;
+    let next = startTranslate + dx;
+    // clamp to bounds
+    const trackWidth = track.scrollWidth;
+    const minTranslate = Math.min(container.clientWidth - trackWidth, 0);
+    const maxTranslate = 0;
+    next = clamp(next, minTranslate, maxTranslate);
+    track.style.transform = `translateX(${next}px)`;
+  }, { passive: true });
+
+  const endDrag = (ev) => {
+    if (!isDown) return;
+    isDown = false;
+    try { track.releasePointerCapture(ev && ev.pointerId); } catch (e) {}
+    track.style.transition = ''; // restore
+    // snap to closest slide
+    // find centered slide and set currentIndex
+    let bestIndex = 0, bestDist = Infinity;
+    const containerRect = container.getBoundingClientRect();
+    const containerCenterX = containerRect.left + (containerRect.width / 2);
+    slides.forEach((s, i) => {
+      const r = s.getBoundingClientRect();
+      const sCenter = r.left + (r.width / 2);
+      const d = Math.abs(sCenter - containerCenterX);
+      if (d < bestDist) { bestDist = d; bestIndex = i; }
+    });
+    currentIndex = bestIndex;
+    centerActive();
+  };
+  track.addEventListener('pointerup', endDrag);
+  track.addEventListener('pointercancel', endDrag);
+  track.addEventListener('pointerleave', endDrag);
+
+});
 </script>
+
 </body>
 </html>
