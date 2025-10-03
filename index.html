@@ -24,18 +24,18 @@ nav{display:flex;justify-content:space-between;align-items:center;gap:1rem}nav u
 .btn:hover{transform:scale(1.04)}
 .muted{color:rgba(255,255,255,.7);font-size:.95rem}
 
-/* ---------- Projects header + view toggle ---------- */
+/* Projects header + view toggle */
 .projects-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
 .view-toggle{display:flex;gap:8px}
 .view-btn{width:40px;height:40px;border-radius:8px;border:1px solid rgba(255,255,255,.06);background:transparent;color:var(--text);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center}
 .view-btn[aria-pressed="true"]{background:var(--accent);color:#071225;box-shadow:0 8px 18px rgba(0,0,0,.35);border-color:rgba(255,255,255,.08)}
 
-/* ---------- Grid view ---------- */
+/* Grid view */
 .project-grid{display:grid;gap:1.25rem;grid-template-columns:repeat(3,1fr)}@media (max-width:1024px){.project-grid{grid-template-columns:repeat(2,1fr)}}@media (max-width:720px){.project-grid{grid-template-columns:1fr}}
 .project-grid .project{padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.02);cursor:pointer;transition:transform .2s ease}
 .project-grid .project:hover{transform:translateY(-6px)}
 
-/* ---------- CAROUSEL (your original API-ready) ---------- */
+/* ---------- USER'S ORIGINAL CAROUSEL (CSS) ---------- */
 .custom-carousel{
   position:relative;
   max-width:1000px;
@@ -44,6 +44,7 @@ nav{display:flex;justify-content:space-between;align-items:center;gap:1rem}nav u
   align-items:center;
   justify-content:center;
 }
+
 .carousel-track-container{
   width:100%;
   min-height:303px;
@@ -53,13 +54,15 @@ nav{display:flex;justify-content:space-between;align-items:center;gap:1rem}nav u
   overflow:hidden;
   position:relative;
 }
+
 .carousel-track{
   display:flex;
   transition:transform .5s ease;
   will-change:transform;
   position: absolute;
-  left: 0;
+  left: -80px;
 }
+
 .carousel-slide{
   flex:0 0 auto;
   width:190px;
@@ -74,32 +77,87 @@ nav{display:flex;justify-content:space-between;align-items:center;gap:1rem}nav u
   flex-direction:column;
   cursor:pointer;
   border: 3px gray solid;
-  border-radius:8px;
 }
-.carousel-slide img{ width:100%; display:block; object-fit:cover; }
-.carousel-slide p{ background:#f5f5f5;margin:0;height:90px;padding:10px;font-size:14px;font-weight:600;color:#333;display:flex;align-items:center;justify-content:center }
-.carousel-slide p.hidden{display:none}
-.carousel-slide.no-title img{height:100%;object-fit:scale-down}
-.carousel-slide.no-title{flex-direction:row}
-.carousel-slide.active{ transform:scale(1.2); opacity:1; box-shadow:0 2px 6px rgba(0,0,0,0.1); z-index:2; margin:0 7px; }
-.arrow-btn{ position:absolute; top:50%; transform:translateY(-50%); background:#fff; border:none; width:44px; height:44px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; box-shadow:rgba(0,0,0,0.19) 0px 6px 8px; z-index:3; transition:background 0.2s ease; }
-.arrow-btn svg{ width:36px;height:36px; fill:#333 } .arrow-btn:hover{ background:#f0f0f0 }
-.arrow-btn.prev{ left:6px } .arrow-btn.next{ right:6px } .arrow-btn:disabled{ opacity:.3; cursor:not-allowed }
-.carousel-description{ max-width:800px; margin:20px auto 0; padding:15px; font-size:16px; color:#444; line-height:1.4; text-align:center; } .carousel-description.hidden{ display:none }
 
-/* ---------- Modal ---------- */
-.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);justify-content:center;align-items:center;z-index:6000;opacity:0;transition:opacity .25s ease}
-.modal.show{display:flex;opacity:1}
+.carousel-slide img{
+  width:100%;
+  object-fit:cover;
+}
+
+.carousel-slide p{
+    background: #f5f5f5;
+    margin: 0;
+    height: 90px;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+}
+
+.carousel-slide p.hidden { display:none; }
+.carousel-slide.no-title img { height:100%; object-fit:scale-down; }
+.carousel-slide.no-title { flex-direction:row; }
+
+.carousel-slide.active{
+  transform: scale(1.2);
+  opacity:1;
+  box-shadow:0 2px 6px rgba(0,0,0,0.1);
+  z-index:2;
+  margin: 0 7px;
+}
+
+/* Arrow buttons */
+.arrow-btn {
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  background:#fff;
+  border:none;
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  box-shadow:rgba(0,0,0,0.19) 0px 6px 8px;
+  z-index:3;
+  transition:background 0.2s ease;
+}
+
+.arrow-btn svg { width:36px; height:36px; fill:#333; }
+.arrow-btn:hover { background:#f0f0f0; }
+.arrow-btn.prev { left:6px; }
+.arrow-btn.next { right:6px; }
+.arrow-btn:disabled { opacity:.3; cursor:not-allowed; }
+
+.carousel-description{
+  max-width:800px;
+  margin:20px auto 0;
+  padding:15px;
+  font-size:16px;
+  color:#444;
+  line-height:1.4;
+  text-align:center;
+}
+.carousel-description.hidden { display:none; }
+
+/* Modal */
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);justify-content:center;align-items:center;z-index:6000;opacity:0;transition:opacity .25s ease}.modal.show{display:flex;opacity:1}
 .modal-content{max-width:720px;padding:2rem;border-radius:20px;background:var(--glass-bg);border:1px solid var(--glass-border);backdrop-filter:blur(15px);transform:translateY(0);opacity:1;position:relative}
 .close{position:absolute;top:12px;right:16px;font-size:1.4rem;cursor:pointer}
 
-/* ---------- Loader + Particles ---------- */
+/* Loader + Particles */
 #loader{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:7000;pointer-events:none;opacity:0;transition:opacity .28s ease}
 .loader-logo{width:84px;height:84px;border-radius:50%;background:var(--glass-bg);border:2px solid var(--glass-border);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--accent);font-size:1.15rem;backdrop-filter:blur(8px);box-shadow:0 8px 30px rgba(0,0,0,0.35);transition:transform .28s ease,box-shadow .28s ease}
 #dim{position:fixed;inset:0;background:rgba(0,0,0,0.28);z-index:6900;opacity:0;pointer-events:none;transition:opacity .28s ease}
 .loader-visible{opacity:1}
 
-/* ---------- Responsive ---------- */
+/* Responsive */
 @media (max-width:768px){nav ul{display:none}#menu-toggle{display:block} .project-grid{grid-template-columns:1fr}}
 @media (max-width:560px){ .carousel-slide{ width:150px } }
 
@@ -157,23 +215,27 @@ nav{display:flex;justify-content:space-between;align-items:center;gap:1rem}nav u
       </div>
     </div>
 
-    <!-- CAROUSEL VIEW (default) -->
+    <!-- USER'S ORIGINAL CAROUSEL MARKUP -->
     <div id="carouselView" class="custom-carousel" aria-hidden="false">
       <button class="arrow-btn prev" tabindex="0" aria-label="Previous">
-        <svg viewBox="0 0 256 512" aria-hidden="true"><path d="M31.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L127.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L201.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34z"></path></svg>
+        <svg viewBox="0 0 256 512" aria-hidden="true">
+          <path d="M31.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L127.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L201.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34z"></path>
+        </svg>
       </button>
 
       <div class="carousel-track-container">
-        <div class="carousel-track" role="listbox" aria-label="Project carousel"><!-- slides injected by JS --></div>
+        <div class="carousel-track"><!-- slides will be injected here --></div>
       </div>
 
       <button class="arrow-btn next" tabindex="0" aria-label="Next">
-        <svg viewBox="0 0 256 512" aria-hidden="true"><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9L128.1 256 31.7 159.6c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"></path></svg>
+        <svg viewBox="0 0 256 512" aria-hidden="true">
+          <path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9L128.1 256 31.7 159.6c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"></path>
+        </svg>
       </button>
     </div>
 
-    <!-- Description below carousel -->
-    <div class="carousel-description hidden" aria-hidden="true"></div>
+    <!-- Description -->
+    <div class="carousel-description"></div>
 
     <!-- GRID / CARD LIST VIEW -->
     <div id="gridView" class="project-grid" style="display:none;">
@@ -218,10 +280,8 @@ nav{display:flex;justify-content:space-between;align-items:center;gap:1rem}nav u
 
 <script>
 /* -------------------------
-   App JS: SPA + Loader + Particles
-   + Typewriter + Theme + Carousel (API-ready)
+   App JS: SPA + Loader + Particles + Typewriter + Theme
    ------------------------- */
-
 const links = document.querySelectorAll('.nav-link');
 const pages = document.querySelectorAll('.page');
 const loaderEl = document.getElementById('loader');
@@ -230,18 +290,12 @@ const btnCarousel = document.getElementById('btn-carousel');
 const btnGrid = document.getElementById('btn-grid');
 const carouselView = document.getElementById('carouselView');
 const gridView = document.getElementById('gridView');
-const carouselTrack = document.querySelector('.carousel-track');
-const prevBtn = document.querySelector('.arrow-btn.prev');
-const nextBtn = document.querySelector('.arrow-btn.next');
-const descriptionBox = document.querySelector('.carousel-description');
 const caseModal = document.getElementById('case-study');
 const closeBtn = caseModal.querySelector('.close');
 
-/* Loader helpers */
 function showLoader(){ loaderEl && (loaderEl.style.opacity = '1'); dimEl && (dimEl.style.opacity = '1'); }
 function hideLoader(){ loaderEl && (loaderEl.style.opacity = '0'); dimEl && (dimEl.style.opacity = '0'); }
 
-/* Particles canvas (simple) */
 const canvas = document.getElementById('bgCanvas');
 const ctx = canvas && canvas.getContext && canvas.getContext('2d');
 function fitCanvas(){ if(!canvas) return; canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
@@ -316,9 +370,7 @@ document.querySelectorAll('.project-grid .project').forEach(p => {
   p.addEventListener('click', ()=> openCaseStudy(p.dataset.key));
 });
 
-/* -------------------------
-   View toggle between carousel/grid
-   ------------------------- */
+/* View toggle between carousel/grid */
 function setProjectsView(mode){
   if(mode === 'grid'){
     carouselView.style.display = 'none';
@@ -332,7 +384,6 @@ function setProjectsView(mode){
     btnCarousel && btnCarousel.setAttribute('aria-pressed','true');
     btnGrid && btnGrid.setAttribute('aria-pressed','false');
     localStorage.setItem('projectsView','carousel');
-    // re-center later by calling centerActive inside carousel init
   }
 }
 const savedView = localStorage.getItem('projectsView') || 'carousel';
@@ -341,33 +392,81 @@ btnCarousel && btnCarousel.addEventListener('click', ()=> setProjectsView('carou
 btnGrid && btnGrid.addEventListener('click', ()=> setProjectsView('grid'));
 
 /* -------------------------
-   CAROUSEL: your API-ready implementation (integrated)
+   USER'S ORIGINAL CAROUSEL SCRIPT (unchanged)
    ------------------------- */
 document.addEventListener('DOMContentLoaded', async function () {
   // ---- CONFIG ----
-  const DATA_URL = '/path/to/your/carousel.json'; // replace with real endpoint if you have one
-  const INITIAL_INDEX = 2;
+  const DATA_URL = '/path/to/your/carousel.json'; // <-- replace with your API endpoint
+  const INITIAL_INDEX = 2; // default starting index (will clamp to range)
 
-  // FALLBACK data (copied from your example)
+  // Fallback data (used if fetch fails and no window.CAROUSEL_DATA is present)
   const FALLBACK = [
-    { img: "https://frontiertowersphilippines.com/wp-content/uploads/2025/08/1-1.png", alt: "Card 1", title: "Frontier Tree-Planting with EVSU and Tacloban Officials", description: "<h2 style='color:#b30000;margin-bottom:10px;'>Frontier Tree-Planting with EVSU and Tacloban Officials</h2><p>Frontier employees based in Leyte, Cebu, and Bohol volunteered with Eastern Visayas University in Tacloban and the Provincial Environment and Natural Resources (PENRO).</p>" },
-    { img: "https://frontiertowersphilippines.com/wp-content/uploads/2025/08/2.png", alt: "Card 2", title: "Frontier Brigada Eskwela Program", description: "<h2 style='color:#b30000;margin-bottom:10px;'>Frontier Brigada Eskwela Program</h2><p>An outreach program for the elementary students of Laurel, Batangas, that covers donation of school supplies and materials together with the LGU.</p>" },
-    { img: "https://frontiertowersphilippines.com/wp-content/uploads/2025/08/3.png", alt: "Card 3", title: "", description: "" },
-    { img: "https://frontiertowersphilippines.com/wp-content/uploads/2025/08/4.png", alt: "Card 4", title: "Libreng Gulay Partnership with GoodFood Community", description: "<h2 style='color:#b30000;margin-bottom:10px;'>Libreng Gulay Partnership with GoodFood Community</h2><p>Supports a community farm, helping local farmers in crop distribution, and, at the same time, promoting sustainable behavior among its employees with Libreng Gulay.</p>" },
-    { img: "https://frontiertowersphilippines.com/wp-content/uploads/2025/08/5.png", alt: "Card 5", title: "Project Flip in Baguio in 2022", description: "<h2 style='color:#b30000;margin-bottom:10px;'>Project Flip in Baguio in 2022</h2><p>As part of our Annual Conference in 2022, we volunteered for an outreach program and tutoring services for the children of Bancua, Dontogan led by BFLI (Breakfast Feeding for Learning Inc.).</p>" },
-    { img: "https://frontiertowersphilippines.com/wp-content/uploads/2025/08/6.png", alt: "Card 6", title: "Other Donations, Sponsorships, and Charitable Assistance", description: `<h2 style="color:#b30000; margin-bottom:10px;">Other Donations, Sponsorships, and Charitable Assistance</h2><p>Frontier also made and will continue to provide support to community development initiatives, immediate disaster relief operations to areas in need and charitable assistance to its existing and future recipient organizations and communities.</p>` }
+    {
+      img: "https://frontiertowersphilippines.com/wp-content/uploads/2025/08/1-1.png",
+      alt: "Card 1",
+      title: "Frontier Tree-Planting with EVSU and Tacloban Officials",
+      description: "<h2 style='color:#b30000;margin-bottom:10px;'>Frontier Tree-Planting with EVSU and Tacloban Officials</h2><p>Frontier employees based in Leyte, Cebu, and Bohol volunteered with Eastern Visayas University in Tacloban and the Provincial Environment and Natural Resources (PENRO).</p>"
+    },
+    {
+      img: "https://frontiertowersphilippines.com/wp-content/uploads/2025/08/2.png",
+      alt: "Card 2",
+      title: "Frontier Brigada Eskwela Program",
+      description: "<h2 style='color:#b30000;margin-bottom:10px;'>Frontier Brigada Eskwela Program</h2><p>An outreach program for the elementary students of Laurel, Batangas, that covers donation of school supplies and materials together with the LGU.</p>"
+    },
+    {
+      img: "https://frontiertowersphilippines.com/wp-content/uploads/2025/08/3.png",
+      alt: "Card 3",
+      title: "",
+      description: ""
+    },
+    {
+      img: "https://frontiertowersphilippines.com/wp-content/uploads/2025/08/4.png",
+      alt: "Card 4",
+      title: "Libreng Gulay Partnership with GoodFood Community",
+      description: "<h2 style='color:#b30000;margin-bottom:10px;'>Libreng Gulay Partnership with GoodFood Community</h2><p>Supports a community farm, helping local farmers in crop distribution, and, at the same time, promoting sustainable behavior among its employees with Libreng Gulay.</p>"
+    },
+    {
+      img: "https://frontiertowersphilippines.com/wp-content/uploads/2025/08/5.png",
+      alt: "Card 5",
+      title: "Project Flip in Baguio in 2022",
+      description: "<h2 style='color:#b30000;margin-bottom:10px;'>Project Flip in Baguio in 2022</h2><p>As part of our Annual Conference in 2022, we volunteered for an outreach program and tutoring services for the children of Bancua, Dontogan led by BFLI (Breakfast Feeding for Learning Inc.).</p>"
+    },
+    {
+      img: "https://frontiertowersphilippines.com/wp-content/uploads/2025/08/6.png",
+      alt: "Card 6",
+      title: "Other Donations, Sponsorships, and Charitable Assistance",
+      description: `
+        <h2 style="color:#b30000; margin-bottom:10px;">
+          Other Donations, Sponsorships, and Charitable Assistance
+        </h2>
+        <p>
+          Frontier also made and will continue to provide support to community development initiatives, immediate disaster relief operations to areas in need and charitable assistance to its existing and future recipient organizations and communities.
+        </p>
+        <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-top:15px;">
+          <img src="https://frontiertowersphilippines.com/wp-content/uploads/2025/08/1-2.png" alt="Logo1" style="height:60px;">
+          <img src="https://frontiertowersphilippines.com/wp-content/uploads/2025/08/2-1.png" alt="Logo2" style="height:60px;">
+          <img src="https://frontiertowersphilippines.com/wp-content/uploads/2025/08/3-1.png" alt="Logo3" style="height:60px;">
+          <img src="https://frontiertowersphilippines.com/wp-content/uploads/2025/08/4-1.png" alt="Logo4" style="height:60px;">
+          <img src="https://frontiertowersphilippines.com/wp-content/uploads/2025/08/5-1.png" alt="Logo4" style="height:60px;">
+          <img src="https://frontiertowersphilippines.com/wp-content/uploads/2025/08/6-1.png" alt="Logo4" style="height:60px;">
+          <img src="https://frontiertowersphilippines.com/wp-content/uploads/2025/08/7.png" alt="Logo4" style="height:60px;">
+        </div>
+      `
+    }
   ];
 
   // ---- ELEMENTS ----
   const container = document.querySelector('.carousel-track-container');
   const track = document.querySelector('.carousel-track');
-  const prev = document.querySelector('.arrow-btn.prev');
-  const next = document.querySelector('.arrow-btn.next');
-  const descBox = document.querySelector('.carousel-description');
+  const prevBtn = document.querySelector('.arrow-btn.prev');
+  const nextBtn = document.querySelector('.arrow-btn.next');
+  const descriptionBox = document.querySelector('.carousel-description');
 
   let slides = [];
   let currentIndex = 0;
+  let transformX = 0;
 
+  // ---- HELPERS ----
   function clamp(n, min, max) { return Math.max(min, Math.min(max, n)); }
 
   function buildSlides(data) {
@@ -376,9 +475,6 @@ document.addEventListener('DOMContentLoaded', async function () {
       const slide = document.createElement('div');
       slide.className = 'carousel-slide';
       slide.dataset.description = item.description ? String(item.description) : '';
-      slide.dataset.img = item.img || '';
-      slide.dataset.alt = item.alt || '';
-      slide.dataset.title = item.title || '';
 
       const img = document.createElement('img');
       img.src = item.img || '';
@@ -401,144 +497,88 @@ document.addEventListener('DOMContentLoaded', async function () {
     track.appendChild(frag);
     slides = Array.from(track.querySelectorAll('.carousel-slide'));
 
+    // Click to activate
     slides.forEach((slide, index) => {
       slide.addEventListener('click', () => {
-        // If slide is centered, open the case-study modal using dataset.title match
-        if (isSlideCentered(slide)) {
-          // try to find a key based on title matching (graceful)
-          const key = mapTitleToKey(slide.dataset.title);
-          if (key) openCaseStudy(key);
-          else {
-            // fallback: show description modal (simple)
-            if (slide.dataset.description && slide.dataset.description.trim()) {
-              descBox.innerHTML = slide.dataset.description;
-              descBox.classList.remove('hidden');
-            }
-          }
-        } else {
-          currentIndex = index;
-          centerActive();
-        }
+        currentIndex = index;
+        centerActive();
       });
-
-      slide.tabIndex = 0;
-      slide.addEventListener('keydown', (ev) => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); slide.click(); } });
     });
   }
 
   function updateButtons() {
-    prev.disabled = currentIndex === 0;
-    next.disabled = currentIndex === slides.length - 1;
+    prevBtn.disabled = currentIndex === 0;
+    nextBtn.disabled = currentIndex === slides.length - 1;
   }
 
   function updateDescription() {
-    const desc = (slides[currentIndex] && slides[currentIndex].dataset.description) || '';
+    const desc = slides[currentIndex].dataset.description || '';
     if (desc.trim()) {
-      descBox.innerHTML = desc;
-      descBox.classList.remove('hidden');
+      // Only safe if your API is trusted:
+      descriptionBox.innerHTML = desc;
+      descriptionBox.classList.remove('hidden');
     } else {
-      descBox.innerHTML = '';
-      descBox.classList.add('hidden');
+      descriptionBox.innerHTML = '';
+      descriptionBox.classList.add('hidden');
     }
   }
 
   function centerActive() {
     if (!slides.length) return;
-    slides.forEach(s=>s.classList.remove('active'));
-    const active = slides[currentIndex];
-    if (!active) return;
-    active.classList.add('active');
 
+    slides.forEach(s => s.classList.remove('active'));
+    slides[currentIndex].classList.add('active');
+
+    const active = slides[currentIndex];
     const containerWidth = container.clientWidth;
     const targetCenter = active.offsetLeft + (active.offsetWidth / 2);
-    let translate = (containerWidth / 2) - targetCenter;
-    const trackWidth = track.scrollWidth;
-    const maxTranslate = 0;
-    const minTranslate = Math.min(containerWidth - trackWidth, 0);
-    translate = clamp(translate, minTranslate, maxTranslate);
-    track.style.transform = `translateX(${translate}px)`;
+    const desired = -(targetCenter - (containerWidth / 2));
+
+    transformX = desired+79;
+    track.style.transform = `translateX(${transformX}px)`;
 
     updateButtons();
     updateDescription();
   }
 
-  function isSlideCentered(slideEl) {
-    if (!slideEl) return false;
-    const containerRect = container.getBoundingClientRect();
-    const slideRect = slideEl.getBoundingClientRect();
-    const slideCenter = slideRect.left + (slideRect.width / 2);
-    const containerCenter = containerRect.left + (containerRect.width / 2);
-    return Math.abs(slideCenter - containerCenter) < (slideRect.width * 0.35);
-  }
+  async function loadData() {
+    if (Array.isArray(window.CAROUSEL_DATA)) return window.CAROUSEL_DATA;
 
-  // helper to map title -> case key (so centered click opens your case modal)
-  function mapTitleToKey(title){
-    if(!title) return null;
-    const t = title.toLowerCase();
-    if(t.includes('klp')) return 'klp';
-    if(t.includes('fixifoot')) return 'fixifoot';
-    if(t.includes('cveez')) return 'cveez';
-    if(t.includes('other 1') || t.includes('other1')) return 'other1';
-    if(t.includes('other 2') || t.includes('other2')) return 'other2';
-    // try exact matching by titles in caseStudies
-    for(const k in caseStudies){ if(caseStudies[k].title && caseStudies[k].title.toLowerCase() === t) return k; }
-    return null;
-  }
-
-  async function loadData(){
-    if(Array.isArray(window.CAROUSEL_DATA)) return window.CAROUSEL_DATA;
-    try{
+    try {
       const res = await fetch(DATA_URL, { cache: 'no-store' });
-      if(!res.ok) throw new Error('Bad response');
+      if (!res.ok) throw new Error('Bad response');
       const json = await res.json();
-      if(!Array.isArray(json)) throw new Error('JSON must be an array');
+      if (!Array.isArray(json)) throw new Error('JSON must be an array');
       return json;
-    }catch(err){
+    } catch (err) {
       console.warn('Carousel: using fallback data. Reason:', err);
       return FALLBACK;
     }
   }
 
-  // init
+  // ---- INIT ----
   const data = await loadData();
   buildSlides(data);
   currentIndex = clamp(INITIAL_INDEX, 0, Math.max(0, slides.length - 1));
-  // prev/next wiring
-  prev.addEventListener('click', ()=>{ if(currentIndex>0){ currentIndex--; centerActive(); }});
-  next.addEventListener('click', ()=>{ if(currentIndex<slides.length-1){ currentIndex++; centerActive(); }});
-  window.addEventListener('resize', ()=> setTimeout(centerActive,60));
-  setTimeout(centerActive,60);
 
-  // basic drag support for the track (pointer)
-  let isDown=false, startX=0, startTranslate=0;
-  track.addEventListener('pointerdown',(e)=>{
-    isDown=true; track.setPointerCapture(e.pointerId); startX=e.clientX;
-    const m = getComputedStyle(track).transform.match(/matrix\\(([^)]+)\\)/);
-    startTranslate = m ? parseFloat(m[1].split(',')[4]) : 0;
-    track.style.transition = 'none';
-  }, { passive: true });
-  track.addEventListener('pointermove',(e)=>{
-    if(!isDown) return;
-    const dx = e.clientX - startX;
-    const trackWidth = track.scrollWidth; const minTranslate = Math.min(container.clientWidth - trackWidth, 0); const maxTranslate = 0;
-    let next = startTranslate + dx;
-    next = clamp(next, minTranslate, maxTranslate);
-    track.style.transform = `translateX(${next}px)`;
-  }, { passive: true });
-  const endDrag = (e)=>{ if(!isDown) return; isDown=false; try{ track.releasePointerCapture(e && e.pointerId);}catch{} track.style.transition=''; // snap nearest
-    let bestIndex=0, bestDist=Infinity; const containerRect = container.getBoundingClientRect(); const centerX = containerRect.left + (containerRect.width/2);
-    slides.forEach((s,i)=>{ const r=s.getBoundingClientRect(); const c=r.left + (r.width/2); const d=Math.abs(c-centerX); if(d<bestDist){bestDist=d;bestIndex=i;} });
-    currentIndex=bestIndex; centerActive();
-  };
-  track.addEventListener('pointerup', endDrag); track.addEventListener('pointercancel', endDrag); track.addEventListener('pointerleave', endDrag);
+  prevBtn.addEventListener('click', () => {
+    if (currentIndex > 0) {
+      currentIndex--;
+      centerActive();
+    }
+  });
 
-}); // end carousel DOMContentLoaded
+  nextBtn.addEventListener('click', () => {
+    if (currentIndex < slides.length - 1) {
+      currentIndex++;
+      centerActive();
+    }
+  });
 
-/* -------------------------
-   Small UX: close modal with overlay click or esc handled earlier
-   ------------------------- */
+  window.addEventListener('resize', centerActive);
 
-/* End of script */
+  centerActive();
+});
 </script>
 </body>
 </html>
