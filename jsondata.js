@@ -1,7 +1,7 @@
 const siteContent = {
     hero: {
     greeting: "Hello, I’m",
-    name: "Gen Deu",
+    name: "Deo",
     roles: ["UI/UX Developer","Frontend Engineer","Creative Coder"],
     cta: "See My Projects"
   },
