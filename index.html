@@ -204,48 +204,86 @@
 
   <!-- Skills page: now hosts the previous case studies carousel/grid (default design) -->
   <section id="skills" class="page">
-    <h2>Skills</h2>
-
-    <div class="projects-header">
-      <h3>Skills & Selected Work</h3>
-      <div class="view-toggle" role="tablist" aria-label="Skills view toggle">
-        <button id="btn-skills-carousel" class="view-btn" aria-pressed="true" title="Carousel view">🎮</button>
-        <button id="btn-skills-grid" class="view-btn" aria-pressed="false" title="Grid view">▦</button>
+    <h2 style="font-size:22px;font-weight:800;color:#00f2fe;margin-bottom:20px;">⚙️ Skills & Tools</h2>
+    <div class="skills-grid">
+      <!-- FRONTEND LANGUAGES -->
+      <div class="skill-card">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5">
+        <span>HTML5</span>
       </div>
-    </div>
-
-    <div id="skillsCarouselView" class="custom-carousel" aria-hidden="false">
-      <div class="carousel-wrap">
-        <button class="arrow left" id="skills-arrow-left" aria-label="Previous"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path></svg></button>
-        <div class="carousel" id="skillsCarousel" role="listbox" aria-label="Skills carousel"></div>
-        <button class="arrow right" id="skills-arrow-right" aria-label="Next"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"></path></svg></button>
+      <div class="skill-card">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3">
+        <span>CSS3</span>
       </div>
-    </div>
+      <div class="skill-card">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript">
+        <span>JavaScript</span>
+      </div>
+      <div class="skill-card">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" alt="Bootstrap">
+        <span>Bootstrap</span>
+      </div>
+      <div class="skill-card">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jquery/jquery-original.svg" alt="jQuery">
+        <span>jQuery</span>
+      </div>
 
-    <div id="skillsCarouselDetail" class="carousel-detail" aria-live="polite" style="display:none;"><h4 id="skills-detail-title"></h4><p id="skills-detail-short"></p></div>
+      <!-- BACKEND & FRAMEWORKS -->
+      <div class="skill-card">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="PHP">
+        <span>PHP</span>
+      </div>
+      <div class="skill-card">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL">
+        <span>MySQL</span>
+      </div>
+      <div class="skill-card">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="ReactJS">
+        <span>ReactJS</span>
+      </div>
+      <div class="skill-card">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg" alt="VueJS">
+        <span>VueJS</span>
+      </div>
+      <div class="skill-card">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-plain-wordmark.svg" alt="Laravel">
+        <span>Laravel</span>
+      </div>
 
-    <div id="skillsGridView" class="project-grid" style="display:none;margin-top:12px;">
-      <div class="card glass project" data-key="proj-portfolio"><h3>Portfolio Site</h3><p>Personal portfolio & case study</p></div>
-      <div class="card glass project" data-key="proj-redesign"><h3>Redesign Concept</h3><p>Website redesign case</p></div>
-      <div class="card glass project" data-key="proj-dashboard"><h3>Analytics Dashboard</h3><p>Data dashboard UI</p></div>
-      <div class="card glass project" data-key="proj-mobile"><h3>Mobile App</h3><p>Mobile UX flows</p></div>
-      <div class="card glass project" data-key="proj-ecom"><h3>E-commerce UI</h3><p>Product & checkout UX</p></div>
-      <div class="card glass project" data-key="proj-designsystem"><h3>Design System</h3><p>Component library</p></div>
-    </div>
+      <!-- PLATFORMS & CMS -->
+      <div class="skill-card">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wordpress/wordpress-original.svg" alt="WordPress">
+        <span>WordPress</span>
+      </div>
+      <div class="skill-card">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wix/wix-original.svg" alt="Wix">
+        <span>Wix</span>
+      </div>
+      <div class="skill-card">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dot-net/dot-net-original.svg" alt="ASP.NET">
+        <span>ASP.NET</span>
+      </div>
 
-    <!-- Modal for grid items (kept) -->
-    <div id="case-study" class="modal" aria-hidden="true">
-      <div class="modal-content" role="dialog" aria-modal="true">
-        <span class="close" title="Close modal">&times;</span>
-        <div class="modal-left">
-          <img id="modal-thumb" src="" alt="">
-          <div>
-            <h3 id="modal-title"></h3>
-            <p id="modal-role" class="muted"></p>
-            <div id="modal-body" style="margin-top:8px;line-height:1.45;"></div>
-            <p style="margin-top:12px;"><a id="modal-link" href="#" target="_blank" class="btn">View Live</a></p>
-          </div>
-        </div>
+      <!-- TOOLS -->
+      <div class="skill-card">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git">
+        <span>Git</span>
+      </div>
+      <div class="skill-card">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub">
+        <span>GitHub</span>
+      </div>
+      <div class="skill-card">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="VS Code">
+        <span>VS Code</span>
+      </div>
+      <div class="skill-card">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="Figma">
+        <span>Figma</span>
+      </div>
+      <div class="skill-card">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-line.svg" alt="Photoshop">
+        <span>Photoshop</span>
       </div>
     </div>
 
