@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Gen Deu Gagarin — Portfolio / CV</title>
+
+<!-- Google font -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg: #ffffff;
+    --panel: #f5f6f7;
+    --text: #222222;
+    --muted: #666c75;
+    --accent: #0b78c6; /* deep blue */
+    --dark: #1f2630;
+    --card: #ffffff;
+    --shadow: rgba(18, 26, 35, 0.06);
+    --radius: 10px;
+  }
+  html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background:var(--bg); color:var(--text);}
+  .wrap{max-width:1100px;margin:28px auto;padding:22px;}
+  .grid{
+    display:grid;
+    grid-template-columns:320px 1fr;
+    gap:22px;
+    align-items:start;
+  }
+
+  /* Sidebar */
+  .sidebar{
+    background:linear-gradient(180deg, #f8f9fb 0%, #ffffff 100%);
+    border-radius:var(--radius);
+    box-shadow:0 6px 20px var(--shadow);
+    padding:22px;
+  }
+  .photo{
+    width:110px;height:110px;border-radius:12px;overflow:hidden;margin:0 auto 12px auto;border:4px solid #fff;
+    box-shadow:0 6px 18px rgba(0,0,0,0.06);
+  }
+  .photo img{width:100%;height:100%;object-fit:cover;display:block}
+  .name{font-size:20px;font-weight:800;text-align:center;margin:8px 0 2px 0;color:var(--dark)}
+  .loc{font-size:13px;color:var(--muted);text-align:center;margin-bottom:8px}
+  .contact{font-size:13px;color:var(--muted);line-height:1.5;margin-top:6px;}
+  .contact b{color:var(--dark);font-weight:600}
+  .chip{display:inline-block;padding:6px 10px;border-radius:999px;background:#f2f6fb;color:var(--accent);font-weight:600;margin:6px 6px 6px 0;font-size:13px}
+
+  /* sidebar sections */
+  .section-title{display:flex;align-items:center;gap:8px;font-weight:700;color:var(--dark);margin:12px 0 8px 0}
+  .section{margin-bottom:12px;font-size:14px;color:var(--muted)}
+  .skill-list{display:flex;flex-wrap:wrap;gap:8px}
+  .skill-pill{background:#ffffff;border:1px solid #e6eefb;padding:6px 8px;border-radius:8px;font-size:13px;color:var(--dark)}
+
+  .two-col-table{display:grid;grid-template-columns:1fr; gap:8px}
+  @media(min-width:900px){ .two-col-table{grid-template-columns:1fr 1fr} }
+
+  /* Main content */
+  .card{
+    background:#ffffff;border-radius:var(--radius);box-shadow:0 6px 20px var(--shadow);padding:22px;
+  }
+  .headline{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .title{font-size:18px;font-weight:800;color:var(--dark)}
+  .role{font-size:13px;color:var(--accent);font-weight:700}
+  .summary{margin-top:12px;font-size:14px;color:var(--muted);line-height:1.6}
+
+  .achievements{display:grid;grid-template-columns:1fr;gap:8px;margin-top:16px}
+  .achievements li{margin-bottom:6px;color:var(--muted);line-height:1.5}
+
+  .exp-item{margin-top:18px}
+  .exp-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+  .exp-company{font-weight:700;color:var(--dark);font-size:15px}
+  .exp-role{color:var(--accent);font-weight:700;font-size:14px}
+  .exp-dates{color:var(--muted);font-size:13px}
+  .exp-bullets{margin-top:8px;padding-left:18px;color:var(--muted);line-height:1.6}
+  .exp-bullets li{margin-bottom:6px}
+
+  /* small helpers */
+  hr.sep{border:0;border-top:1px solid #eef2f6;margin:18px 0}
+  .meta{display:flex;gap:12px;align-items:center;font-size:13px;color:var(--muted)}
+  .icon{width:18px;height:18px;display:inline-block;vertical-align:middle;fill:var(--accent)}
+  .sub-icon{width:14px;height:14px;vertical-align:middle;margin-right:8px;fill:var(--muted)}
+
+  /* footer area of main */
+  .footer-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+  .cert-list,.edu-list{font-size:13px;color:var(--muted)}
+  .cert-list li{margin-bottom:8px}
+  .edu-list li{margin-bottom:6px}
+
+  /* responsive */
+  @media(max-width:900px){
+    .grid{grid-template-columns:1fr; padding:8px}
+    .sidebar{order:2}
+  }
+
+  /* small button for download */
+  .top-actions{display:flex;gap:8px;align-items:center}
+  .btn{
+    background:var(--accent);color:#fff;padding:8px 12px;border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;display:inline-flex;gap:8px;align-items:center
+  }
+  .btn.secondary{background:#f4f6f8;color:var(--dark);border:1px solid #e9eef6}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+    <div style="display:flex;gap:12px;align-items:center">
+      <div style="width:60px;height:60px;border-radius:10px;overflow:hidden;box-shadow:0 6px 20px rgba(0,0,0,0.06)">
+        <!-- photo file should be me.png in same folder -->
+        <img src="me.png" alt="Gen Deu Gagarin" style="width:60px;height:60px;object-fit:cover;display:block">
+      </div>
+      <div>
+        <div style="font-weight:800;font-size:20px;color:var(--dark)">GEN DEU GAGARIN</div>
+        <div style="font-size:13px;color:var(--muted)">Web Developer (UI/UX & Frontend Specialist)</div>
+      </div>
+    </div>
+
+    <div class="top-actions">
+      <a class="btn" href="#" id="downloadPdf"><svg class="icon" viewBox="0 0 24 24"><path d="M12 3v10"/></svg>Download PDF</a>
+      <a class="btn secondary" href="https://gendeu.github.io/gendeuportfolio" target="_blank">Portfolio</a>
+    </div>
+  </div>
+
+  <div class="grid">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="name">GEN DEU GAGARIN</div>
+      <div class="loc">San Jose City, Nueva Ecija, Philippines</div>
+
+      <div class="contact">
+        <div><b>Email:</b> gendeulgagarin@gmail.com</div>
+        <div><b>Phone:</b> +63 966 560 0602 / +63 961 775 9598</div>
+        <div><b>LinkedIn:</b> www.linkedin.com/in/gen-deu-gagarin-169a00193</div>
+        <div><b>Portfolio:</b> gendeu.github.io/gendeuportfolio</div>
+      </div>
+
+      <hr class="sep">
+
+      <div class="section">
+        <div class="section-title"><svg class="sub-icon" viewBox="0 0 24 24"><path d="M12 2 L12 22"/></svg><span style="font-weight:700;color:var(--dark)">⚙ Core Expertise</span></div>
+
+        <div style="margin-top:8px;font-weight:700;color:var(--dark)">✪ Expertise</div>
+        <div style="margin:8px 0 12px 0;font-size:13px;color:var(--muted)">
+          WordPress, Wix, Bootstrap<br>HTML, CSS, JavaScript<br>PHP, REST APIs, JSON, AJAX, jQuery, XML, MySQL<br>OutSystems
+        </div>
+
+        <div style="font-weight:700;color:var(--dark)">◇ Minor Experience</div>
+        <div style="margin:8px 0 12px 0;font-size:13px;color:var(--muted)">
+          ReactJS, React Native, Laravel + VueJS, Ionic + VueJS<br>NodeJS, VB.NET, Microsoft Azure, CoreMedia, MS SharePoint
+        </div>
+
+        <div style="font-weight:700;color:var(--dark)">🛠 Most Used Tools</div>
+        <div style="margin:8px 0 12px 0;font-size:13px;color:var(--muted)">
+          Git, GitHub, VS Code, Visual Studio, Postman, DBeaver, Apache, FileZilla, PuTTY, BrowserStack<br>Figma, Adobe Photoshop, Illustrator, Lightroom, PowerDirector
+        </div>
+
+        <div style="font-weight:700;color:var(--dark)">🧭 Methods</div>
+        <div style="font-size:13px;color:var(--muted);margin:8px 0 12px 0">Scrum (Agile), Waterfall</div>
+
+        <div style="font-weight:700;color:var(--dark)">📘 Basic Knowledge</div>
+        <div style="font-size:13px;color:var(--muted);margin-top:8px">
+          ExpressJS, Java, C++, C#, Python + Django, PostgreSQL, SQLite, MongoDB, GeneXus, AWS
+        </div>
+      </div>
+
+      <hr class="sep">
+
+      <div class="section">
+        <div class="section-title"><svg class="sub-icon" viewBox="0 0 24 24"><path d="M12 2 L12 22"/></svg><span style="font-weight:700;color:var(--dark)">🎓 Education</span></div>
+        <div class="edu-list">
+          <div style="font-weight:700;color:var(--dark)">Bachelor of Science in Information Technology</div>
+          <div style="font-size:13px;color:var(--muted)">Central Luzon State University, Science City of Muñoz — Graduated: 2018</div>
+        </div>
+      </div>
+
+      <hr class="sep">
+
+      <div class="section">
+        <div class="section-title"><svg class="sub-icon" viewBox="0 0 24 24"><path d="M12 2 L12 22"/></svg><span style="font-weight:700;color:var(--dark)">📜 Certifications</span></div>
+
+        <ul class="cert-list" style="list-style:none;padding-left:0">
+          <li><b>Reactive Web Application — OutSystems</b><br><small style="color:var(--muted)">Credential ID: 0000000099281149 • June 12, 2022</small></li>
+          <li style="margin-top:8px"><b>Web & Mobile Designer: UI/UX & Figma</b><br><small style="color:var(--muted)">Certificate of Completion • Feb 23, 2024</small></li>
+          <li style="margin-top:8px"><b>Network Fundamentals — Microsoft Virtual Academy</b><br><small style="color:var(--muted)">Cert. of Completion • Sept 19, 2016</small></li>
+          <li style="margin-top:8px"><b>Civil Service Professional Eligibility (Passer)</b><br><small style="color:var(--muted)">Exam: Mar 26, 2023 • Results: Jun 9, 2023</small></li>
+        </ul>
+      </div>
+
+      <hr class="sep">
+
+      <div class="section">
+        <div class="section-title"><svg class="sub-icon" viewBox="0 0 24 24"><path d="M12 2 L12 22"/></svg><span style="font-weight:700;color:var(--dark)">🎤 Seminars & Training</span></div>
+        <ul style="list-style:none;padding-left:0;color:var(--muted);font-size:13px">
+          <li><b>OutSystems Bootcamp (Emids)</b> — 2022</li>
+          <li style="margin-top:6px"><b>Youth for IT Seminar</b> — DMX Convention Center, Pasay City (Nov 23, 2016)</li>
+          <li style="margin-top:6px"><b>Jobs Clinic Seminar</b> — CLSU (Feb 2, 2018)</li>
+          <li style="margin-top:6px"><b>Imagine Camp</b> — CLSU (Feb 12, 2015)</li>
+        </ul>
+      </div>
+
+    </aside>
+
+    <!-- MAIN COLUMN -->
+    <main class="card">
+      <div class="headline">
+        <div>
+          <div class="title">Web Developer (UI/UX & Frontend Specialist)</div>
+          <div class="role">7+ years • Frontend & UI/UX • OutSystems</div>
+        </div>
+        <div class="meta">
+          <div style="display:flex;align-items:center;gap:8px"><svg class="sub-icon" viewBox="0 0 24 24"><path d="M12 2 L12 22"/></svg>Updated: 2025</div>
+        </div>
+      </div>
+
+      <p class="summary">
+        Web Developer with 7+ years of experience in building responsive, scalable, and user-focused websites and applications. Expert in WordPress, Wix, Bootstrap, HTML, CSS, JavaScript, PHP, REST APIs, JSON, AJAX, jQuery, XML, MySQL, and OutSystems, with proven ability to transform UI/UX designs into pixel-perfect, high-performing front-end solutions. Experienced in collaborating with designers and cross-functional teams to deliver seamless platforms for e-commerce, SaaS, sustainability, and enterprise industries.
+      </p>
+
+      <hr class="sep">
+
+      <div>
+        <div class="section-title"><svg class="sub-icon" viewBox="0 0 24 24"><path d="M12 2 L12 22"/></svg><span style="font-weight:700;color:var(--dark)">⭐ Key Achievements</span></div>
+        <ul class="achievements">
+          <li>Delivered 15+ production websites and enterprise applications across industries including e-commerce, SaaS, gaming, and sustainability.</li>
+          <li>Recognized for improving platform performance and user experience, achieving faster load times and higher engagement.</li>
+          <li>Supported enterprise-level projects under tight deadlines, consistently meeting client requirements and quality standards.</li>
+          <li>Contributed to both web and mobile solutions for corporate and consumer-facing platforms, enhancing usability and accessibility.</li>
+          <li>Converted mockups and prototypes into responsive, production-ready interfaces that enhance user experience.</li>
+        </ul>
+      </div>
+
+      <hr class="sep">
+
+      <div>
+        <div class="section-title"><svg class="sub-icon" viewBox="0 0 24 24"><path d="M12 2 L12 22"/></svg><span style="font-weight:700;color:var(--dark)">💼 Work Experience</span></div>
+
+        <!-- FTAP -->
+        <div class="exp-item">
+          <div class="exp-head">
+            <div>
+              <div class="exp-role">Web UI Specialist / Consultant (Project-Based)</div>
+              <div class="exp-company">Frontier Towers Associates Philippines — BGC, Taguig City</div>
+            </div>
+            <div class="exp-dates">Jan 2025 – Present</div>
+          </div>
+          <ul class="exp-bullets">
+            <li>Led UI/UX implementation for Sentient Website, FTAP Events Website, and FTAP Main Website.</li>
+            <li>Developed responsive, scalable interfaces in Wix and WordPress, ensuring cross-browser compatibility.</li>
+            <li>Integrated REST APIs and dynamic content using PHP backend with ACF (Advanced Custom Fields).</li>
+            <li>Collaborated with UI/UX designers to translate Figma/Adobe XD prototypes into production-ready applications.</li>
+            <li>Consulted on system workflows and user journey improvements, ensuring seamless client-facing experiences.</li>
+          </ul>
+        </div>
+
+        <!-- ADEC -->
+        <div class="exp-item">
+          <div class="exp-head">
+            <div>
+              <div class="exp-role">UI/UX Developer III</div>
+              <div class="exp-company">ADEC Innovations Inc. — Muntinlupa City</div>
+            </div>
+            <div class="exp-dates">Aug 2022 – Jan 2025</div>
+          </div>
+          <ul class="exp-bullets">
+            <li>Delivered UI development and support for RBA, ZDHC Gateway, and SiteRisk WebApp (ASP.NET + Bootstrap).</li>
+            <li>Contributed to WordPress-based corporate sites and maintained dynamic dashboards using AJAX, jQuery, and REST APIs.</li>
+            <li>Optimized front-end performance and converted mockups/prototypes into production-ready interfaces.</li>
+          </ul>
+        </div>
+
+        <!-- Emids -->
+        <div class="exp-item">
+          <div class="exp-head">
+            <div>
+              <div class="exp-role">Mid Software Developer</div>
+              <div class="exp-company">Emids — BGC, Taguig City</div>
+            </div>
+            <div class="exp-dates">May 2022 – Aug 2022</div>
+          </div>
+          <ul class="exp-bullets">
+            <li>Specialized in OutSystems; supported complex global healthcare projects as additional resource.</li>
+            <li>Earned OutSystems Reactive Web Developer international certification during tenure.</li>
+          </ul>
+        </div>
+
+        <!-- Emerson -->
+        <div class="exp-item">
+          <div class="exp-head">
+            <div>
+              <div class="exp-role">Web Administrator II</div>
+              <div class="exp-company">Emerson Electric Co. — Quezon City</div>
+            </div>
+            <div class="exp-dates">Oct 2021 – May 2022</div>
+          </div>
+          <ul class="exp-bullets">
+            <li>Administered and enhanced corporate websites using CoreMedia and MS SharePoint.</li>
+            <li>Supported UI features in Emerson’s Brewery App (ReactJS) used in food & beverage automation.</li>
+            <li>Migrated and optimized content templates for better UX/UI, coordinated localized features.</li>
+          </ul>
+        </div>
+
+        <!-- KLP -->
+        <div class="exp-item">
+          <div class="exp-head">
+            <div>
+              <div class="exp-role">Mid Front-End Developer</div>
+              <div class="exp-company">KLP Group Lifestyle PH Inc. — Taguig City</div>
+            </div>
+            <div class="exp-dates">Feb 2021 – Sep 2021</div>
+          </div>
+          <ul class="exp-bullets">
+            <li>Maintained and enhanced e-commerce sites (KLP Beauty Deals, KLP Lifestyle).</li>
+            <li>Collaborated with backend developers to implement APIs and CMS using Laravel + VueJS.</li>
+            <li>Developed mobile kiosk apps using Ionic + VueJS and React Native for nationwide mall stores.</li>
+          </ul>
+        </div>
+
+        <!-- JADE -->
+        <div class="exp-item">
+          <div class="exp-head">
+            <div>
+              <div class="exp-role">Associate Software Engineer</div>
+              <div class="exp-company">Jade Entertainment & Gaming Technologies (JADE)</div>
+            </div>
+            <div class="exp-dates">Sep 2018 – Jan 2021</div>
+          </div>
+          <ul class="exp-bullets">
+            <li>Assigned as HTML Developer at Okada Manila for live Sportsbet large-screen displays.</li>
+            <li>Built high-performance gaming templates (HTML/CSS/JS/jQuery) powered by real-time JSON APIs.</li>
+            <li>Contributed to JadeSportsBet (ReactJS) and rebuilt corporate site with Bootstrap.</li>
+            <li>Provided software/hardware support for monitors, kiosks, servers, and large displays.</li>
+          </ul>
+        </div>
+
+        <!-- Integramme -->
+        <div class="exp-item">
+          <div class="exp-head">
+            <div>
+              <div class="exp-role">Junior Programmer (Project-Based)</div>
+              <div class="exp-company">Integramme Co. Ltd — Makati City</div>
+            </div>
+            <div class="exp-dates">Mar 2018 – Sep 2018</div>
+          </div>
+          <ul class="exp-bullets">
+            <li>Contributed to Landbank Procurement Management System (PMS), KAKLAZE Enrollment System, and a Car Rental System.</li>
+          </ul>
+        </div>
+
+        <!-- SAJELCO -->
+        <div class="exp-item">
+          <div class="exp-head">
+            <div>
+              <div class="exp-role">IT Programmer Intern</div>
+              <div class="exp-company">San Jose City Electric Cooperative (SAJELCO) — Nueva Ecija</div>
+            </div>
+            <div class="exp-dates">Aug 2017 – Nov 2017</div>
+          </div>
+          <ul class="exp-bullets">
+            <li>Supported development of SAJELCO website and internal SAJELCO System (posting, chat, video conferencing).</li>
+            <li>Created a Local Mailing System enabling employees to share files across the local server without internet or flash drives.</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-grid">
+        <div>
+          <div class="section-title"><svg class="sub-icon" viewBox="0 0 24 24"><path d="M12 2 L12 22"/></svg><span style="font-weight:700;color:var(--dark)">🎓 Education</span></div>
+          <div class="edu-list">
+            <div style="font-weight:700;color:var(--dark)">Bachelor of Science in Information Technology</div>
+            <div style="font-size:13px;color:var(--muted)">Central Luzon State University — Graduated: 2018</div>
+          </div>
+        </div>
+
+        <div>
+          <div class="section-title"><svg class="sub-icon" viewBox="0 0 24 24"><path d="M12 2 L12 22"/></svg><span style="font-weight:700;color:var(--dark)">📜 Certifications</span></div>
+
+          <ul class="cert-list">
+            <li><b>Reactive Web Application — OutSystems</b><br><small style="color:var(--muted)">Credential ID: 0000000099281149 • June 12, 2022</small></li>
+            <li style="margin-top:8px"><b>Web & Mobile Designer: UI/UX & Figma</b><br><small style="color:var(--muted)">Certificate • Feb 23, 2024</small></li>
+            <li style="margin-top:8px"><b>Network Fundamentals — Microsoft Virtual Academy</b><br><small style="color:var(--muted)">Sept 19, 2016</small></li>
+            <li style="margin-top:8px"><b>Civil Service Professional Eligibility (Passer)</b><br><small style="color:var(--muted)">Exam: Mar 26, 2023 • Results: Jun 9, 2023</small></li>
+          </ul>
+        </div>
+
+      </div>
+
+    </main>
+  </div>
+
+  <div style="text-align:center;margin-top:14px;color:var(--muted);font-size:13px">© Gen Deu Gagarin — Resume & Portfolio (2025)</div>
+</div>
+
+<!-- Minimal JS: download as PDF (client side) -->
+<script>
+  // Simple PDF download using print() as fallback.
+  document.getElementById('downloadPdf').addEventListener('click', function(e){
+    e.preventDefault();
+    // Try to use print with landscape friendly scale — user can print to PDF
+    window.print();
+  });
+</script>
+</body>
+</html>
