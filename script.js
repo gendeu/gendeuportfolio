@@ -31,16 +31,16 @@ function initSPA() {
 }
 
 /* Load CV.html dynamically */
-// async function loadCV() {
-//   const container = qs('#cv-container');
-//   try {
-//     const res = await fetch('CV.html');
-//     const html = await res.text();
-//     container.innerHTML = html;
-//   } catch {
-//     container.innerHTML = "<p>Unable to load CV at the moment.</p>";
-//   }
-// }
+async function loadCV() {
+  const container = qs('#cv-container');
+  try {
+    const res = await fetch('CV.html');
+    const html = await res.text();
+    container.innerHTML = html;
+  } catch {
+    container.innerHTML = "<p>Unable to load CV at the moment.</p>";
+  }
+}
 
 /* Theme Toggle */
 function initThemeToggle() {
@@ -180,7 +180,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initMobileMenu();
   initThemeToggle();
   initTypewriter();
-  loadCV();
   loadProjects();
   loadSkills();
   initFloatingNav();
