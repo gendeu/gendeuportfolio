@@ -383,3 +383,40 @@ nav .actions .cta:hover {
   .uix1-root .uix1-controls { width:100%; justify-content:space-between; padding:0 15px 20px; }
   .uix1-root .uix1-nav-btn { position:static; transform:none; }
 }
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 18px;
+  }
+  .skill-card {
+    background: #ffffff;
+    border: 1px solid #e5e8ec;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    padding: 18px 10px;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+  .skill-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 18px rgba(11,120,198,0.25);
+  }
+  .skill-card img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    margin-bottom: 8px;
+  }
+  .skill-card span {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #1f2630;
+  }
+  @media (prefers-color-scheme: dark) {
+    .skill-card {
+      background: #1f2630;
+      border: 1px solid #2c3540;
+    }
+    .skill-card span { color: #e5e9f0; }
+  }
