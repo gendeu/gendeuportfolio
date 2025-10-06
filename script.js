@@ -4,10 +4,7 @@ const qsa = (s, root=document) => Array.from(root.querySelectorAll(s));
 /* === GD Loader: hide when window fully loads === */
 window.addEventListener('load', () => {
   const loader = qs('#loader');
-  if (loader) {
-    // short delay so the loader is visible briefly even on very fast loads
-    setTimeout(() => loader.classList.add('hidden'), 600);
-  }
+  if (loader) setTimeout(() => loader.classList.add('hidden'), 600);
 });
 
 /* SPA Navigation */
@@ -26,7 +23,6 @@ function initSPA() {
 
       links.forEach(l => l.classList.remove('active'));
       link.classList.add('active');
-
       pages.forEach(p => p.classList.remove('active'));
       target.classList.add('active');
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -34,14 +30,14 @@ function initSPA() {
   });
 }
 
-/* Load CV.html dynamically (keeps original behavior) */
+/* Load CV.html dynamically */
 async function loadCV() {
   const container = qs('#cv-container');
   try {
     const res = await fetch('CV.html');
     const html = await res.text();
     container.innerHTML = html;
-  } catch (e) {
+  } catch {
     container.innerHTML = "<p>Unable to load CV at the moment.</p>";
   }
 }
@@ -64,13 +60,25 @@ function initThemeToggle() {
   });
 }
 
-/* Hamburger */
+/* Mobile Nav */
 function initMobileMenu() {
   const toggle = qs('#menu-toggle');
   const menu = qs('nav ul');
   if (!toggle || !menu) return;
   toggle.addEventListener('click', () => menu.classList.toggle('show'));
-  qsa('nav ul li a').forEach(a => a.addEventListener('click', () => menu.classList.remove('show')));
+  qsa('nav ul li a').forEach(a =>
+    a.addEventListener('click', () => menu.classList.remove('show'))
+  );
+}
+
+/* Floating Navbar on Scroll */
+function initFloatingNav() {
+  const header = qs('.nav-glass');
+  if (!header) return;
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) header.classList.add('floating');
+    else header.classList.remove('floating');
+  });
 }
 
 /* Typewriter */
@@ -87,7 +95,7 @@ function initTypewriter() {
   }, 120);
 }
 
-/* Projects + Modal (thumbnails + fallback) */
+/* Projects + Modal (centered + scroll lock) */
 function loadProjects() {
   const grid = qs('#projects-grid');
   const modal = qs('#project-modal');
@@ -96,13 +104,13 @@ function loadProjects() {
   const modalLink = qs('#modal-link');
   const modalImg = qs('#modal-img');
   const close = qs('.close');
-
+  const html = document.documentElement;
+  const body = document.body;
   if (!grid || !modal) return;
 
   const placeholder = "https://via.placeholder.com/720x420?text=Project+Preview";
 
   siteContent.caseStudies.forEach(p => {
-    // create safe slug: "FTAP (Frontier...)" -> "ftap-frontier-towers-associates-philippines"
     const slug = p.title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '');
     const imgSrc = `images/projects/${slug}.jpg`;
 
@@ -122,36 +130,31 @@ function loadProjects() {
       modalDesc.textContent = p.desc;
       modalLink.href = p.link || '#';
       modalImg.src = imgSrc;
-      modalImg.onerror = () => modalImg.src = placeholder;
-      // mark shown for accessibility
-      modal.setAttribute('aria-hidden', 'false');
+      modalImg.onerror = () => (modalImg.src = placeholder);
+      html.classList.add('modal-open');
+      body.classList.add('modal-open');
     });
 
     grid.appendChild(card);
   });
 
-  // close handlers
-  if (close) {
-    close.addEventListener('click', () => {
-      modal.classList.remove('show');
-      modal.setAttribute('aria-hidden', 'true');
-    });
-  }
-  modal.addEventListener('click', e => { if (e.target === modal) { modal.classList.remove('show'); modal.setAttribute('aria-hidden', 'true'); } });
+  const closeModal = () => {
+    modal.classList.remove('show');
+    html.classList.remove('modal-open');
+    body.classList.remove('modal-open');
+  };
+
+  if (close) close.addEventListener('click', closeModal);
+  modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 }
 
-/* Skills (use jsondata.js siteContent.skills and fallback on error) */
+/* Skills Section */
 function loadSkills() {
   const grid = qs('#skills-grid');
   if (!grid) return;
   const fallback = "https://via.placeholder.com/64?text=?";
-
-  // prefer siteContent.skills if available (more authoritative)
-  const skills = Array.isArray(siteContent.skills) ? siteContent.skills : [
-    { img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg", name:"HTML5" },
-    { img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg", name:"CSS3" }
-  ];
-
+  const skills = Array.isArray(siteContent.skills) ? siteContent.skills : [];
   skills.forEach(s => {
     const card = document.createElement('div');
     card.className = 'skill-card';
@@ -163,34 +166,21 @@ function loadSkills() {
   });
 }
 
+/* Loader fallback */
+window.addEventListener("load", hideLoaderSafely);
+setTimeout(hideLoaderSafely, 3500);
+function hideLoaderSafely() {
+  const loader = document.getElementById("loader");
+  if (loader && !loader.classList.contains("hidden")) loader.classList.add("hidden");
+}
+
 /* Initialize */
 document.addEventListener('DOMContentLoaded', () => {
   initSPA();
   initMobileMenu();
   initThemeToggle();
   initTypewriter();
-  loadCV();
   loadProjects();
   loadSkills();
+  initFloatingNav();
 });
-// --- Safety timeout for loader in case window.load never fires ---
-window.addEventListener("load", hideLoaderSafely);
-setTimeout(hideLoaderSafely, 3500); // force hide after 3.5s
-
-function hideLoaderSafely() {
-  const loader = document.getElementById("loader");
-  if (loader && !loader.classList.contains("hidden")) {
-    loader.classList.add("hidden");
-  }
-}
-
-
-// === GD Loader Mouse Movement ===
-const loaderLogo = document.getElementById("loader-logo");
-if (loaderLogo) {
-  document.addEventListener("mousemove", (e) => {
-    const x = (window.innerWidth / 2 - e.clientX) / 25;
-    const y = (window.innerHeight / 2 - e.clientY) / 25;
-    loaderLogo.style.transform = `translate(${x}px, ${y}px)`;
-  });
-}
