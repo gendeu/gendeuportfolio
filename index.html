@@ -20,11 +20,14 @@
   <!-- Navbar -->
   <header>
     <nav class="nav-glass">
-      <h1 class="logo">GenDeu</h1>
+      <h1 class="logo hover-show-about"
+          onmouseover="showCard()" 
+          onmouseout="hideCard()">GenDeu</h1>
       <div id="menu-toggle">☰</div>
       <ul>
         <li><a href="#home" class="nav-link active">Home</a></li>
-        <li><a href="#about" class="nav-link">About</a></li>
+        <!-- <li><a href="#about" class="nav-link">About</a></li> -->
+        <li><a href="#roadmap" class="nav-link">Career Roadmap</a></li>
         <li><a href="#projects" class="nav-link">Case Studies</a></li>
         <li><a href="#skills" class="nav-link">Skills</a></li>
         <li><a href="#contact" class="nav-link">Contact</a></li>
@@ -37,56 +40,58 @@
   <section id="home" class="page active">
     <div class="hero">
       <img src="images/me.png" alt="GenDeu's image" width="120" style="border-radius:50%;">
-      <h2>Hello, I’m <span class="highlight">Gen Deu</span></h2>
+      <h2>
+        Hello, I’m 
+        <span 
+          class="highlight hover-show-about"
+          onmouseover="showCard()" 
+          onmouseout="hideCard()">
+          Gen Deu
+        </span>
+      </h2>
       <p class="tagline"><span id="typewriter"></span></p>
       <a href="#projects" class="btn nav-link">See My Projects</a>
       <a href="CV.html" target="_blank" class="btn nav-link">See My CV</a>
     </div>
-  </section>
-
-  <!-- About -->
-  <section id="about" class="page">
-    <div class="card glass">
-      <h2>👋 About Me</h2>
-
-    <p class="intro">
-      I’m <strong>Gen Deu Gagarin</strong> — a <strong>UI/UX Developer</strong> and <strong>Frontend Engineer</strong> with 7+ years of experience
-      designing and building responsive, user-centric websites and enterprise web applications.
-      I specialize in turning creative concepts into functional, pixel-perfect interfaces
-      that enhance usability and elevate brand presence.
-    </p>
-
-    <p class="intro">
-      I’ve delivered <strong>15+ production-level web solutions</strong> across e-commerce, SaaS, gaming, and sustainability industries.
-      Recognized for improving performance and user experience, I consistently achieve faster load times
-      and higher engagement across platforms.
-    </p>
-
-    <p class="intro">
-      Throughout my career, I’ve contributed to both corporate and consumer-facing platforms for companies such as
-      <strong>Frontier Towers Associates Philippines</strong>, <strong>ADEC Innovations</strong>, <strong>Emids Healthcare</strong>,
-      <strong>Emerson Electric Co.</strong>, and <strong>Jade Entertainment</strong>. I’m experienced with
-      <strong>WordPress</strong>, <strong>Wix</strong>, <strong>Bootstrap</strong>, <strong>HTML/CSS/JavaScript</strong>, and
-      backend integrations using <strong>PHP</strong>, <strong>REST APIs</strong>, and <strong>MySQL</strong>.
-    </p>
-
-    <p class="intro">
-      I actively explore frameworks such as <strong>ReactJS</strong>, <strong>VueJS</strong>, and <strong>Laravel</strong>,
-      applying design-driven development principles to ensure every product I build is both functional and visually engaging.
-      My process is grounded in <strong>Agile/Scrum</strong> methodology and supported by design tools like
-      <strong>Figma</strong> and Adobe Creative Suite.
-    </p>
-
-    <p class="intro">
-      Based in <strong>San Jose City, Nueva Ecija, Philippines</strong>, I’m always excited to collaborate on forward-thinking projects
-      that blend creativity, usability, and technology.
-    </p>
-
-      <h3 class="cv-heading">📄 My CV</h3>
-      <a class="btn" href="#" id="downloadPdf">Download PDF</a>
+    <br>
+    <div class="card glass hover-hide-about" 
+        onmouseover="showCard()" 
+        onmouseout="hideCard()">
+        <h2>👋 About Me</h2>
+        <p class="intro">
+          I’m <strong>Gen Deu Gagarin</strong> — a <strong>UI/UX Developer</strong> and <strong>Frontend Engineer</strong> with 7+ years of experience designing and building responsive, user-centric websites and enterprise web applications.
+        </p>
+        <p class="intro">
+          I specialize in turning creative concepts into functional, pixel-perfect interfaces that enhance usability and elevate brand presence.
+        </p>
     </div>
   </section>
 
+
+  <!-- About -->
+  <!-- <section id="about" class="page">
+    <div class="card glass">
+      <h2>👋 About Me</h2>
+      <p class="intro">
+        I’m <strong>Gen Deu Gagarin</strong> — a <strong>UI/UX Developer</strong> and <strong>Frontend Engineer</strong> with 7+ years of experience designing and building responsive, user-centric websites and enterprise web applications.
+      </p>
+      <p class="intro">
+        I specialize in turning creative concepts into functional, pixel-perfect interfaces that enhance usability and elevate brand presence.
+      </p>
+      <h3 class="cv-heading">📄 My CV</h3>
+      <a class="btn" href="CV.html" target="_blank">View Online</a>
+    </div>
+  </section> -->
+
+  <!-- Roadmap -->
+  <section id="roadmap" class="page">
+    <h2 class="section-title"> &emsp; 🗺️ Career Roadmap</h2>
+    <div class="roadmap-container">
+      <div class="timeline-line"></div>
+      <div id="roadmap-timeline"></div>
+    </div>
+  </section>
+  
   <!-- Case Studies -->
   <section id="projects" class="page">
     <h2>📁 Case Studies & Projects</h2>
@@ -114,10 +119,15 @@
   <section id="contact" class="page">
     <h2>Contact</h2>
     <div class="card glass">
-      <ul style="list-style:none;padding-left:0">
-        <li>🌍 <a href="https://gendeu.github.io/gendeuportfolio" target="_blank">Portfolio Website</a></li>
-        <li>💼 <a href="https://www.linkedin.com/in/gen-deu-gagarin-169a00193" target="_blank">LinkedIn Profile</a></li>
-        <li>📧 <a href="mailto:gendeulgagarin@gmail.com">gendeulgagarin@gmail.com</a></li>
+      <p class="contact-intro">Open to collaborations, UI/UX consulting, and front-end projects. Let’s build something great together.</p>
+      <div class="contact-buttons">
+        <a class="btn contact-btn" href="mailto:gendeulgagarin@gmail.com">📧 Email</a>
+        <a class="btn contact-btn" href="https://gendeu.github.io/gendeuportfolio" target="_blank">🌐 Portfolio</a>
+        <a class="btn contact-btn" href="https://www.linkedin.com/in/gen-deu-gagarin-169a00193" target="_blank">💼 LinkedIn</a>
+      </div>
+      <ul style="list-style:none;padding-left:0;margin-top:12px">
+        <li>📱 +63 961 775 9598 • +63 966 560 0602</li>
+        <li>📍 San Jose City, Nueva Ecija, Philippines</li>
       </ul>
     </div>
   </section>
@@ -128,3 +138,23 @@
   <script src="script.js"></script>
 </body>
 </html>
+
+  <script>
+    const card = document.querySelector('.hover-hide-about');
+
+    function showCard() {
+      card.style.display = "block";
+      setTimeout(() => {
+        card.style.opacity = "1";
+        card.style.transform = "translateY(0)";
+      }, 10); // small delay to trigger transition
+    }
+
+    function hideCard() {
+      card.style.opacity = "0";
+      card.style.transform = "translateY(10px)";
+      setTimeout(() => {
+        card.style.display = "none";
+      }, 300); // matches transition duration
+    }
+  </script>

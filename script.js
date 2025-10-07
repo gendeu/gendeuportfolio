@@ -1,3 +1,4 @@
+/* === Utility Shortcuts === */
 const qs = (s, root=document) => root.querySelector(s);
 const qsa = (s, root=document) => Array.from(root.querySelectorAll(s));
 
@@ -7,7 +8,7 @@ window.addEventListener('load', () => {
   if (loader) setTimeout(() => loader.classList.add('hidden'), 600);
 });
 
-/* SPA Navigation */
+/* === SPA Navigation === */
 function initSPA() {
   const links = qsa('.nav-link');
   const pages = qsa('.page');
@@ -30,9 +31,27 @@ function initSPA() {
   });
 }
 
-/* Load CV.html dynamically */
+    const card = document.querySelector('.hover-hide-about');
+
+    function showCard() {
+      card.style.display = "block";
+      setTimeout(() => {
+        card.style.opacity = "1";
+        card.style.transform = "translateY(0)";
+      }, 10); // small delay to trigger transition
+    }
+
+    function hideCard() {
+      card.style.opacity = "0";
+      card.style.transform = "translateY(10px)";
+      setTimeout(() => {
+        card.style.display = "none";
+      }, 300); // matches transition duration
+    }
+/* === Load CV.html dynamically === */
 async function loadCV() {
   const container = qs('#cv-container');
+  if (!container) return;
   try {
     const res = await fetch('CV.html');
     const html = await res.text();
@@ -42,10 +61,11 @@ async function loadCV() {
   }
 }
 
-/* Theme Toggle */
+/* === Theme Toggle === */
 function initThemeToggle() {
   const toggle = qs('#theme-toggle');
   const body = document.body;
+  if (!toggle) return;
 
   if (localStorage.getItem("theme") === "light") {
     body.classList.add("light");
@@ -60,18 +80,19 @@ function initThemeToggle() {
   });
 }
 
-/* Mobile Nav */
+/* === Mobile Nav === */
 function initMobileMenu() {
   const toggle = qs('#menu-toggle');
   const menu = qs('nav ul');
   if (!toggle || !menu) return;
+
   toggle.addEventListener('click', () => menu.classList.toggle('show'));
   qsa('nav ul li a').forEach(a =>
     a.addEventListener('click', () => menu.classList.remove('show'))
   );
 }
 
-/* Floating Navbar on Scroll */
+/* === Floating Navbar on Scroll === */
 function initFloatingNav() {
   const header = qs('.nav-glass');
   if (!header) return;
@@ -81,11 +102,11 @@ function initFloatingNav() {
   });
 }
 
-/* Typewriter */
+/* === Typewriter === */
 function initTypewriter() {
   const textEl = qs('#typewriter');
-  if (!textEl) return;
-  const roles = siteContent.hero.roles;
+  if (!textEl || !siteContent.hero) return;
+  const roles = siteContent.hero.roles || [];
   let i = 0, j = 0, forward = true;
   setInterval(() => {
     const role = roles[i];
@@ -95,7 +116,7 @@ function initTypewriter() {
   }, 120);
 }
 
-/* Projects + Modal (centered + scroll lock) */
+/* === Projects + Modal (centered + scroll lock) === */
 function loadProjects() {
   const grid = qs('#projects-grid');
   const modal = qs('#project-modal');
@@ -106,7 +127,8 @@ function loadProjects() {
   const close = qs('.close');
   const html = document.documentElement;
   const body = document.body;
-  if (!grid || !modal) return;
+
+  if (!grid || !modal || !siteContent.caseStudies) return;
 
   const placeholder = "https://via.placeholder.com/720x420?text=Project+Preview";
 
@@ -149,13 +171,12 @@ function loadProjects() {
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 }
 
-/* Skills Section */
+/* === Skills Section === */
 function loadSkills() {
   const grid = qs('#skills-grid');
-  if (!grid) return;
+  if (!grid || !siteContent.skills) return;
   const fallback = "https://via.placeholder.com/64?text=?";
-  const skills = Array.isArray(siteContent.skills) ? siteContent.skills : [];
-  skills.forEach(s => {
+  siteContent.skills.forEach(s => {
     const card = document.createElement('div');
     card.className = 'skill-card';
     card.innerHTML = `
@@ -166,7 +187,53 @@ function loadSkills() {
   });
 }
 
-/* Loader fallback */
+/* === Render Roadmap (with graceful fallback) === */
+function renderRoadmap() {
+  const container = document.getElementById("roadmap-timeline");
+  if (!container) return;
+
+  if (!window.siteContent || !Array.isArray(siteContent.roadmap)) {
+    container.innerHTML = `<p style="text-align:center;opacity:0.7;margin-top:2rem">
+      ⚠️ Roadmap data not available.
+    </p>`;
+    console.warn("⚠️ siteContent.roadmap missing or invalid");
+    return;
+  }
+
+  // Clear container first
+  container.innerHTML = "";
+
+  // Render each roadmap item
+  siteContent.roadmap.forEach((item, idx) => {
+    const side = idx % 2 === 0 ? "left" : "right";
+    const block = document.createElement("div");
+    block.className = `timeline-block ${side} fade-up`;
+    block.innerHTML = `
+      <div class="timeline-dot"></div>
+      <div class="timeline-content glass">
+        <span class="timeline-year">${item.year}</span>
+        <h3 class="timeline-title">${item.title}</h3>
+        <p class="timeline-desc">${item.desc}</p>
+      </div>
+    `;
+    container.appendChild(block);
+  });
+
+  // Animate appearance
+  const items = container.querySelectorAll(".timeline-block");
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("revealed");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  items.forEach(i => observer.observe(i));
+}
+
+/* === Loader Fallback === */
 window.addEventListener("load", hideLoaderSafely);
 setTimeout(hideLoaderSafely, 3500);
 function hideLoaderSafely() {
@@ -174,7 +241,7 @@ function hideLoaderSafely() {
   if (loader && !loader.classList.contains("hidden")) loader.classList.add("hidden");
 }
 
-/* Initialize */
+/* === Initialize === */
 document.addEventListener('DOMContentLoaded', () => {
   initSPA();
   initMobileMenu();
@@ -183,4 +250,29 @@ document.addEventListener('DOMContentLoaded', () => {
   loadProjects();
   loadSkills();
   initFloatingNav();
+  renderRoadmap();
+    /* === Magnetic Hover Effect === */
+  function initMagneticCards() {
+    const cards = document.querySelectorAll(".project-card");
+    cards.forEach(card => {
+      card.addEventListener("mousemove", e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const cx = rect.width / 2;
+        const cy = rect.height / 2;
+        const rotateX = ((y - cy) / cy) * 8;
+        const rotateY = ((x - cx) / cx) * -8;
+        card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.03)`;
+        card.style.setProperty("--x", `${(x / rect.width) * 100}%`);
+        card.style.setProperty("--y", `${(y / rect.height) * 100}%`);
+      });
+      card.addEventListener("mouseleave", () => {
+        card.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
+      });
+    });
+  }
+
+  initMagneticCards();
+
 });
