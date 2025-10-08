@@ -33,15 +33,38 @@ function initSPA() {
   });
 }
 
-/* === Theme Toggle === */
+/* === Theme Toggle DARK DEFAULT === */
+// function initThemeToggle() {
+//   const toggle = qs('#theme-toggle');
+//   const body = document.body;
+//   if (!toggle) return;
+
+//   if (localStorage.getItem("theme") === "light") {
+//     body.classList.add("light");
+//     toggle.textContent = "☀️";
+//   }
+
+//   toggle.addEventListener("click", () => {
+//     body.classList.toggle("light");
+//     const isLight = body.classList.contains("light");
+//     localStorage.setItem("theme", isLight ? "light" : "dark");
+//     toggle.textContent = isLight ? "☀️" : "🌙";
+//   });
+// }
+// Make light theme the default
 function initThemeToggle() {
   const toggle = qs('#theme-toggle');
   const body = document.body;
   if (!toggle) return;
 
-  if (localStorage.getItem("theme") === "light") {
+  // ✅ Default to light if no theme is saved
+  const savedTheme = localStorage.getItem("theme");
+  if (!savedTheme || savedTheme === "light") {
     body.classList.add("light");
     toggle.textContent = "☀️";
+    localStorage.setItem("theme", "light");
+  } else {
+    toggle.textContent = "🌙";
   }
 
   toggle.addEventListener("click", () => {
@@ -51,6 +74,7 @@ function initThemeToggle() {
     toggle.textContent = isLight ? "☀️" : "🌙";
   });
 }
+
 
 /* === Mobile Nav === */
 function initMobileMenu() {
