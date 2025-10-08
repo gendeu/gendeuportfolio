@@ -6,7 +6,8 @@
   <title>Gen Deu Gagarin | UI/UX Portfolio</title>
   <meta name="description" content="Gen Deu Gagarin — UI/UX Developer & Frontend Engineer" />
   <link rel="stylesheet" href="style.css" />
-  <link rel="icon" type="image/png" href="images/me.png">
+  <link rel="icon" type="image/png" href="images/me.jpg">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 </head>
 
 <body>
@@ -20,9 +21,7 @@
   <!-- Navbar -->
   <header>
     <nav class="nav-glass">
-      <h1 class="logo hover-show-about"
-          onmouseover="showCard()" 
-          onmouseout="hideCard()">GenDeu</h1>
+      <a href="#home" style="text-decoration: none;"><h1 class="logo">GenDeu</h1></a>
       <div id="menu-toggle">☰</div>
       <ul>
         <li><a href="#home" class="nav-link active">Home</a></li>
@@ -39,14 +38,18 @@
   <!-- Home -->
   <section id="home" class="page active">
     <div class="hero">
-      <img src="images/me.png" alt="GenDeu's image" width="120" style="border-radius:50%;">
+      <div class="avatar-container">
+        <img class="avatar-image" src="images/me.jpg" alt="GenDeu's image" width="120" style="border-radius:50%;">
+        <span width="120" class="avatar-circle"></span></div>
       <h2>
         Hello, I’m 
         <span 
-          class="highlight hover-show-about"
-          onmouseover="showCard()" 
-          onmouseout="hideCard()">
-          Gen Deu
+          class="highlight"
+          onmouseenter="showCard()">
+          Gen Deu 
+          <div class="avatar-icon">
+          <span>&lt;/&gt;</span>
+          </div>
         </span>
       </h2>
       <p class="tagline"><span id="typewriter"></span></p>
@@ -54,9 +57,7 @@
       <a href="CV.html" target="_blank" class="btn nav-link">See My CV</a>
     </div>
     <br>
-    <div class="card glass hover-hide-about" 
-        onmouseover="showCard()" 
-        onmouseout="hideCard()">
+    <div class="card glass hover-hide-about">
         <h2>👋 About Me</h2>
         <p class="intro">
           I’m <strong>Gen Deu Gagarin</strong> — a <strong>UI/UX Developer</strong> and <strong>Frontend Engineer</strong> with 7+ years of experience designing and building responsive, user-centric websites and enterprise web applications.
@@ -85,7 +86,7 @@
 
   <!-- Roadmap -->
   <section id="roadmap" class="page">
-    <h2 class="section-title"> &emsp; 🗺️ Career Roadmap</h2>
+    <h2 class="section-title"> 🗺️ Career Roadmap</h2>
     <div class="roadmap-container">
       <div class="timeline-line"></div>
       <div id="roadmap-timeline"></div>
@@ -94,8 +95,22 @@
   
   <!-- Case Studies -->
   <section id="projects" class="page">
-    <h2>📁 Case Studies & Projects</h2>
+    <h2 style="display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap">
+      <span>📁 Case Studies & Projects</span>
+      <div class="view-toggle">
+        <button id="carouselViewBtn" class="toggle-btn active">🎠 Carousel</button>
+        <button id="gridViewBtn" class="toggle-btn">🗂 Grid</button>
+      </div>
+    </h2>
+
     <div class="projects-grid" id="projects-grid"></div>
+
+    <!-- Swiper Carousel view -->
+    <div class="carousel-wrapper" id="projects-carousel" style="display:none">
+      <div class="swiper">
+        <div class="swiper-wrapper" id="carousel-wrapper"></div>
+      </div>
+    </div>
 
     <!-- Modal -->
     <div id="project-modal" class="modal" aria-hidden="true">
@@ -109,6 +124,7 @@
     </div>
   </section>
 
+
   <!-- Skills -->
   <section id="skills" class="page">
     <h2>⚙️ Skills & Tools</h2>
@@ -117,7 +133,7 @@
 
   <!-- Contact -->
   <section id="contact" class="page">
-    <h2>Contact</h2>
+    <h2>📞 Contact</h2>
     <div class="card glass">
       <p class="contact-intro">Open to collaborations, UI/UX consulting, and front-end projects. Let’s build something great together.</p>
       <div class="contact-buttons">
@@ -133,11 +149,6 @@
   </section>
 
   <footer>© 2025 Gen Deu Gagarin</footer>
-
-  <script src="jsondata.js"></script>
-  <script src="script.js"></script>
-</body>
-</html>
 
   <script>
     const card = document.querySelector('.hover-hide-about');
@@ -158,3 +169,14 @@
       }, 300); // matches transition duration
     }
   </script>
+  
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+  <script src="jsondata.js"></script>
+  <!-- load Swiper BEFORE your script that uses it -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="script.js"></script>
+
+</body>
+</html>

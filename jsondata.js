@@ -2,7 +2,7 @@ siteContent = {
   hero: {
     greeting: "Hello, I’m",
     name: "Gen Deu",
-    roles: ["UI/UX Developer", "Frontend Engineer", "Creative Coder"],
+    roles: ["{UI/UX Developer}", "{Frontend Engineer}", "{Creative Coder}"],
     cta: "See My Projects"
   },
 
@@ -90,18 +90,82 @@ siteContent = {
     }
   ],
 
-
   skills: [
-    { img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg", name: "HTML5" },
-    { img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg", name: "CSS3" },
-    { img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg", name: "JavaScript" },
-    { img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg", name: "Bootstrap" },
-    { img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg", name: "PHP" },
-    { img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wordpress/wordpress-original.svg", name: "WordPress" },
-    { img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg", name: "ReactJS" },
-    { img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg", name: "VueJS" },
-    { img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg", name: "Figma" },
-    { img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg", name: "GitHub" }
+    {
+      category: "🖥️ Core Frontend",
+      items: [
+        { img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg", name: "HTML5" },
+        { img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg", name: "CSS3" },
+        { img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg", name: "JavaScript" },
+        { img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jquery/jquery-original.svg", name: "jQuery" },
+        { img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg", name: "Bootstrap" },
+        { img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg", name: "TailwindCSS" },
+        { img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/json/json-original.svg", name: "REST / JSON / AJAX" }
+      ]
+    },
+    {
+      category: "⚙️ Backend & Integration",
+      items: [
+        { img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg", name: "PHP" },
+        { img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg", name: "MySQL" },
+        { img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-plain.svg", name: "Laravel + VueJS" },
+        { img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg", name: "NodeJS (Basic)" },
+        { img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/outsystems/outsystems-original.svg", name: "OutSystems (Certified)" }
+      ]
+    },
+    {
+      category: "🧰 CMS & Platforms",
+      items: [
+        { img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wordpress/wordpress-original.svg", name: "WordPress" },
+        { img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wix/wix-original.svg", name: "Wix" },
+        { img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sharepoint/sharepoint-original.svg", name: "SharePoint" },
+        { img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/coremedia/coremedia-original.svg", name: "CoreMedia" }
+      ]
+    },
+    {
+      category: "📱 Mobile & App Frameworks",
+      items: [
+        { img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg", name: "ReactJS / React Native" },
+        { img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg", name: "VueJS / Ionic" }
+      ]
+    },
+    {
+      category: "🎨 UI/UX & Design Tools",
+      items: [
+        { img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg", name: "Figma" },
+        { img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-plain.svg", name: "Adobe Photoshop" },
+        { img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/illustrator/illustrator-plain.svg", name: "Adobe Illustrator" },
+        { img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/lightroom/lightroom-original.svg", name: "Lightroom" },
+        { img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/premierepro/premierepro-original.svg", name: "PowerDirector" }
+      ]
+    },
+    {
+      category: "💻 Dev Tools & Environments",
+      items: [
+        { img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg", name: "Git / GitHub / Git Bash" },
+        { img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg", name: "VS Code / Visual Studio" },
+        { img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg", name: "Postman" },
+        { img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apache/apache-original.svg", name: "Apache / FileZilla / PuTTY" },
+        { img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/browserstack/browserstack-original.svg", name: "BrowserStack" }
+      ]
+    },
+    {
+      category: "☁️ Cloud & Databases (Basic)",
+      items: [
+        { img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg", name: "Microsoft Azure" },
+        { img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/aws/aws-original.svg", name: "AWS" },
+        { img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg", name: "PostgreSQL" },
+        { img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg", name: "SQLite" },
+        { img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg", name: "MongoDB" }
+      ]
+    },
+    {
+      category: "🧠 Methodologies",
+      items: [
+        { img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/scrum/scrum-original.svg", name: "Scrum (Agile)" },
+        { img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/waterfall/waterfall-original.svg", name: "Waterfall" }
+      ]
+    }
   ],
 
   roadmap: [

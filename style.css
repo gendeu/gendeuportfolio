@@ -35,9 +35,13 @@ body {
   font-family: 'Poppins', system-ui;
   color: var(--text);
   background: linear-gradient(-45deg, var(--bg1), var(--bg2), var(--bg3));
-  background-size: 400% 400%;
+  background-size: 200% 200%;
   animation: gradientMove 25s ease infinite;
   transition: background 0.8s ease, color 0.3s ease;
+  /* background-image: url("assets/bg.gif"); 
+  background-size: stretch;
+  background-position: center;
+  background-repeat: no-repeat;  */
 }
 @keyframes gradientMove {
   0% { background-position: 0% 50%; }
@@ -177,7 +181,7 @@ main, .page { padding-top: 90px; }
   padding: 2rem 1.25rem;
 }
 .page.active { display: block; opacity: 1; transform: translateY(0); }
-.hero { text-align: center; margin-top: 10vh; }
+.hero { text-align: center; margin-top: 10vh; min-height: 302.828px;}
 .highlight { color: var(--accent); }
 
 /* --- Cards --- */
@@ -187,8 +191,8 @@ main, .page { padding-top: 90px; }
   border-radius: 16px;
   padding: 1.25rem;
   backdrop-filter: blur(10px);
-  margin: 1rem auto;
-  width: 92%;
+  margin: auto;
+  width: 100%;
   max-width: 1000px;
 }
 
@@ -319,79 +323,98 @@ html.modal-open, body.modal-open { overflow: hidden !important; height: 100%; }
   gap: 1rem;
   margin-top: 1.25rem;
 }
-/* === Magnetic 3D Project Cards === */
+/* === Project Cards (CodePen Reveal Style) === */
 .project-card {
   position: relative;
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: 14px;
+  border-radius: 18px;
   overflow: hidden;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  backdrop-filter: blur(8px);
   cursor: pointer;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  transform-style: preserve-3d;
-  perspective: 800px;
-  will-change: transform;
-  backdrop-filter: blur(10px);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 .project-card:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+  transform: translateY(-10px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45);
 }
-.project-card::after {
+
+/* Shine reflection effect */
+.project-card::before {
   content: "";
   position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: radial-gradient(circle at var(--x,50%) var(--y,50%), rgba(255,255,255,0.12), transparent 60%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.35), transparent);
+  transform: skewX(-25deg);
+  transition: left 0.75s ease;
 }
-.project-card:hover::after { opacity: 1; }
+.project-card:hover::before {
+  left: 125%;
+}
 
+/* Project Image */
 .project-card img {
   width: 100%;
-  height: 160px;
+  height: 200px;
   object-fit: cover;
   display: block;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-  transform: translateZ(20px);
+  filter: brightness(0.9);
+  transition: transform 0.6s ease, filter 0.6s ease;
 }
+.project-card:hover img {
+  transform: scale(1.1);
+  filter: brightness(0.6);
+}
+
+/* Overlay Gradient */
+.project-card .overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0.15));
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.project-card:hover .overlay {
+  opacity: 1;
+}
+
+/* Text Reveal */
 .project-card .info {
-  padding: 1rem;
-  transform: translateZ(40px);
-  text-align: center;
+  position: absolute;
+  bottom: -100%;
+  left: 0;
+  width: 100%;
+  padding: 1.2rem;
+  transition: bottom 0.4s ease;
+}
+.project-card:hover .info {
+  bottom: 0;
 }
 .project-card h3 {
-  margin: 0.2rem 0;
   color: var(--accent);
-  font-size: 1.05rem;
+  font-size: 1.1rem;
+  margin: 0 0 0.3rem;
   font-weight: 700;
 }
 .project-card p {
-  margin: 0.3rem 0 0;
   color: rgba(255,255,255,0.85);
   font-size: 0.9rem;
+  margin: 0;
+  line-height: 1.4;
 }
-body.light .project-card p { color: #333; }
-
-.project-card img { width: 100%; height: 150px; object-fit: cover; display:block; }
-.project-card .info { padding: .85rem; }
-.project-card h3 { margin: 0; color: var(--accent); font-size: 1rem; }
-.project-card p { margin: .4rem 0 0; color: rgba(255,255,255,0.85); font-size: .9rem; }
-
-/* Light mode readability fix */
 body.light .project-card {
-  background: rgba(255,255,255,0.8);
+  background: rgba(255,255,255,0.9);
   border-color: rgba(0,0,0,0.1);
 }
 body.light .project-card p { color: #333; }
-body.light .project-card h3 { color: var(--accent); }
 
 footer {
   text-align: center;
   padding: 1rem;
-  color: rgba(255,255,255,.7);
+  color: var(--accent);
 }
 /* === FINAL PERFECT DOT ALIGNMENT === */
 
@@ -480,6 +503,9 @@ footer {
 }
 
 /* Content cards */
+#roadmap-timeline * {
+  transition: all 1s ease;
+}
 .timeline-content {
   position: relative;
   background: rgba(255,255,255,0.07);
@@ -489,11 +515,19 @@ footer {
   max-width: 340px;
   border: 1px solid rgba(255,255,255,0.1);
   box-shadow: 0 8px 25px rgba(0,0,0,0.25);
-  transition: transform .4s ease, box-shadow .4s ease;
+  transition: max-height 1s ease;
 }
 .timeline-content:hover {
   transform: translateY(-5px);
   box-shadow: 0 12px 40px rgba(0,0,0,0.45);
+}
+.timeline-content:hover .timeline-title, .timeline-content:hover .timeline-desc {
+  -webkit-line-clamp: unset; /* remove the limit */
+  overflow: visible;
+  max-height: unset;
+}
+.timeline-content:hover {
+  max-height: unset;
 }
 
 /* Typography */
@@ -511,11 +545,23 @@ footer {
   font-weight: 600;
   color: var(--text, #fff);
   margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* limit to 3 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  max-height: 24px;
+  transition: max-height 1s ease;
 }
 .timeline-desc {
   margin-top: .4rem;
   font-size: 0.95rem;
   line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* limit to 3 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  max-height: 50px;
+  transition: max-height 1s ease;
 }
 body.light .timeline-content p {
   color: black;
@@ -548,28 +594,29 @@ body.dark .timeline-content p {
   }
   .timeline-content {
     max-width: 100%;
+    max-height: 160px;
   }
   .timeline-block.left .timeline-dot {
     left: 9px;
   }
   .timeline-block.right {
     left: 9px;
-    padding: 10px 10px 10px 30px;
+    padding: 10px 10px 0 21px
   }
   .timeline-block.left {
-    padding: 10px 10px 10px 30px;
+    padding: 10px 0 10px 30px;
     text-align: left;
   }
 }
 
-    .hover-hide-about {
-      display: none;
-      opacity: 0;
-      transform: translateY(10px);
-      transition: opacity 0.3s ease, transform 0.3s ease;
-      max-width: 500px;
-      margin-top: 1rem;
-    }
+  .hover-hide-about {
+    display: none;
+    position: relative;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    max-width: 500px;
+    margin-top: 1rem;
+  }
 
   .loader-text {
     z-index: 99;
@@ -598,3 +645,255 @@ body.dark .timeline-content p {
     0%,100% { transform: translate(-50%, -50%) scale(1); }
     50% { transform: translate(-50%, -50%) scale(1.25); }
   }
+
+  /* Profile avatar */
+  .avatar-container {
+    position: relative;
+  }
+  .avatar-image {
+    z-index: 99;
+    position: relative;
+  }
+  .avatar-circle {
+    position: absolute;
+    z-index: 2;
+    top: 48%;
+    left: 50%;
+    height: 135px;
+    width: 120px;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, #00f2fe 0%, #087bff 100%);
+    border: 3px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 0 8px rgba(0, 242, 254, 0.7), 0 0 18px rgba(140, 82, 255, 0.5), inset 0 0 4px rgba(255, 255, 255, 0.2);
+    z-index: 3;
+    animation: pulseDot 3s ease-in-out infinite;
+  }
+  @keyframes pulseDot {
+    0%,100% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.05); }
+  }
+  .avatar-icon {
+    position: relative;
+  }
+  .avatar-icon span {
+    position: absolute;
+    pointer-events: all;
+    bottom: 10px;
+    transform: translateX(107px);
+    color: var(--accent);
+    font-size: 22px;
+    font-weight: 300;
+  }
+
+  /* === View Toggle Buttons === */
+.view-toggle {
+  display: flex;
+  gap: 0.5rem;
+}
+.toggle-btn {
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  color: var(--accent);
+  border-radius: 8px;
+  padding: 0.4rem 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(8px);
+}
+.toggle-btn:hover {
+  transform: scale(1.05);
+}
+.toggle-btn.active {
+  background: linear-gradient(90deg, var(--accent), #38f3ff88);
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+}
+
+/* === Carousel View (3D Rotating Style) === */
+.projects-grid.carousel-view {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1200px;
+  height: 460px;
+  position: relative;
+  overflow: visible;
+}
+
+.carousel-container {
+  position: relative;
+  width: 340px;
+  height: 420px;
+  transform-style: preserve-3d;
+  animation: rotateCarousel 30s infinite linear;
+}
+
+@keyframes rotateCarousel {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(360deg); }
+}
+
+.carousel-view .project-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 320px;
+  height: 400px;
+  transform-origin: center;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  transition: transform 0.6s ease, box-shadow 0.3s ease;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.carousel-view .project-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+}
+
+.carousel-view .project-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Hide overflow for carousel parent */
+.carousel-view-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+}
+
+
+/* === Skill Categories (Refined Glass Aesthetic) === */
+.skills-category {
+  margin-bottom: 2.8rem;
+  text-align: center;
+}
+
+.skills-category-title {
+  font-size: 18px;
+  font-weight: 400;
+  text-align: center;
+  margin-bottom: 1.2rem;
+  color: var(--accent);
+  letter-spacing: 0.5px;
+  text-shadow: 0 0 8px rgb(0 0 0 / 30%);
+  background: linear-gradient(90deg, var(--accent), var(--accent), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  position: relative;
+}
+
+.skills-category-title::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 2px;
+  margin: 0.6rem auto 0;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  border-radius: 2px;
+  opacity: 0.6;
+}
+
+.skills-subgrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 16px;
+}
+
+/* === Swiper Coverflow Carousel (5-card Responsive Smart Scale) === */
+.carousel-wrapper {
+  width: 100%;
+  min-height: 480px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 0;
+  overflow: visible !important;
+}
+
+.swiper {
+  width: 100%;
+  max-width: 1400px;
+  height: 420px;
+  padding: 50px 0 90px;
+  overflow: visible !important;
+}
+
+.swiper-slide {
+  position: relative;
+  width: 240px;
+  height: 240px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  -webkit-box-reflect: below -6px
+    linear-gradient(transparent, transparent, rgba(0, 0, 0, 0.4));
+  transform-origin: center;
+  transition: transform 0.4s ease, z-index 0.3s ease;
+}
+
+.swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.swiper-slide .overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.55);
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.swiper-slide:hover .overlay {
+  opacity: 1;
+}
+
+.swiper-slide .overlay ion-icon {
+  font-size: 3rem;
+  color: var(--accent);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.swiper-slide:hover .overlay ion-icon {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* Responsive sizes */
+@media (max-width: 1024px) {
+  .swiper-slide {
+    width: 200px;
+    height: 200px;
+  }
+}
+@media (max-width: 768px) {
+  .swiper-slide {
+    width: 180px;
+    height: 180px;
+  }
+}
+@media (max-width: 480px) {
+  .swiper-slide {
+    width: 150px;
+    height: 150px;
+  }
+}

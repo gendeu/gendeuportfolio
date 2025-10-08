@@ -1,6 +1,7 @@
 /* === Utility Shortcuts === */
 const qs = (s, root=document) => root.querySelector(s);
 const qsa = (s, root=document) => Array.from(root.querySelectorAll(s));
+let carouselSwiper = null;
 
 /* === GD Loader: hide when window fully loads === */
 window.addEventListener('load', () => {
@@ -29,36 +30,6 @@ function initSPA() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   });
-}
-
-    const card = document.querySelector('.hover-hide-about');
-
-    function showCard() {
-      card.style.display = "block";
-      setTimeout(() => {
-        card.style.opacity = "1";
-        card.style.transform = "translateY(0)";
-      }, 10); // small delay to trigger transition
-    }
-
-    function hideCard() {
-      card.style.opacity = "0";
-      card.style.transform = "translateY(10px)";
-      setTimeout(() => {
-        card.style.display = "none";
-      }, 300); // matches transition duration
-    }
-/* === Load CV.html dynamically === */
-async function loadCV() {
-  const container = qs('#cv-container');
-  if (!container) return;
-  try {
-    const res = await fetch('CV.html');
-    const html = await res.text();
-    container.innerHTML = html;
-  } catch {
-    container.innerHTML = "<p>Unable to load CV at the moment.</p>";
-  }
 }
 
 /* === Theme Toggle === */
@@ -116,7 +87,7 @@ function initTypewriter() {
   }, 120);
 }
 
-/* === Projects + Modal (centered + scroll lock) === */
+/* === Projects + Modal === */
 function loadProjects() {
   const grid = qs('#projects-grid');
   const modal = qs('#project-modal');
@@ -140,9 +111,10 @@ function loadProjects() {
     card.className = 'card glass project-card';
     card.innerHTML = `
       <img src="${imgSrc}" alt="${p.title}" onerror="this.src='${placeholder}'">
+      <div class="overlay"></div>
       <div class="info">
         <h3>${p.title}</h3>
-        <p>${p.desc.substring(0,120)}...</p>
+        <p>${p.desc.substring(0,100)}...</p>
       </div>
     `;
 
@@ -171,23 +143,181 @@ function loadProjects() {
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 }
 
+/* === Grid / Carousel View Toggle === */
+function initProjectViewToggle() {
+  const gridWrapper = qs('#projects-grid');
+  const carouselWrapper = qs('#projects-carousel');
+  const gridBtn = qs('#gridViewBtn');
+  const carouselBtn = qs('#carouselViewBtn');
+  const carouselContainer = qs('#carousel-wrapper');
+
+  if (!gridWrapper || !carouselWrapper) return;
+
+  // Grid View handler
+  gridBtn.addEventListener('click', () => {
+    gridBtn.classList.add('active');
+    carouselBtn.classList.remove('active');
+    gridWrapper.style.display = ''; // revert to CSS (grid)
+    carouselWrapper.style.display = 'none';
+
+    if (carouselSwiper && carouselSwiper.destroy) {
+      carouselSwiper.destroy(true, true);
+      carouselSwiper = null;
+    }
+  });
+
+  // Carousel View handler
+  carouselBtn.addEventListener('click', () => {
+    gridBtn.classList.remove('active');
+    carouselBtn.classList.add('active');
+    gridWrapper.style.display = 'none';
+    carouselWrapper.style.display = 'block';
+    initCarousel();
+  });
+
+  // Default -> trigger carousel on load
+  carouselBtn.click();
+
+  function initCarousel() {
+    // ensure Swiper is available
+    if (typeof Swiper === 'undefined') {
+      console.error('Swiper is not loaded yet. Ensure Swiper JS is included before script.js.');
+      return;
+    }
+
+    // Populate slides only once
+    if (carouselContainer.children.length === 0 && Array.isArray(siteContent.caseStudies)) {
+      siteContent.caseStudies.forEach(p => {
+        const slug = p.title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '');
+        const imgSrc = `images/projects/${slug}.jpg`;
+        const slide = document.createElement('div');
+        slide.className = 'swiper-slide';
+        slide.innerHTML = `
+          <img src="${imgSrc}" alt="${p.title}" onerror="this.src='https://via.placeholder.com/400x400?text=${encodeURIComponent(p.title)}'">
+          <div class="overlay" data-title="${p.title}">
+            <ion-icon name="open-outline"></ion-icon>
+          </div>
+        `;
+        carouselContainer.appendChild(slide);
+      });
+
+      // attach overlay click handlers (open modal)
+      qsa('.swiper-slide .overlay').forEach(ov => {
+        ov.addEventListener('click', () => {
+          const title = ov.getAttribute('data-title');
+          openProjectModal(title);
+        });
+      });
+    }
+
+    // Destroy any existing instance before creating a new one
+    if (carouselSwiper && carouselSwiper.destroy) {
+      carouselSwiper.destroy(true, true);
+      carouselSwiper = null;
+    }
+
+    // create Swiper
+  carouselSwiper = new Swiper('.swiper', {
+    effect: 'coverflow',
+    grabCursor: true,
+    centeredSlides: true,
+    slidesPerView: 5, // show 5 on desktop
+    loop: true,
+    spaceBetween: 50,
+    coverflowEffect: {
+      rotate: 15,
+      stretch: 0,
+      depth: 180,
+      modifier: 1,
+      slideShadows: false,
+    },
+    autoplay: {
+      delay: 2800,
+      disableOnInteraction: false,
+    },
+    breakpoints: {
+      0: { slidesPerView: 1.6, spaceBetween: 20 },
+      480: { slidesPerView: 2.2, spaceBetween: 30 },
+      768: { slidesPerView: 3, spaceBetween: 40 },
+      1024: { slidesPerView: 4, spaceBetween: 45 },
+      1280: { slidesPerView: 5, spaceBetween: 50 },
+    },
+    on: {
+      setTranslate(swiper, translate) {
+        swiper.slides.forEach(slide => {
+          const offset = slide.progress;
+          const scale = 1 - Math.min(Math.abs(offset * 0.2), 0.3);
+          const zIndex = 10 - Math.abs(offset);
+          slide.style.transform = `scale(${scale}) rotateY(${offset * 20}deg)`;
+          slide.style.zIndex = zIndex;
+        });
+      },
+      setTransition(swiper, transition) {
+        swiper.slides.forEach(slide => {
+          slide.style.transition = `${transition}ms`;
+        });
+      },
+    },
+  });
+
+
+
+  }
+}
+
+
+// Helper to open modal from carousel
+function openProjectModal(title) {
+  const project = siteContent.caseStudies.find(p => p.title === title);
+  if (!project) return;
+  const modal = qs('#project-modal');
+  qs('#modal-title').textContent = project.title;
+  qs('#modal-desc').textContent = project.desc;
+  qs('#modal-link').href = project.link || '#';
+  const img = qs('#modal-img');
+  const slug = project.title.toLowerCase().replace(/\s+/g, '-');
+  img.src = `images/projects/${slug}.jpg`;
+  modal.classList.add('show');
+  document.documentElement.classList.add('modal-open');
+  document.body.classList.add('modal-open');
+}
+
+
 /* === Skills Section === */
 function loadSkills() {
   const grid = qs('#skills-grid');
   if (!grid || !siteContent.skills) return;
-  const fallback = "https://via.placeholder.com/64?text=?";
-  siteContent.skills.forEach(s => {
-    const card = document.createElement('div');
-    card.className = 'skill-card';
-    card.innerHTML = `
-      <img src="${s.img}" alt="${s.name}" onerror="this.src='${fallback}'">
-      <span>${s.name}</span>
-    `;
-    grid.appendChild(card);
+  grid.innerHTML = "";
+
+  siteContent.skills.forEach(group => {
+    const section = document.createElement('div');
+    section.className = 'skills-category';
+
+    const title = document.createElement('h3');
+    title.textContent = group.category;
+    title.className = 'skills-category-title';
+    section.appendChild(title);
+
+    const container = document.createElement('div');
+    container.className = 'skills-subgrid';
+
+    group.items.forEach(s => {
+      const card = document.createElement('div');
+      card.className = 'skill-card';
+      card.innerHTML = `
+        <img src="${s.img}" alt="${s.name}" onerror="this.src='https://via.placeholder.com/64?text=?'">
+        <span>${s.name}</span>
+      `;
+      container.appendChild(card);
+    });
+
+    section.appendChild(container);
+    grid.appendChild(section);
   });
 }
 
-/* === Render Roadmap (with graceful fallback) === */
+
+/* === Render Roadmap === */
 function renderRoadmap() {
   const container = document.getElementById("roadmap-timeline");
   if (!container) return;
@@ -200,10 +330,8 @@ function renderRoadmap() {
     return;
   }
 
-  // Clear container first
   container.innerHTML = "";
 
-  // Render each roadmap item
   siteContent.roadmap.forEach((item, idx) => {
     const side = idx % 2 === 0 ? "left" : "right";
     const block = document.createElement("div");
@@ -219,7 +347,6 @@ function renderRoadmap() {
     container.appendChild(block);
   });
 
-  // Animate appearance
   const items = container.querySelectorAll(".timeline-block");
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
@@ -231,6 +358,26 @@ function renderRoadmap() {
   }, { threshold: 0.15 });
 
   items.forEach(i => observer.observe(i));
+}
+
+/* === Magnetic Hover Effect === */
+function initMagneticCards() {
+  const cards = document.querySelectorAll(".project-card");
+  cards.forEach(card => {
+    card.addEventListener("mousemove", e => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const cx = rect.width / 2;
+      const cy = rect.height / 2;
+      const rotateX = ((y - cy) / cy) * 8;
+      const rotateY = ((x - cx) / cx) * -8;
+      card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.03)`;
+    });
+    card.addEventListener("mouseleave", () => {
+      card.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
+    });
+  });
 }
 
 /* === Loader Fallback === */
@@ -251,28 +398,6 @@ document.addEventListener('DOMContentLoaded', () => {
   loadSkills();
   initFloatingNav();
   renderRoadmap();
-    /* === Magnetic Hover Effect === */
-  function initMagneticCards() {
-    const cards = document.querySelectorAll(".project-card");
-    cards.forEach(card => {
-      card.addEventListener("mousemove", e => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const cx = rect.width / 2;
-        const cy = rect.height / 2;
-        const rotateX = ((y - cy) / cy) * 8;
-        const rotateY = ((x - cx) / cx) * -8;
-        card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.03)`;
-        card.style.setProperty("--x", `${(x / rect.width) * 100}%`);
-        card.style.setProperty("--y", `${(y / rect.height) * 100}%`);
-      });
-      card.addEventListener("mouseleave", () => {
-        card.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
-      });
-    });
-  }
-
+  initProjectViewToggle();
   initMagneticCards();
-
 });
