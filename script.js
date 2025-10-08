@@ -2,6 +2,7 @@
 const qs = (s, root=document) => root.querySelector(s);
 const qsa = (s, root=document) => Array.from(root.querySelectorAll(s));
 let carouselSwiper = null;
+const projectPlaceholder = "images/website-placeholder.jpg";
 
 /* === GD Loader: hide when window fully loads === */
 window.addEventListener('load', () => {
@@ -101,16 +102,17 @@ function loadProjects() {
 
   if (!grid || !modal || !siteContent.caseStudies) return;
 
-  const placeholder = "https://via.placeholder.com/720x420?text=Project+Preview";
+  const placeholder = "images/website-placeholder.jpg";
 
   siteContent.caseStudies.forEach(p => {
     const slug = p.title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '');
-    const imgSrc = `images/projects/${slug}.jpg`;
+    const imgSrc = p.img ? `images/projects/${p.img}` : projectPlaceholder;
+
 
     const card = document.createElement('div');
     card.className = 'card glass project-card';
     card.innerHTML = `
-      <img src="${imgSrc}" alt="${p.title}" onerror="this.src='${placeholder}'">
+      <img src="${imgSrc}" alt="${p.title}" onerror="this.src='${projectPlaceholder}'">
       <div class="overlay"></div>
       <div class="info">
         <h3>${p.title}</h3>
@@ -187,27 +189,32 @@ function initProjectViewToggle() {
 
     // Populate slides only once
     if (carouselContainer.children.length === 0 && Array.isArray(siteContent.caseStudies)) {
+      // dynamic image fix — carousel + modal sync
       siteContent.caseStudies.forEach(p => {
         const slug = p.title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '');
-        const imgSrc = `images/projects/${slug}.jpg`;
+        const imgSrc = p.img ? `images/projects/${p.img}` : projectPlaceholder;
+
         const slide = document.createElement('div');
         slide.className = 'swiper-slide';
         slide.innerHTML = `
-          <img src="${imgSrc}" alt="${p.title}" onerror="this.src='https://via.placeholder.com/400x400?text=${encodeURIComponent(p.title)}'">
-          <div class="overlay" data-title="${p.title}">
+          <img src="${imgSrc}" alt="${p.title}" onerror="this.src='${projectPlaceholder}'">
+          <div class="overlay" data-title="${p.title}" data-img="${imgSrc}">
             <ion-icon name="open-outline"></ion-icon>
           </div>
         `;
         carouselContainer.appendChild(slide);
       });
 
-      // attach overlay click handlers (open modal)
+
+      // dynamic image fix — sync modal image with carousel
       qsa('.swiper-slide .overlay').forEach(ov => {
         ov.addEventListener('click', () => {
           const title = ov.getAttribute('data-title');
-          openProjectModal(title);
+          const imgSrc = ov.getAttribute('data-img');
+          openProjectModal(title, imgSrc);
         });
       });
+
     }
 
     // Destroy any existing instance before creating a new one
@@ -267,7 +274,7 @@ function initProjectViewToggle() {
 
 
 // Helper to open modal from carousel
-function openProjectModal(title) {
+function openProjectModal(title, customImg = null) {
   const project = siteContent.caseStudies.find(p => p.title === title);
   if (!project) return;
   const modal = qs('#project-modal');
@@ -275,8 +282,10 @@ function openProjectModal(title) {
   qs('#modal-desc').textContent = project.desc;
   qs('#modal-link').href = project.link || '#';
   const img = qs('#modal-img');
-  const slug = project.title.toLowerCase().replace(/\s+/g, '-');
-  img.src = `images/projects/${slug}.jpg`;
+  // dynamic image fix
+  const imgSrc = project.img ? `images/projects/${project.img}` : projectPlaceholder;
+  img.src = imgSrc;
+  img.onerror = () => (img.src = projectPlaceholder);
   modal.classList.add('show');
   document.documentElement.classList.add('modal-open');
   document.body.classList.add('modal-open');
@@ -305,7 +314,7 @@ function loadSkills() {
       const card = document.createElement('div');
       card.className = 'skill-card';
       card.innerHTML = `
-        <img src="${s.img}" alt="${s.name}" onerror="this.src='https://via.placeholder.com/64?text=?'">
+        <img src="${s.img}" alt="${s.name}" onerror="this.src='images/website-placeholder.jpg'">
         <span>${s.name}</span>
       `;
       container.appendChild(card);

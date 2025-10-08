@@ -40,25 +40,30 @@
     <div class="hero">
       <div class="avatar-container">
         <img class="avatar-image" src="images/me.jpg" alt="GenDeu's image" width="120" style="border-radius:50%;">
-        <span width="120" class="avatar-circle"></span></div>
-      <h2>
-        Hello, I’m 
-        <span 
-          class="highlight"
-          onmouseenter="showCard()">
-          Gen Deu 
-          <div class="avatar-icon">
-          <span>&lt;/&gt;</span>
-          </div>
-        </span>
-      </h2>
+        <span width="120" class="avatar-circle"></span>
+      </div>
+      <div class="limit-width">
+        <h2>
+          Hello, I’m 
+          <span 
+            class="highlight"
+            onmouseenter="showCard()">
+            Gen Deu 
+            <div class="avatar-icon">
+            <span>&lt;/&gt;</span>
+            </div>
+          </span>
+        </h2>
+      </div>
       <p class="tagline"><span id="typewriter"></span></p>
       <a href="#projects" class="btn nav-link">See My Projects</a>
       <a href="CV.html" target="_blank" class="btn nav-link">See My CV</a>
     </div>
     <br>
     <div class="card glass hover-hide-about">
-        <h2>👋 About Me</h2>
+        <div class="limit-width">
+          <h2>👋 About Me</h2>
+        </div>
         <p class="intro">
           I’m <strong>Gen Deu Gagarin</strong> — a <strong>UI/UX Developer</strong> and <strong>Frontend Engineer</strong> with 7+ years of experience designing and building responsive, user-centric websites and enterprise web applications.
         </p>
@@ -86,7 +91,9 @@
 
   <!-- Roadmap -->
   <section id="roadmap" class="page">
-    <h2 class="section-title"> 🗺️ Career Roadmap</h2>
+    <div class="limit-width">
+      <h2 class="section-title"> 🗺️ Career Roadmap</h2>
+    </div>
     <div class="roadmap-container">
       <div class="timeline-line"></div>
       <div id="roadmap-timeline"></div>
@@ -95,13 +102,15 @@
   
   <!-- Case Studies -->
   <section id="projects" class="page">
-    <h2 style="display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap">
-      <span>📁 Case Studies & Projects</span>
-      <div class="view-toggle">
-        <button id="carouselViewBtn" class="toggle-btn active">🎠 Carousel</button>
-        <button id="gridViewBtn" class="toggle-btn">🗂 Grid</button>
-      </div>
-    </h2>
+    <div class="limit-width">
+      <h2>
+        <span>📁 Case Studies & Projects</span>
+        <div class="view-toggle">
+          <button id="carouselViewBtn" class="toggle-btn active">🎠 Carousel</button>
+          <button id="gridViewBtn" class="toggle-btn">🗂 Grid</button>
+        </div>
+      </h2>
+    </div>  
 
     <div class="projects-grid" id="projects-grid"></div>
 
@@ -114,12 +123,14 @@
 
     <!-- Modal -->
     <div id="project-modal" class="modal" aria-hidden="true">
-      <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-        <button class="close" aria-label="Close modal">&times;</button>
-        <img id="modal-img" alt="Project image" class="modal-img">
-        <h3 id="modal-title"></h3>
-        <p id="modal-desc"></p>
-        <a id="modal-link" href="#" target="_blank" class="btn">Visit Project</a>
+      <div class="modal-box">
+        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+          <button class="close" aria-label="Close modal">&times;</button>
+          <img id="modal-img" alt="Project image" class="modal-img">
+          <h3 id="modal-title"></h3>
+          <p id="modal-desc"></p>
+          <a id="modal-link" href="#" target="_blank" class="btn">Visit Project</a>
+        </div>
       </div>
     </div>
   </section>
@@ -127,13 +138,19 @@
 
   <!-- Skills -->
   <section id="skills" class="page">
-    <h2>⚙️ Skills & Tools</h2>
-    <div class="skills-grid" id="skills-grid"></div>
+    <div class="limit-width">
+      <h2>⚙️ Skills & Tools</h2>
+    </div>
+    <div class="limit-width">
+      <div class="skills-grid" id="skills-grid"></div>
+    </div>
   </section>
 
   <!-- Contact -->
   <section id="contact" class="page">
-    <h2>📞 Contact</h2>
+    <div class="limit-width">
+      <h2>📞 Contact</h2>
+    </div>
     <div class="card glass">
       <p class="contact-intro">Open to collaborations, UI/UX consulting, and front-end projects. Let’s build something great together.</p>
       <div class="contact-buttons">

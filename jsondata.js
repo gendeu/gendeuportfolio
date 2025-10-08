@@ -7,88 +7,92 @@ siteContent = {
   },
 
   caseStudies: [
-    /* === FTAP Projects === */
     {
-      title: "FTAP Portal",
-      desc: "Designed and developed the official FTAP Portal, integrating WordPress custom themes, data dashboards, and responsive UX optimized for partner access and mobile usage.",
-      link: "https://frontiertowers.ph"
+      title: "Frontier Towers Associates Philippines (FTAP Portal)",
+      desc: "Developed the official corporate portal for FTAP, implementing custom WordPress modules and scalable UI/UX architecture for partner access, internal data, and analytics visibility.",
+      link: "https://frontiertowersphilippines.com/",
+      img: "FTAP-main.jpg"
     },
     {
       title: "FTAP Events Platform",
-      desc: "Created a dynamic events and registration platform for FTAP conferences and training programs using Wix + JavaScript customization and Figma-to-code translation.",
-      link: "https://events.frontiertowers.ph"
+      desc: "Built a complete events and registration system for conferences and trainings. Integrated ticketing, session scheduling, and responsive components via Wix and JavaScript customizations.",
+      link: "https://events.frontiertowers.ph",
+      img: "FTAP-events.jpg"
     },
     {
       title: "FTAP Sentient Dashboard",
-      desc: "Engineered Sentient’s front-end interface, focusing on user experience flow and API-based data visualization with adaptive grid layouts and modular components.",
-      link: ""
-    },
-
-    /* === ADEC Innovations Projects === */
-    {
-      title: "RBA Platform (Responsible Business Alliance)",
-      desc: "Built React/HTML hybrid UI for audit management tools under RBA compliance system. Implemented multi-step forms and accessibility enhancements.",
-      link: "https://www.adec-innovations.com"
+      desc: "Designed and developed the Sentient UI dashboard with modular front-end components and data visualization, improving user navigation and accessibility for telecom management.",
+      link: "https://sentient.co.jp/jp/",
+      img: "FTAP-Sentient.jpg"
     },
     {
-      title: "ZDHC Gateway Web App",
-      desc: "Delivered responsive dashboard UI for Zero Discharge of Hazardous Chemicals (ZDHC) platform, integrating REST APIs and AJAX-driven content updates.",
-      link: "https://gateway.zdhc.org"
+      title: "ADEC Innovations — RBA Platform",
+      desc: "Delivered React and HTML-based UI for the Responsible Business Alliance (RBA) compliance system, integrating secure forms, dashboards, and accessibility improvements.",
+      link: "https://www.adec-innovations.com/cleanchain/",
+      img: "ADEC-Cleanchain.jpg"
     },
     {
-      title: "SiteRisk WebApp",
-      desc: "Developed modular web components for SiteRisk environmental risk assessment tool, improving usability and cross-browser performance.",
-      link: ""
+      title: "ADEC Innovations — ZDHC Gateway",
+      desc: "Developed responsive SaaS dashboards for ZDHC (Zero Discharge of Hazardous Chemicals), implementing API-driven data tables and real-time reporting for sustainable supply chains.",
+      link: "https://www.adec-innovations.com/case_study/about-zdhc/",
+      img: "ADEC-ZDHC.jpg"
     },
-
-    /* === Emerson Projects === */
+    {
+      title: "ADEC Innovations — SiteRisk WebApp",
+      desc: "Created modular UI components for SiteRisk, an environmental risk assessment platform. Focused on user experience, data visualization, and compatibility across browsers.",
+      link: "https://www.adec-innovations.com/product/property-risk-map/",
+      img: "ADEC-SiteRisk.jpg"
+    },
     {
       title: "Emerson Brewery App",
-      desc: "Collaborated on ReactJS-based app for beverage manufacturing monitoring. Focused on front-end structure, reusable component patterns, and CoreMedia CMS integration.",
-      link: "https://www.emerson.com"
+      desc: "Enhanced UI features of Emerson’s Brewery App, a ReactJS-based solution for beverage automation. Implemented data visualization modules and UI consistency for global rollout.",
+      link: "https://www.emerson.com/en-us/industries/automation/food-beverage/beer#section3",
+      img: "Emerson-Brewing.jpg"
     },
     {
       title: "Emerson Corporate Web Assets",
-      desc: "Maintained and optimized Emerson’s global corporate websites in CoreMedia and SharePoint, ensuring branding consistency and ADA compliance.",
-      link: "https://www.emerson.com"
+      desc: "Managed and optimized Emerson’s CoreMedia and SharePoint websites, ensuring branding compliance and performance improvements across global corporate domains.",
+      link: "https://www.emerson.com/en-ph",
+      img: "Emerson-Brewing.jpg"
     },
-
-    /* === Emids Projects === */
-    {
-      title: "Healthcare Reactive Web Modules",
-      desc: "Developed OutSystems reactive web interfaces for global healthcare clients. Streamlined data forms and improved visual hierarchy for medical dashboards.",
-      link: "https://www.emids.com"
-    },
-
-    /* === JADE Entertainment Projects === */
     {
       title: "JadeSportsBet Platform",
-      desc: "Coded gaming dashboards and betting UIs for JadeSportsBet. Created responsive betting slips and odds display components using ReactJS and jQuery.",
-      link: "https://www.jadegaming.com.ph"
+      desc: "Built responsive sports betting dashboards using ReactJS and jQuery. Integrated real-time odds APIs, ensuring seamless UI for both desktop and kiosk experiences.",
+      link: "https://www.jadesportsbet.com/en/",
+      img: "jade-sportsbet.jpg"
+    },
+    {
+      title: "Jade Entertainment & Gaming Technologies Inc.",
+      desc: "Rebuilt Jade’s main website with Bootstrap, optimizing load speed and responsiveness. Provided ongoing UI support for electronic gaming systems and web integrations.",
+      link: "https://www.jadegaming.com.ph",
+      img: "jade-main.jpg"
     },
     {
       title: "Okada Manila Sports Display",
-      desc: "Developed live odds and game data displays for Okada Manila using HTML/CSS/JS templates powered by JSON APIs and REST endpoints.",
-      link: ""
+      desc: "Developed HTML-based real-time odds display system for Okada Manila casino, powering large-format monitors with JSON-driven data feeds for live betting updates.",
+      link: "https://okadamanila.com/casino/highlights/okada-online-casino/",
+      img: "Okada-Sports.jpg"
     },
-
-    /* === KLP Group Projects === */
     {
-      title: "BeautyDeals E-Commerce",
-      desc: "Built and maintained responsive e-commerce storefront for BeautyDeals using VueJS + Laravel backend. Integrated CMS-driven product management and animations.",
-      link: ""
+      title: "BeautyDeals E-Commerce Platform",
+      desc: "Maintained and optimized BeautyDeals’ online storefront using Laravel + VueJS. Integrated APIs for product management, promotions, and checkout flow enhancements.",
+      link: "https://klp-beautydeals.com/",
+      img: "KLP-beautydeals.jpg"
     },
     {
       title: "KLP Lifestyle Portal",
-      desc: "Created lifestyle web portal with multi-brand product listings and promotional pages using VueJS and REST API architecture.",
-      link: ""
+      desc: "Developed KLP Lifestyle’s consumer portal featuring multi-brand content, promotions, and CMS integration. Improved front-end performance and user experience consistency.",
+      link: "https://klplifestyle.com/",
+      img: "KLP-Lifestylecenter.jpg"
     },
     {
       title: "Mall Kiosk Application",
-      desc: "Developed interactive kiosk system for mall installations using Ionic + VueJS, supporting offline product browsing and scanning features.",
-      link: ""
+      desc: "Built interactive mall kiosk applications using Ionic + VueJS, enabling offline browsing and QR-based product lookups integrated with retail CMS and device APIs.",
+      link: "",
+      img: "KLP-Mall-Kiosk.jpg"
     }
   ],
+
 
   skills: [
     {
@@ -169,10 +173,36 @@ siteContent = {
   ],
 
   roadmap: [
-    { year: "2018", title: "Foundations — Junior Programmer Intern", desc: "Developed solid programming fundamentals through hands-on internship experience." },
-    { year: "2021", title: "Professional Growth — Front-End Developer", desc: "Joined the industry to design and develop responsive, accessible websites." },
-    { year: "2022", title: "UI/UX Engineering — Developer III", desc: "Led front-end projects, optimizing interfaces for accessibility and performance." },
-    { year: "2025", title: "Web UI Consultant — FTAP", desc: "Spearheaded modernization and UI/UX transformation initiatives." },
-    { year: "2026+", title: "Future Vision — Product & Full-Stack Growth", desc: "Transitioning toward product design and full-stack development leadership." }
+    {
+      year: "2018",
+      title: "Foundations — Junior Programmer Intern",
+      desc: "Started as a hands-on intern, building real-world coding experience in HTML, CSS, and PHP. Developed a strong understanding of software fundamentals, teamwork, and version control."
+    },
+    {
+      year: "2021",
+      title: "Professional Growth — Front-End Developer",
+      desc: "Joined the web development industry full-time, creating responsive and accessible websites for businesses. Applied best practices in clean code, performance optimization, and cross-browser design."
+    },
+    {
+      year: "2022",
+      title: "UI/UX Engineering — Developer III at ADEC Innovations",
+      desc: "Advanced into a key UI/UX engineering role, leading front-end initiatives for enterprise platforms. Delivered React-based dashboards and implemented modular design systems for global projects."
+    },
+    {
+      year: "2024",
+      title: "Product Evolution — Web UI Specialist",
+      desc: "Contributed to product-driven enhancements by modernizing interfaces and ensuring design consistency across client ecosystems. Strengthened collaboration between design, QA, and back-end teams."
+    },
+    {
+      year: "2025",
+      title: "Web UI Consultant — Frontier Towers Associates Philippines",
+      desc: "Consulted for FTAP on large-scale portal redesign and workflow optimization. Directed the creation of new UI components, design system alignment, and accessibility-first UX improvements."
+    },
+    {
+      year: "2026+",
+      title: "Future Vision — Product Design & Full-Stack Leadership",
+      desc: "Aiming toward full-stack and product ownership, combining UX strategy, design thinking, and modern frameworks to craft seamless digital experiences and lead innovation-driven teams."
+    }
   ]
+
 };
