@@ -410,7 +410,7 @@ function initMagneticCards() {
     card.addEventListener("mouseleave", () => {
       card.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
     });
-  });
+  }); 
 }
 
 /* === Loader Fallback === */
