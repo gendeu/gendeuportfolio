@@ -53,7 +53,7 @@ siteContent = {
       title: "Emerson Corporate Web Assets",
       desc: "Managed and optimized Emerson’s CoreMedia and SharePoint websites, ensuring branding compliance and performance improvements across global corporate domains.",
       link: "https://www.emerson.com/en-ph",
-      img: "Emerson-Brewing.jpg"
+      img: "Emerson-Main.jpg"
     },
     {
       title: "JadeSportsBet Platform",
