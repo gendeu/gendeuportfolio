@@ -8,7 +8,7 @@ siteContent = {
 
   caseStudies: [
     {
-      title: "Frontier Towers Associates Philippines (FTAP Portal)",
+      title: "Frontier Towers Associates Philippines (FTAP Portal)", 
       desc: "Developed the official corporate portal for FTAP, implementing custom WordPress modules and scalable UI/UX architecture for partner access, internal data, and analytics visibility.",
       link: "https://frontiertowersphilippines.com/",
       img: "FTAP-main.jpg"
