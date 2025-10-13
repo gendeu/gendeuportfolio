@@ -20,6 +20,19 @@ body.light {
   --card-bg: rgba(255, 255, 255, 0.8);
 }
 
+#dna-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+}
+
+body.light #dna-canvas { opacity: 0.8; }
+body:not(.light) #dna-canvas { opacity: 0.95; }
+
+
 /* --- CV iframe --- */
 iframe {
   width: 100%;
@@ -527,7 +540,7 @@ footer {
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: radial-gradient(circle at center, var(--accent) 0%, #087bff 100%);
+  background: radial-gradient(circle at center, var(--accent) 0%, #086d72 100%);
   border: 3px solid rgba(255,255,255,0.25);
   box-shadow:
     0 0 8px rgba(0,242,254,0.7),
@@ -675,7 +688,7 @@ body.dark .timeline-content p {
     /* width: 32px;
     height: 32px; */
     border-radius: 50%;
-    background: radial-gradient(circle at center, #00f2fe 0%, #087bff 100%);
+    background: radial-gradient(circle at center, #00f2fe 0%, var(--accent) 100%);
     border: 3px solid rgba(255,255,255,0.25);
     box-shadow:
       0 0 8px rgba(0,242,254,0.7),
@@ -705,7 +718,7 @@ body.dark .timeline-content p {
     height: 135px;
     width: 120px;
     border-radius: 50%;
-    background: radial-gradient(circle at center, #00f2fe 0%, #087bff 100%);
+    background: radial-gradient(circle at center, #00f2fe 0%, var(--accent) 100%);
     border: 3px solid rgba(255, 255, 255, 0.25);
     box-shadow: 0 0 8px rgba(0, 242, 254, 0.7), 0 0 18px rgba(140, 82, 255, 0.5), inset 0 0 4px rgba(255, 255, 255, 0.2);
     z-index: 3;
@@ -936,6 +949,14 @@ body.dark .timeline-content p {
   .modal-box {
     padding-bottom: 30%;
   }
+  #home {
+    display: flex;
+  }
+  
+  #home .hero {
+    display: flex;
+  }
+  
 }
 @media (max-width: 480px) {
   .swiper-slide {
@@ -943,3 +964,4 @@ body.dark .timeline-content p {
     height: 150px;
   }
 }
+
