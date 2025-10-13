@@ -174,34 +174,49 @@ siteContent = {
 
   roadmap: [
     {
-      year: "2018",
-      title: "Foundations — Junior Programmer Intern",
-      desc: "Started as a hands-on intern, building real-world coding experience in HTML, CSS, and PHP. Developed a strong understanding of software fundamentals, teamwork, and version control."
+      "year": "2017",
+      "title": "Foundations — IT Programmer Intern at SAJELCO",
+      "desc": "Began hands-on programming experience at San Jose City Electric Cooperative, assisting in the development of internal systems and websites for communication and local file sharing. Built practical skills in PHP, HTML, and system integration."
     },
     {
-      year: "2021",
-      title: "Professional Growth — Front-End Developer",
-      desc: "Joined the web development industry full-time, creating responsive and accessible websites for businesses. Applied best practices in clean code, performance optimization, and cross-browser design."
+      "year": "2018",
+      "title": "Early Career — Junior Programmer at Integramme Co. Ltd",
+      "desc": "Contributed to real-world projects such as Landbank PMS and KAKLAZE Enrollment System. Gained foundational experience in full-stack development and software integration while strengthening technical collaboration and project-based delivery."
     },
     {
-      year: "2022",
-      title: "UI/UX Engineering — Developer III at ADEC Innovations",
-      desc: "Advanced into a key UI/UX engineering role, leading front-end initiatives for enterprise platforms. Delivered React-based dashboards and implemented modular design systems for global projects."
+      "year": "2018–2021",
+      "title": "Professional Growth — Associate Software Engineer at Jade Entertainment & Gaming Technologies",
+      "desc": "Developed live gaming interfaces and ReactJS-based web applications for JadeSportsBet and Okada Manila. Enhanced front-end systems using HTML, CSS, and JavaScript while optimizing performance for large-scale, real-time display systems."
     },
     {
-      year: "2024",
-      title: "Product Evolution — Web UI Specialist",
-      desc: "Contributed to product-driven enhancements by modernizing interfaces and ensuring design consistency across client ecosystems. Strengthened collaboration between design, QA, and back-end teams."
+      "year": "2021",
+      "title": "E-Commerce Expansion — Mid Front-End Developer at KLP Group Lifestyle PH",
+      "desc": "Managed and improved e-commerce platforms including BeautyDeals and KLP Lifestyle. Built mobile kiosk apps with Ionic + VueJS and React Native. Integrated Laravel + VueJS for dynamic CMS and API-driven web systems."
     },
     {
-      year: "2025",
-      title: "Web UI Consultant — Frontier Towers Associates Philippines",
-      desc: "Consulted for FTAP on large-scale portal redesign and workflow optimization. Directed the creation of new UI components, design system alignment, and accessibility-first UX improvements."
+      "year": "2021–2022",
+      "title": "Enterprise Systems — Web Administrator II at Emerson Electric Co.",
+      "desc": "Administered global corporate websites via CoreMedia and MS SharePoint. Supported ReactJS features for Emerson’s Brewery App, ensuring brand consistency and UI performance across international teams."
     },
     {
-      year: "2026+",
-      title: "Future Vision — Product Design & Full-Stack Leadership",
-      desc: "Aiming toward full-stack and product ownership, combining UX strategy, design thinking, and modern frameworks to craft seamless digital experiences and lead innovation-driven teams."
+      "year": "2022",
+      "title": "Low-Code & SaaS Development — Mid Software Developer at Emids",
+      "desc": "Specialized in OutSystems for healthcare SaaS projects. Earned OutSystems Reactive Web Developer certification and supported scalable enterprise-grade applications for international clients."
+    },
+    {
+      "year": "2022–2025",
+      "title": "UI/UX Engineering — Developer III at ADEC Innovations",
+      "desc": "Led UI/UX implementation for enterprise platforms such as RBA, ZDHC Gateway, and SiteRisk WebApp. Built modular, data-driven dashboards using Bootstrap, AJAX, and REST APIs while improving performance and accessibility."
+    },
+    {
+      "year": "2025",
+      "title": "Consultancy & Product Evolution — Web UI Specialist at Frontier Towers Associates Philippines",
+      "desc": "Consulted on large-scale website redesigns and workflow optimization for FTAP platforms. Delivered responsive, production-ready WordPress and Wix interfaces from Figma and Adobe XD prototypes, emphasizing accessibility and usability."
+    },
+    {
+      "year": "2026+",
+      "title": "Future Vision — Full-Stack & Product Design Leadership",
+      "desc": "Aiming toward product ownership by merging UX strategy, design systems, and modern frameworks to craft cohesive digital experiences. Focused on leading innovation-driven teams in enterprise and SaaS ecosystems."
     }
   ]
 
