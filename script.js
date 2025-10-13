@@ -435,9 +435,9 @@ document.addEventListener('DOMContentLoaded', () => {
   initMagneticCards();
 });
 
-/* === INTERACTIVE NETWORK MESH BACKGROUND (Mobile Optimized) ===
-   Smooth connected particles that react to mouse/touch.
-   Automatically reduces particles on smaller screens.
+/* === NETWORK MESH BACKGROUND ===
+   Smoothly animated connected particles, light/dark mode adaptive
+   Auto-reduces particle count on smaller screens
 */
 (function() {
   const MeshBG = {
@@ -449,7 +449,6 @@ document.addEventListener('DOMContentLoaded', () => {
     numParticles: 90,
     maxDistance: 180,
     speed: 0.4,
-    mouse: { x: null, y: null, active: false },
     raf: null,
     colors: {},
 
@@ -457,34 +456,10 @@ document.addEventListener('DOMContentLoaded', () => {
       this.canvas = document.getElementById('dna-canvas');
       if (!this.canvas) return;
       this.ctx = this.canvas.getContext('2d', { alpha: true });
-
       this.updateSize();
       window.addEventListener('resize', () => this.updateSize());
-
-      // Observe theme class change
       const obs = new MutationObserver(() => this.updateColors());
       obs.observe(document.body, { attributes: true, attributeFilter: ['class'] });
-
-      // 🖱️ Mouse & touch
-      window.addEventListener('mousemove', e => {
-        this.mouse.x = e.clientX;
-        this.mouse.y = e.clientY;
-        this.mouse.active = true;
-      });
-      window.addEventListener('mouseleave', () => (this.mouse.active = false));
-      window.addEventListener(
-        'touchmove',
-        e => {
-          if (e.touches.length > 0) {
-            this.mouse.x = e.touches[0].clientX;
-            this.mouse.y = e.touches[0].clientY;
-            this.mouse.active = true;
-          }
-        },
-        { passive: true }
-      );
-      window.addEventListener('touchend', () => (this.mouse.active = false));
-
       this.updateColors();
       this.createParticles();
       this.animate();
@@ -496,14 +471,14 @@ document.addEventListener('DOMContentLoaded', () => {
       this.height = window.innerHeight;
       this.canvas.width = this.width * dpr;
       this.canvas.height = this.height * dpr;
-      this.canvas.style.width = this.width + 'px';
-      this.canvas.style.height = this.height + 'px';
+      this.canvas.style.width = this.width + "px";
+      this.canvas.style.height = this.height + "px";
       this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      // 🎯 Adjust particle count dynamically
-      if (this.width <= 480) this.numParticles = 35; // phones
+      // 🔹 Adjust particle count based on screen size
+      if (this.width <= 480) this.numParticles = 35;      // phones
       else if (this.width <= 768) this.numParticles = 55; // tablets
-      else this.numParticles = 90; // desktops
+      else this.numParticles = 90;                        // desktops
 
       this.createParticles();
     },
@@ -511,10 +486,12 @@ document.addEventListener('DOMContentLoaded', () => {
     updateColors() {
       const cs = getComputedStyle(document.body);
       const accent = cs.getPropertyValue('--accent').trim() || '#00baff';
+      const text = cs.getPropertyValue('--text').trim() || '#ffffff';
       const isLight = document.body.classList.contains('light');
       this.colors = {
         dot: isLight ? this.addAlpha(accent, 0.7) : this.addAlpha(accent, 0.9),
-        line: isLight ? this.addAlpha(accent, 0.2) : this.addAlpha(accent, 0.3)
+        line: isLight ? this.addAlpha(accent, 0.2) : this.addAlpha(accent, 0.3),
+        bg: isLight ? '#ffffff' : '#000000'
       };
     },
 
@@ -539,31 +516,15 @@ document.addEventListener('DOMContentLoaded', () => {
       const ctx = this.ctx;
       ctx.clearRect(0, 0, this.width, this.height);
 
+      // Draw particles
       for (let p of this.particles) {
         p.x += p.vx;
         p.y += p.vy;
 
-        // 🧲 Attraction to mouse/touch
-        if (this.mouse.active && this.mouse.x != null && this.mouse.y != null) {
-          const dx = this.mouse.x - p.x;
-          const dy = this.mouse.y - p.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 150) {
-            const force = (150 - dist) / 150;
-            p.vx += (dx / dist) * force * 0.02;
-            p.vy += (dy / dist) * force * 0.02;
-          }
-        }
-
-        // Bounce from edges
+        // bounce from edges
         if (p.x < 0 || p.x > this.width) p.vx *= -1;
         if (p.y < 0 || p.y > this.height) p.vy *= -1;
 
-        // Slight damping
-        p.vx *= 0.98;
-        p.vy *= 0.98;
-
-        // Draw point
         ctx.beginPath();
         ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
         ctx.fillStyle = this.colors.dot;
@@ -580,7 +541,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < this.maxDistance) {
             const alpha = 1 - dist / this.maxDistance;
-            ctx.strokeStyle = this.addAlpha(this.colors.line, alpha);
+            ctx.strokeStyle = this.addAlpha(this.colors.line, alpha * 0.8);
             ctx.lineWidth = 1;
             ctx.beginPath();
             ctx.moveTo(a.x, a.y);
