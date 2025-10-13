@@ -410,7 +410,7 @@ function initMagneticCards() {
     card.addEventListener("mouseleave", () => {
       card.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
     });
-  }); 
+  });
 }
 
 /* === Loader Fallback === */
@@ -434,3 +434,133 @@ document.addEventListener('DOMContentLoaded', () => {
   initProjectViewToggle();
   initMagneticCards();
 });
+
+
+/* === NETWORK MESH BACKGROUND ===
+   Smoothly animated connected particles, light/dark mode adaptive
+*/
+(function() {
+  const MeshBG = {
+    canvas: null,
+    ctx: null,
+    width: 0,
+    height: 0,
+    particles: [],
+    numParticles: 90,
+    maxDistance: 180,
+    speed: 0.4,
+    raf: null,
+    colors: {},
+
+    init() {
+      this.canvas = document.getElementById('dna-canvas');
+      if (!this.canvas) return;
+      this.ctx = this.canvas.getContext('2d', { alpha: true });
+      this.updateSize();
+      window.addEventListener('resize', () => this.updateSize());
+      const obs = new MutationObserver(() => this.updateColors());
+      obs.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+      this.updateColors();
+      this.createParticles();
+      this.animate();
+    },
+
+    updateSize() {
+      const dpr = Math.max(1, window.devicePixelRatio || 1);
+      this.width = window.innerWidth;
+      this.height = window.innerHeight;
+      this.canvas.width = this.width * dpr;
+      this.canvas.height = this.height * dpr;
+      this.canvas.style.width = this.width + "px";
+      this.canvas.style.height = this.height + "px";
+      this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    },
+
+    updateColors() {
+      const cs = getComputedStyle(document.body);
+      const accent = cs.getPropertyValue('--accent').trim() || '#00baff';
+      const text = cs.getPropertyValue('--text').trim() || '#ffffff';
+      const isLight = document.body.classList.contains('light');
+      this.colors = {
+        dot: isLight ? this.addAlpha(accent, 0.7) : this.addAlpha(accent, 0.9),
+        line: isLight ? this.addAlpha(accent, 0.2) : this.addAlpha(accent, 0.3),
+        bg: isLight ? '#ffffff' : '#000000'
+      };
+    },
+
+    createParticles() {
+      this.particles = [];
+      for (let i = 0; i < this.numParticles; i++) {
+        this.particles.push({
+          x: Math.random() * this.width,
+          y: Math.random() * this.height,
+          vx: (Math.random() - 0.5) * this.speed,
+          vy: (Math.random() - 0.5) * this.speed
+        });
+      }
+    },
+
+    animate() {
+      this.raf = requestAnimationFrame(() => this.animate());
+      this.draw();
+    },
+
+    draw() {
+      const ctx = this.ctx;
+      ctx.clearRect(0, 0, this.width, this.height);
+
+      // Draw particles
+      for (let p of this.particles) {
+        p.x += p.vx;
+        p.y += p.vy;
+
+        // bounce from edges
+        if (p.x < 0 || p.x > this.width) p.vx *= -1;
+        if (p.y < 0 || p.y > this.height) p.vy *= -1;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+        ctx.fillStyle = this.colors.dot;
+        ctx.fill();
+      }
+
+      // Draw connections
+      for (let i = 0; i < this.particles.length; i++) {
+        for (let j = i + 1; j < this.particles.length; j++) {
+          const a = this.particles[i];
+          const b = this.particles[j];
+          const dx = a.x - b.x;
+          const dy = a.y - b.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < this.maxDistance) {
+            const alpha = 1 - dist / this.maxDistance;
+            ctx.strokeStyle = this.addAlpha(this.colors.line, alpha * 0.8);
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+          }
+        }
+      }
+    },
+
+    addAlpha(color, alpha) {
+      if (color.startsWith('#')) {
+        const c = color.substring(1);
+        const bigint = parseInt(c, 16);
+        const r = (bigint >> 16) & 255;
+        const g = (bigint >> 8) & 255;
+        const b = bigint & 255;
+        return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+      }
+      return color;
+    }
+  };
+
+  document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => MeshBG.init(), 100);
+  });
+
+  window.MeshBG = MeshBG;
+})();
