@@ -12,6 +12,12 @@
 
 <body>
 
+  <!-- Scroll to Top Button -->
+  <button id="scrollTopBtn" title="Go to top">
+    <ion-icon name="arrow-up-outline"></ion-icon>
+  </button>
+
+
   <canvas id="dna-canvas" aria-hidden="true"></canvas>
 
   <!-- GD Loader -->
@@ -23,7 +29,12 @@
   <!-- Navbar -->
   <header>
     <nav class="nav-glass">
-      <a href="#home" style="text-decoration: none;"><h1 class="logo">GenDeu</h1></a>
+      <a href="index.html" style="text-decoration: none;">
+        <h1 class="logo">GD</h1>
+        <div class="avatar-icon" style="left: -41px; scale: .6; top: -13px;">
+          <span>&lt;/&gt;</span>
+        </div>
+      </a>
       <div id="menu-toggle">☰</div>
       <ul>
         <li><a href="#home" class="nav-link active">Home</a></li>
