@@ -974,7 +974,7 @@ body.dark .timeline-content p {
     align-items: start;
     justify-content: center;
     min-height: 65vh;
-    transition: all 2s ease;
+    transition: all 1s ease;
   }
   .main-section .hero {
     width: 30%;
