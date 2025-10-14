@@ -729,6 +729,7 @@ body.dark .timeline-content p {
 .avatar-icon {
   position: relative;
 }
+/* === Avatar Icon Twinkling Effect === */
 .avatar-icon span {
   position: absolute;
   pointer-events: all;
@@ -737,6 +738,27 @@ body.dark .timeline-content p {
   color: var(--accent);
   font-size: 22px;
   font-weight: 300;
+  text-shadow: 0 0 6px rgba(0, 242, 254, 0.6);
+  animation: twinkle 2.4s infinite ease-in-out;
+}
+
+/* Soft glowing twinkle animation */
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.8;
+    text-shadow:
+      0 0 4px rgba(0, 242, 254, 0.4),
+      0 0 10px rgba(0, 242, 254, 0.3);
+    transform: translateX(107px) scale(1);
+  }
+  50% {
+    opacity: 1;
+    text-shadow:
+      0 0 8px rgba(0, 242, 254, 0.8),
+      0 0 20px rgba(0, 242, 254, 0.7),
+      0 0 30px rgba(0, 242, 254, 0.5);
+    transform: translateX(107px) scale(1.1);
+  }
 }
 
   /* === View Toggle Buttons === */
@@ -1034,4 +1056,42 @@ body.dark .timeline-content p {
   .hover-hide-about.show {
     transform: translateY(0);
   }
+}
+
+/* === Scroll To Top Button === */
+#scrollTopBtn {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 9999;
+  background: linear-gradient(135deg, var(--accent), #38f3ff88);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 1.8rem;
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  transition: all 0.35s ease;
+}
+#scrollTopBtn:hover {
+  transform: scale(1.1) translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+}
+#scrollTopBtn ion-icon {
+  font-size: 1.6rem;
+}
+body.light #scrollTopBtn {
+  background: linear-gradient(135deg, var(--accent), #3f51b5aa);
+}
+#scrollTopBtn {
+  animation: floatUpDown 3s ease-in-out infinite;
+}
+@keyframes floatUpDown {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
 }
