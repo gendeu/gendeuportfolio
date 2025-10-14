@@ -198,7 +198,7 @@ main, .page { padding-top: 90px; }
   padding: 2rem 1.25rem;
 }
 .page.active { display: block; opacity: 1; transform: translateY(0); }
-.hero { text-align: center; margin-top: 10vh; min-height: 302.828px;}
+.hero { text-align: center;}
 .highlight { color: var(--accent); }
 
 /* --- Cards --- */
@@ -208,9 +208,9 @@ main, .page { padding-top: 90px; }
   border-radius: 16px;
   padding: 1.25rem;
   backdrop-filter: blur(10px);
-  margin: auto;
+  margin: auto 0;
   width: 100%;
-  max-width: 1200px;
+  max-width: 600px;
 }
 
 /* --- Buttons --- */
@@ -669,84 +669,75 @@ body.dark .timeline-content p {
   }
 }
 
-  .hover-hide-about {
-    display: none;
-    position: relative;
-    opacity: 0;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    max-width: 500px;
-    margin-top: 1rem;
-  }
+.loader-text {
+  z-index: 99;
+  color: black;
+  font-weight: bold;
+}
+.loader-circle {
+  position: absolute;
+  z-index: 9;
+  top: 50%;
+  left: 50%;
+  padding: 20px;
+  /* width: 32px;
+  height: 32px; */
+  border-radius: 50%;
+  background: radial-gradient(circle at center, #00f2fe 0%, var(--accent) 100%);
+  border: 3px solid rgba(255,255,255,0.25);
+  box-shadow:
+    0 0 8px rgba(0,242,254,0.7),
+    0 0 18px rgba(140,82,255,0.5),
+    inset 0 0 4px rgba(255,255,255,0.2);
+  z-index: 3;
+  animation: pulseDot 3s ease-in-out infinite;
+}
+@keyframes pulseDot {
+  0%,100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.25); }
+}
 
-  .loader-text {
-    z-index: 99;
-    color: black;
-    font-weight: bold;
-  }
-  .loader-circle {
-    position: absolute;
-    z-index: 9;
-    top: 50%;
-    left: 50%;
-    padding: 20px;
-    /* width: 32px;
-    height: 32px; */
-    border-radius: 50%;
-    background: radial-gradient(circle at center, #00f2fe 0%, var(--accent) 100%);
-    border: 3px solid rgba(255,255,255,0.25);
-    box-shadow:
-      0 0 8px rgba(0,242,254,0.7),
-      0 0 18px rgba(140,82,255,0.5),
-      inset 0 0 4px rgba(255,255,255,0.2);
-    z-index: 3;
-    animation: pulseDot 3s ease-in-out infinite;
-  }
-  @keyframes pulseDot {
-    0%,100% { transform: translate(-50%, -50%) scale(1); }
-    50% { transform: translate(-50%, -50%) scale(1.25); }
-  }
-
-  /* Profile avatar */
-  .avatar-container {
-    position: relative;
-  }
-  .hero .limit-width {
-    height: 62px;
-  }
-  .avatar-image {
-    z-index: 99;
-    position: relative;
-  }
-  .avatar-circle {
-    position: absolute;
-    z-index: 2;
-    top: 48%;
-    left: 50%;
-    height: 135px;
-    width: 120px;
-    border-radius: 50%;
-    background: radial-gradient(circle at center, #00f2fe 0%, var(--accent) 100%);
-    border: 3px solid rgba(255, 255, 255, 0.25);
-    box-shadow: 0 0 8px rgba(0, 242, 254, 0.7), 0 0 18px rgba(140, 82, 255, 0.5), inset 0 0 4px rgba(255, 255, 255, 0.2);
-    z-index: 3;
-    animation: pulseDot 3s ease-in-out infinite;
-  }
-  @keyframes pulseDot {
-    0%,100% { transform: translate(-50%, -50%) scale(1); }
-    50% { transform: translate(-50%, -50%) scale(1.05); }
-  }
-  .avatar-icon {
-    position: relative;
-  }
-  .avatar-icon span {
-    position: absolute;
-    pointer-events: all;
-    bottom: 10px;
-    transform: translateX(107px);
-    color: var(--accent);
-    font-size: 22px;
-    font-weight: 300;
-  }
+/* Profile avatar */
+.avatar-container {
+  position: relative;
+}
+.hero .limit-width {
+  min-height: 62px;
+}
+.avatar-image {
+  z-index: 99;
+  position: relative;
+}
+.avatar-circle {
+  position: absolute;
+  z-index: 2;
+  top: 48%;
+  left: 50%;
+  height: 135px;
+  width: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, #00f2fe 0%, var(--accent) 100%);
+  border: 3px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 8px rgba(0, 242, 254, 0.7), 0 0 18px rgba(140, 82, 255, 0.5), inset 0 0 4px rgba(255, 255, 255, 0.2);
+  z-index: 3;
+  animation: pulseDot 3s ease-in-out infinite;
+}
+@keyframes pulseDot {
+  0%,100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.05); }
+}
+.avatar-icon {
+  position: relative;
+}
+.avatar-icon span {
+  position: absolute;
+  pointer-events: all;
+  bottom: 10px;
+  transform: translateX(107px);
+  color: var(--accent);
+  font-size: 22px;
+  font-weight: 300;
+}
 
   /* === View Toggle Buttons === */
 .view-toggle {
@@ -964,3 +955,83 @@ body.dark .timeline-content p {
   }
 }
 
+/* === Hero Fade-In Animation === */
+.main-section .hero {
+  opacity: 0;
+  transform: translateY(25px);
+  transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+}
+
+/* When the hero becomes visible */
+.main-section .hero.fade-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (min-width: 1024px) {
+  .main-section {
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    min-height: 65vh;
+    transition: all 2s ease;
+  }
+  .main-section .hero {
+    width: 30%;
+    margin: auto 0;
+    max-width: 356px;
+  }
+  .main-section .card {
+    width: 70%;
+    margin: auto 0;
+  }
+  #home {
+    min-height: 78vh;
+  }
+}
+@media (max-width: 1024px) {
+  .main-section {
+    display: block;
+    min-height: 58vh;
+  }
+  .main-section .hero {
+    width: 100%;
+    margin: auto;
+    margin-top: 10vh;
+  }
+  .main-section .card {
+    width: 100%;
+    margin: auto;
+  }
+}
+
+#hero {
+  max-width: 1100px;
+}
+
+/* === About Me Slide + Fade Animation (Unified with Hero) === */
+.hover-hide-about {
+  display: none;
+  position: relative;
+  opacity: 0;
+  transform: translateX(80px); /* desktop default */
+  transition:
+    opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* When shown */
+.hover-hide-about.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Mobile & tablet — slide up instead */
+@media (max-width: 1023px) {
+  .hover-hide-about {
+    transform: translateY(80px);
+  }
+  .hover-hide-about.show {
+    transform: translateY(0);
+  }
+}
