@@ -1030,7 +1030,6 @@ body.dark .timeline-content p {
 #hero {
   max-width: 1100px;
 }
-
 /* === About Me Slide + Fade Animation (Unified with Hero) === */
 .hover-hide-about {
   display: none;
@@ -1094,4 +1093,103 @@ body.light #scrollTopBtn {
 @keyframes floatUpDown {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-6px); }
+}
+
+/* === Modern Contact Section === */
+.contact-modern {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 70vh;
+  padding: 4rem 1.5rem;
+}
+
+.contact-container {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 18px;
+  padding: 2.5rem;
+  max-width: 600px;
+  width: 100%;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-container:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+}
+
+.contact-container h2 {
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.contact-text {
+  color: var(--text);
+  opacity: 0.85;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.contact-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.contact-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(145deg, var(--accent), #38f3ff88);
+  color: #fff;
+  border-radius: 14px;
+  width: 100px;
+  height: 100px;
+  text-decoration: none;
+  font-weight: 600;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+
+.contact-icon ion-icon {
+  font-size: 2rem;
+  margin-bottom: 0.4rem;
+}
+
+.contact-icon:hover {
+  transform: translateY(-6px) scale(1.05);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.25);
+}
+
+.contact-info {
+  color: var(--text);
+  opacity: 0.9;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.contact-info ion-icon {
+  color: var(--accent);
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+/* Responsive layout */
+@media (max-width: 600px) {
+  .contact-container {
+    padding: 2rem 1.25rem;
+  }
+  .contact-icon {
+    width: 90px;
+    height: 90px;
+  }
 }
