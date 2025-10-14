@@ -39,39 +39,41 @@
 
   <!-- Home -->
   <section id="home" class="page active">
-    <div class="hero">
-      <div class="avatar-container">
-        <img class="avatar-image" src="images/me.jpg" alt="GenDeu's image" width="120" style="border-radius:50%;">
-        <span width="120" class="avatar-circle"></span>
-      </div>
-      <div class="limit-width">
-        <h2>
-          Hello, I’m 
-          <span 
-            class="highlight"
-            onmouseenter="showCard()">
-            Gen Deu 
-            <div class="avatar-icon">
-            <span>&lt;/&gt;</span>
-            </div>
-          </span>
-        </h2>
-      </div>
-      <p class="tagline"><span id="typewriter"></span></p>
-      <a href="#projects" class="btn nav-link">See My Projects</a>
-      <a href="CV.html" target="_blank" class="btn nav-link">See My CV</a>
-    </div>
-    <br>
-    <div class="card glass hover-hide-about">
-        <div class="limit-width">
-          <h2>👋 About Me</h2>
+    <div class="main-section">
+      <div class="hero">
+        <div class="avatar-container">
+          <img class="avatar-image" src="images/me.jpg" alt="GenDeu's image" width="120" style="border-radius:50%;">
+          <span width="120" class="avatar-circle"></span>
         </div>
-        <p class="intro">
-          I’m <strong>Gen Deu Gagarin</strong> — a <strong>UI/UX Developer</strong> and <strong>Frontend Engineer</strong> with 7+ years of experience designing and building responsive, user-centric websites and enterprise web applications.
-        </p>
-        <p class="intro">
-          I specialize in turning creative concepts into functional, pixel-perfect interfaces that enhance usability and elevate brand presence.
-        </p>
+        <div class="limit-width">
+          <h2>
+            Hello, I’m 
+            <span 
+              class="highlight"
+              onmouseenter="showCard()">
+              Gen Deu 
+              <div class="avatar-icon">
+              <span>&lt;/&gt;</span>
+              </div>
+            </span>
+          </h2>
+        </div>
+        <p class="tagline"><span id="typewriter"></span></p>
+        <a href="#projects" class="btn nav-link">See My Projects</a>
+        <a href="CV.html" target="_blank" class="btn nav-link">See My CV</a>
+      </div>
+      <br>
+      <div class="card glass hover-hide-about">
+          <div class="limit-width">
+            <h2>👋 About Me</h2>
+          </div>
+          <p class="intro">
+            I’m <strong>Gen Deu Gagarin</strong> — a <strong>UI/UX Developer</strong> and <strong>Frontend Engineer</strong> with 7+ years of experience designing and building responsive, user-centric websites and enterprise web applications.
+          </p>
+          <p class="intro">
+            I specialize in turning creative concepts into functional, pixel-perfect interfaces that enhance usability and elevate brand presence.
+          </p>
+      </div>
     </div>
   </section>
 
@@ -171,23 +173,40 @@
 
   <script>
     const card = document.querySelector('.hover-hide-about');
+    const hero = document.querySelector('.main-section .hero');
 
-    function showCard() {
-      card.style.display = "block";
+    // Animate hero on page load
+    window.addEventListener('load', () => {
       setTimeout(() => {
-        card.style.opacity = "1";
-        card.style.transform = "translateY(0)";
-      }, 10); // small delay to trigger transition
+        hero.classList.add('fade-in');
+      }, 200);
+    });
+
+    // Show About Card with smooth animation
+    function showCard() {
+      if (!card) return;
+      card.style.display = "block";
+
+      // Reset animation if triggered again
+      card.classList.remove("show");
+      void card.offsetWidth; // Force reflow to restart transition
+
+      requestAnimationFrame(() => {
+        card.classList.add("show");
+      });
     }
 
     function hideCard() {
-      card.style.opacity = "0";
-      card.style.transform = "translateY(10px)";
+      if (!card) return;
+      card.classList.remove("show");
       setTimeout(() => {
         card.style.display = "none";
-      }, 300); // matches transition duration
+      }, 1200); // match 1.2s transition duration
     }
   </script>
+
+
+
   
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
