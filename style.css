@@ -150,6 +150,10 @@ nav ul li a.active { color: var(--accent); font-weight: 700; }
   cursor: pointer;
 }
 
+.tagline {
+  height: 25px;
+  margin: 0 0 4px 0;
+}
 /* --- Mobile Nav --- */
 @media (max-width: 768px) {
   .nav-glass {
@@ -705,6 +709,9 @@ body.dark .timeline-content p {
   /* Profile avatar */
   .avatar-container {
     position: relative;
+  }
+  .hero .limit-width {
+    height: 62px;
   }
   .avatar-image {
     z-index: 99;
