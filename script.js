@@ -571,3 +571,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.MeshBG = MeshBG;
 })();
+
+/* === Scroll To Top Button === */
+function initScrollTop() {
+  const btn = document.getElementById("scrollTopBtn");
+  if (!btn) return;
+
+  window.addEventListener("scroll", () => {
+    btn.style.display = window.scrollY > 200 ? "block" : "none";
+  });
+
+  btn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  initScrollTop();
+});
+
