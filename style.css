@@ -992,12 +992,12 @@ body.dark .timeline-content p {
 @media (max-width: 1024px) {
   .main-section {
     display: block;
-    min-height: 58vh;
+    /* min-height: 58vh; */
   }
   .main-section .hero {
     width: 100%;
     margin: auto;
-    margin-top: 10vh;
+    margin-top: 15vh;
   }
   .main-section .card {
     width: 100%;
