@@ -698,7 +698,84 @@ body.dark .timeline-content p {
 }
 
 /* Profile avatar */
+/* --- Polygon + Floating Head Avatar (Refined Depth Layout) --- */
 .avatar-container {
+  position: relative;
+  display: inline-block;
+  width: 260px;
+  height: 280px;
+  margin: 0 auto;
+  filter: drop-shadow(0 0 25px rgba(0, 242, 254, 0.25));
+  perspective: 800px;
+}
+
+/* Polygon frame background */
+.avatar-polygon {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  clip-path: polygon(50% 0%, 96% 25%, 96% 78%, 50% 100%, 4% 78%, 4% 25%);
+  background: linear-gradient(135deg, #00f2fe, #00c6ff, #0078ff);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow:
+    0 0 20px rgba(0, 242, 254, 0.5),
+    0 0 40px rgba(0, 97, 255, 0.3),
+    inset 0 0 10px rgba(255, 255, 255, 0.05);
+  animation: glowRotate 10s linear infinite;
+  z-index: 1;
+    transition:
+    transform 0.4s ease,
+    box-shadow 0.4s ease,
+    background 0.4s ease,
+    filter 0.4s ease;
+}
+
+@keyframes glowRotate {
+  100% { transform: rotate(360deg); }
+}
+
+/* The transparent image that breaks above the polygon */
+.avatar-image {
+  position: absolute;
+  bottom: -5%; /* ensures shoulders go inside polygon */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 113%;
+  height: auto;
+  border-radius: 0;
+  z-index: 2;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 25px rgba(0, 0, 0, 0.5));
+  transition: transform 0.4s ease, filter 0.3s ease;
+}
+
+/* Optional hover lift */
+/* .avatar-container:hover .avatar-image {
+  transform: translateX(-50%) scale(1.05);
+  filter: drop-shadow(0 12px 35px rgba(0, 242, 254, 0.4));
+} */
+.avatar-container:hover .avatar-image {
+  transform: translateX(-50%) scale(1.05);
+  filter:
+    drop-shadow(0 12px 35px rgba(0, 0, 0, 0.75))
+    brightness(0.95);
+  transition: transform 0.4s ease, filter 0.4s ease;
+}
+.avatar-container:hover .avatar-polygon {
+  /* transform: scale(1.3); */
+  background: rgba(20, 10, 5, 0.9); 
+  filter: brightness(0.9);
+  box-shadow:
+    0 0 25px rgba(0, 0, 0, 0.7),
+    inset 0 0 12px rgba(0, 0, 0, 0.6);
+  transition:
+    transform 0.4s ease,
+    filter 0.4s ease,
+    box-shadow 0.4s ease,
+    background 1s ease;
+}
+/* .avatar-container {
   position: relative;
 }
 .hero .limit-width {
@@ -707,7 +784,7 @@ body.dark .timeline-content p {
 .avatar-image {
   z-index: 99;
   position: relative;
-}
+} */
 .avatar-circle {
   position: absolute;
   z-index: 2;
