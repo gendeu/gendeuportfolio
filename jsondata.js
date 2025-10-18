@@ -2,7 +2,7 @@ siteContent = {
   hero: {
     greeting: "Hello, I’m",
     name: "Gen Deu",
-    roles: ["{Web Developer}", "{Frontend Engineer}", "{PHP Developer}", "{Full-stack Developer}", "{UI/UX Developer}", "{Wordpress Developer}", "{Creative Coder}"],
+    roles: ["{Web Developer}", "{Frontend Engineer}", "{Full-stack Developer}", "{UI/UX Developer}", "{Creative Coder}"],
     cta: "See My Projects"
   },
 
