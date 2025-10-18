@@ -131,12 +131,80 @@ nav ul li a {
 nav ul li a:hover { color: var(--accent); }
 nav ul li a.active { color: var(--accent); font-weight: 700; }
 
-#theme-toggle {
-  border: none;
+/* === THEME TOGGLE - Neon Glow Switch === */
+.theme-switch {
+  position: relative;
+  display: inline-block;
+  width: 62px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.theme-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 242, 254, 0.15);
+  border-radius: 30px;
+  transition: 0.4s;
+  box-shadow:
+    inset 0 0 8px rgba(0,242,254,0.25),
+    0 0 8px rgba(0,242,254,0.25);
+  display: flex;
+  align-items: center;
+}
+
+.slider::before {
+  content: "";
+  position: absolute;
+  height: 24px;
+  width: 24px;
+  left: 4px;
+  top: 3px;
+  background: #fff;
+  border-radius: 50%;
+  transition: 0.4s;
+  box-shadow: 0 0 6px rgba(255,255,255,0.8);
+}
+
+/* Icon inside slider */
+.slider .icon {
+  position: absolute;
+  right: 7px;
+  font-size: 15px;
+  color: var(--accent);
+  transition: 0.3s;
+}
+
+/* ===== LIGHT MODE ON ===== */
+input:checked + .slider {
   background: var(--accent);
+  box-shadow:
+    0 0 12px var(--accent),
+    0 0 24px var(--accent);
+}
+
+input:checked + .slider::before {
+  transform: translateX(30px);
+  background: #222;
+}
+
+input:checked + .slider .icon {
+  left: 8px;
+  color: yellow;
+}
+
+#theme-toggle {
+  border: 1px solid var(--accent);
+  background: transparent;
   color: #fff;
   border-radius: 8px;
-  padding: 0.3rem 0.6rem;
+  padding: 1px;
   cursor: pointer;
   font-size: 1.1rem;
   transition: transform 0.2s ease;
@@ -145,9 +213,33 @@ nav ul li a.active { color: var(--accent); font-weight: 700; }
 
 #menu-toggle {
   display: none;
-  font-size: 1.6rem;
-  color: var(--text);
+  height: 30px;
+  width: 30px;
+  font-size: 20px;
+  text-align: center;
+  color: white;
   cursor: pointer;
+  clip-path: polygon(50% 0%, 96% 25%, 96% 78%, 50% 100%, 4% 78%, 4% 25%);
+  background: radial-gradient(circle at center, var(--accent) 0%, #086d72 100%);
+  z-index: 1;
+    transition:
+    transform 0.4s ease,
+    box-shadow 0.4s ease,
+    background 0.4s ease,
+    filter 0.4s ease;
+    /* animation: twinkleCenter 4s infinite ease-in-out; */
+  /* animation: glowRotate 10s linear infinite; */
+}
+#menu-toggle {
+  transition: all 0.3s ease;
+}
+#menu-toggle.open {
+  background: white; /* changes when menu opens */
+  color: red;
+  transform: rotate(180deg);
+  box-shadow: 0 0 12px var(--accent);
+  animation-play-state: paused; /* ⛔ Stop twinkle */
+  filter: none; /* Optional: remove glow for clean look */
 }
 
 .tagline {
@@ -835,6 +927,23 @@ body.dark .timeline-content p {
       0 0 20px rgba(0, 242, 254, 0.7),
       0 0 30px rgba(0, 242, 254, 0.5);
     transform: translateX(107px) scale(1.1);
+  }
+}
+@keyframes twinkleCenter {
+  0%, 100% {
+    opacity: 0.8;
+    text-shadow:
+      0 0 4px rgba(0, 242, 254, 0.4),
+      0 0 10px rgba(0, 242, 254, 0.3);
+    transform: translateX(0) scale(1);
+  }
+  50% {
+    opacity: 1;
+    text-shadow:
+      0 0 8px rgba(0, 242, 254, 0.8),
+      0 0 20px rgba(0, 242, 254, 0.7),
+      0 0 30px rgba(0, 242, 254, 0.5);
+    transform: translateX(0) scale(1.1);
   }
 }
 

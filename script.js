@@ -35,22 +35,29 @@ function initSPA() {
 
 /* === Theme Toggle DARK DEFAULT === */
 function initThemeToggle() {
-  const toggle = qs('#theme-toggle');
-  const body = document.body;
-  if (!toggle) return;
+  const toggle = document.getElementById('theme-toggle');
+  const icon = document.querySelector('.theme-switch .icon');
 
-  if (localStorage.getItem("theme") === "light") {
-    body.classList.add("light");
-    toggle.textContent = "☀️";
+  // Load saved theme
+  if (localStorage.getItem('theme') === 'light') {
+    document.body.classList.add('light');
+    toggle.checked = true;
+    icon.textContent = "☀️";
   }
 
-  toggle.addEventListener("click", () => {
-    body.classList.toggle("light");
-    const isLight = body.classList.contains("light");
-    localStorage.setItem("theme", isLight ? "light" : "dark");
-    toggle.textContent = isLight ? "☀️" : "🌙";
+  toggle.addEventListener("change", () => {
+    if (toggle.checked) {
+      document.body.classList.add("light");
+      icon.textContent = "☀️";
+      localStorage.setItem("theme", "light");
+    } else {
+      document.body.classList.remove("light");
+      icon.textContent = "🌙";
+      localStorage.setItem("theme", "dark");
+    }
   });
 }
+
 // Make light theme the default
 // function initThemeToggle() {
 //   const toggle = qs('#theme-toggle');
@@ -75,16 +82,23 @@ function initThemeToggle() {
 //   });
 // }
 
-
-/* === Mobile Nav === */
 function initMobileMenu() {
   const toggle = qs('#menu-toggle');
   const menu = qs('nav ul');
   if (!toggle || !menu) return;
 
-  toggle.addEventListener('click', () => menu.classList.toggle('show'));
+  toggle.addEventListener('click', () => {
+    menu.classList.toggle('show');
+    toggle.classList.toggle('open');
+    toggle.textContent = toggle.classList.contains('open') ? '✖' : '☰';
+  });
+
   qsa('nav ul li a').forEach(a =>
-    a.addEventListener('click', () => menu.classList.remove('show'))
+    a.addEventListener('click', () => {
+      menu.classList.remove('show');
+      toggle.classList.remove('open');
+      toggle.textContent = '☰';
+    })
   );
 }
 
