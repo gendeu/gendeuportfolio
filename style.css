@@ -83,6 +83,28 @@ body {
   margin: 0.5rem auto;
   z-index: 10000;
 }
+.nav-glass {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Give equal space but allow icons/buttons to stay minimal */
+.nav-glass > .nav-min-width {
+  min-width: 62px;
+}
+#menu-toggle {
+  flex: 0 0 auto; /* Prevents hamburger from stretching */
+}
+
+.theme-switch {
+  flex: 0 0 auto; /* Prevents theme toggle from stretching */
+}
+/* 
+.nav-glass > ul {
+  display: flex;
+  justify-content: center; 
+} */
 
 body.light .nav-glass {
   background: rgba(255,255,255,0.8);
@@ -184,14 +206,14 @@ nav ul li a.active { color: var(--accent); font-weight: 700; }
 /* ===== LIGHT MODE ON ===== */
 input:checked + .slider {
   background: var(--accent);
-  box-shadow:
+  /* box-shadow:
     0 0 12px var(--accent),
-    0 0 24px var(--accent);
+    0 0 24px var(--accent); */
 }
 
 input:checked + .slider::before {
   transform: translateX(30px);
-  background: #222;
+  background: white;
 }
 
 input:checked + .slider .icon {
@@ -272,7 +294,7 @@ input:checked + .slider .icon {
     transition: all 0.35s ease;
   }
   body.light nav ul { background: rgba(255,255,255,0.95); }
-  nav ul.show { max-height: 400px; opacity: 1; }
+  nav ul.show { max-height: 400px; opacity: 1; max-width: 230px;}
   #menu-toggle { display: block; }
   nav ul li a { font-size: 1.05rem; }
 }
@@ -903,7 +925,7 @@ body.dark .timeline-content p {
   position: absolute;
   pointer-events: all;
   bottom: 10px;
-  transform: translateX(107px);
+  /* transform: translateX(91px); Look for "twinkle" aniumation it is there*/
   color: var(--accent);
   font-size: 22px;
   font-weight: 300;
@@ -918,7 +940,7 @@ body.dark .timeline-content p {
     text-shadow:
       0 0 4px rgba(0, 242, 254, 0.4),
       0 0 10px rgba(0, 242, 254, 0.3);
-    transform: translateX(107px) scale(1);
+    transform: translateX(91px) scale(1);
   }
   50% {
     opacity: 1;
@@ -926,7 +948,7 @@ body.dark .timeline-content p {
       0 0 8px rgba(0, 242, 254, 0.8),
       0 0 20px rgba(0, 242, 254, 0.7),
       0 0 30px rgba(0, 242, 254, 0.5);
-    transform: translateX(107px) scale(1.1);
+    transform: translateX(91px) scale(1.1);
   }
 }
 @keyframes twinkleCenter {

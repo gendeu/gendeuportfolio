@@ -29,12 +29,14 @@
   <!-- Navbar -->
   <header>
     <nav class="nav-glass">
-      <a href="index.html" style="text-decoration: none;">
-        <h1 class="logo">GD</h1>
-        <div class="avatar-icon" style="left: -41px; scale: .6; top: -13px;">
-          <span>&lt;/&gt;</span>
-        </div>
-      </a>
+      <div class="nav-min-width">
+        <a href="index.html" style="text-decoration: none;">
+          <h1 class="logo">GD</h1>
+          <div class="avatar-icon" style="left: -41px; scale: .6; top: -13px;">
+            <span>&lt;/&gt;</span>
+          </div>
+        </a>
+      </div>
       <div id="menu-toggle">☰</div>
       <ul>
         <li><a href="#home" class="nav-link active">Home</a></li>
@@ -44,13 +46,15 @@
         <li><a href="#skills" class="nav-link">Skills</a></li>
         <li><a href="#contact" class="nav-link">Contact</a></li>
       </ul>
-      
-      <label class="theme-switch">
-        <input type="checkbox" id="theme-toggle">
-        <span class="slider">
-          <span class="icon">🌙</span>
-        </span>
-      </label>
+
+      <div class="nav-min-width">
+        <label class="theme-switch">
+          <input type="checkbox" id="theme-toggle">
+          <span class="slider">
+            <span class="icon">🌙</span>
+          </span>
+        </label>
+      </div>
 
     </nav>
   </header>
