@@ -3,6 +3,7 @@
   --bg2: #203a43;
   --bg3: #2c5364;
   --text: #f5f5f5;
+  --revert: black;
   --accent: #00f2fe;
   --glass-bg: rgba(255,255,255,0.08);
   --glass-border: rgba(255,255,255,0.2);
@@ -14,6 +15,7 @@ body.light {
   --bg2: #cfd9df;
   --bg3: #e2ebf0;
   --text: #222;
+  --revert: white;
   --accent: #3f51b5;
   --glass-bg: rgba(255,255,255,0.5);
   --glass-border: rgba(0,0,0,0.1);
@@ -565,7 +567,7 @@ html.modal-open, body.modal-open { overflow: hidden !important; height: 100%; }
   bottom: 0;
 }
 .project-card h3 {
-  color: var(--accent);
+  color: var(--revert);
   font-size: 1.1rem;
   margin: 0 0 0.3rem;
   font-weight: 700;
@@ -580,7 +582,7 @@ body.light .project-card {
   background: rgba(255,255,255,0.9);
   border-color: rgba(0,0,0,0.1);
 }
-body.light .project-card p { color: #333; }
+body.light .project-card p { color: var(--revert); }
 
 footer {
   text-align: center;
@@ -1228,11 +1230,16 @@ body.dark .timeline-content p {
   .main-section .hero {
     width: 100%;
     margin: auto;
-    margin-top: 15vh;
+    margin-top: 13%;
   }
   .main-section .card {
     width: 100%;
     margin: auto;
+  }
+  #home.page.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 
