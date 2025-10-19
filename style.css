@@ -1240,6 +1240,8 @@ body.dark .timeline-content p {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: auto;
+    height: 75vh;
   }
 }
 
@@ -1408,4 +1410,11 @@ body.light #scrollTopBtn {
     width: 90px;
     height: 90px;
   }
+}
+
+
+body.home-active footer {
+  bottom: 0 !important;
+  width: 100%;
+  position: absolute;
 }

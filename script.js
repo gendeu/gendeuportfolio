@@ -32,6 +32,23 @@ function initSPA() {
     });
   });
 }
+function initFooterControl() {
+  const pages = document.querySelectorAll('.page');
+  pages.forEach(page => {
+    const observer = new MutationObserver(() => {
+      if (page.id === 'home' && page.classList.contains('active')) {
+        document.body.classList.add('home-active');
+      } else if (page.id === 'home') {
+        document.body.classList.remove('home-active');
+      }
+    });
+
+    observer.observe(page, { attributes: true, attributeFilter: ['class'] });
+  });
+}
+
+initFooterControl();
+
 
 /* === Theme Toggle DARK DEFAULT === */
 function initThemeToggle() {
