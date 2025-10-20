@@ -368,7 +368,7 @@ main, .page { padding-top: 90px; }
 /* --- Modal --- */
 .modal {
   position: fixed;
-  top: 0;
+  top: -82px;
   left: 0;
   width: 100vw;
   height: 100vh;
@@ -402,7 +402,8 @@ main, .page { padding-top: 90px; }
   border-radius: 16px;
   margin: 10px;
   padding: 1.5rem;
-  max-width: 640px;
+  text-align: center !important;
+  /* max-width: 640px; */
   width: 100%;
   color: var(--text);
   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.4);
@@ -411,21 +412,30 @@ main, .page { padding-top: 90px; }
   animation: slideUp 0.3s ease;
   /* max-height: 85vh; */
   overflow-y: hidden;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  top: 73px;
 }
 .modal.show {
   overflow-y: auto;
 }
 .modal-content img {
-  width: 100%;
-  height: auto;
-  margin: auto;
-  max-height: none;
+  width: auto;
+  height: 70vh;
   /* max-height: 500px; */
   border-radius: 10px;
+}
+.modal-info {
+  text-align: left;
+  padding: 20px;
 }
 .close {
   position: absolute;
   top: 12px;
+  height: 30px;
+  width: 30px;
+  padding: 0;
   right: 16px;
   font-size: 1.6rem;
   cursor: pointer;
@@ -567,7 +577,7 @@ html.modal-open, body.modal-open { overflow: hidden !important; height: 100%; }
   bottom: 0;
 }
 .project-card h3 {
-  color: var(--revert);
+  color: rgba(255,255,255,0.85);
   font-size: 1.1rem;
   margin: 0 0 0.3rem;
   font-weight: 700;
@@ -1409,6 +1419,16 @@ body.light #scrollTopBtn {
   .contact-icon {
     width: 90px;
     height: 90px;
+  }
+  .modal-content {
+    display: flex;
+    flex-direction: column;
+  }
+  .modal-info {
+    padding: 0;
+  }
+  .modal-content img {
+    width: 100%;
   }
 }
 
