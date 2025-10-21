@@ -217,7 +217,7 @@ siteContent = {
     },
     {
       "year": "2025",
-      "title": "Consultancy & Product Evolution — Web UI Specialist at Frontier Towers Associates Philippines",
+      "title": "Consultancy & Product Evolution — Web Developer at Frontier Towers Associates Philippines",
       "desc": "Consulted on large-scale website redesigns and workflow optimization for FTAP platforms. Delivered responsive, production-ready WordPress and Wix interfaces from Figma and Adobe XD prototypes, emphasizing accessibility and usability."
     },
     {
