@@ -270,15 +270,16 @@
   <!-- load Swiper BEFORE your script that uses it -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="script.js"></script>
-  
+    
   <script>
-  fetch('https://api.countapi.xyz/hit/gendeuportfolio/visits')
-    .then(response => response.json())
-    .then(data => {
-      document.getElementById('visitor-count').textContent = data.value + "👤";
-    });
+    fetch('https://api.countapi.xyz/create?namespace=gendeuportfolio&key=visits&value=0')
+      .then(() => fetch('https://api.countapi.xyz/hit/gendeuportfolio/visits'))
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('visitor-count').textContent = data.value + "👤";
+      })
+      .catch(err => console.log("Visitor counter error:", err));
   </script>
 
-      
 </body>
 </html>
