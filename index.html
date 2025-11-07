@@ -273,14 +273,23 @@
   <!-- load Swiper BEFORE your script that uses it -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="script.js"></script>
-    
+      
   <script>
     const counterUrl = "https://api.countapi.xyz/hit/gendeuportfolio.github.io/visits";
-    fetch(counterUrl)
-      .then(res => res.json())
-      .then(data => {
+
+    async function updateVisitorCount() {
+      try {
+        const res = await fetch(counterUrl);
+        const data = await res.json();
         document.getElementById("visitor-count").textContent = data.value.toLocaleString();
-      });
+      } catch (err) {
+        console.error("Visitor counter error:", err);
+      }
+    }
+
+    updateVisitorCount();
+    // 🔁 refresh count every 30 seconds (optional)
+    setInterval(updateVisitorCount, 30000);
   </script>
 
 </body>
