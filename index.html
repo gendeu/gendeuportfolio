@@ -225,7 +225,7 @@
 
 
   <footer>
-    © 2025 Gen Deu Gagarin <br><span style="color: lightgray; opacity: .5; font-size: 12px;"> [Profile visitors: <span id="visitor-count">113👤</span>]</span>
+    © 2025 Gen Deu Gagarin <br><span style="color: lightgray; opacity: .5; font-size: 12px;"> [Profile visitors: <span id="visitor-count"></span>👤]</span>
   </footer>
 
 
@@ -262,9 +262,6 @@
       }, 1200); // match 1.2s transition duration
     }
   </script>
-
-
-
   
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
@@ -273,24 +270,15 @@
   <!-- load Swiper BEFORE your script that uses it -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="script.js"></script>
-      
+  
   <script>
-    const counterUrl = "https://api.countapi.xyz/hit/gendeuportfolio.github.io/visits";
-
-    async function updateVisitorCount() {
-      try {
-        const res = await fetch(counterUrl);
-        const data = await res.json();
-        document.getElementById("visitor-count").textContent = data.value.toLocaleString();
-      } catch (err) {
-        console.error("Visitor counter error:", err);
-      }
-    }
-
-    updateVisitorCount();
-    // 🔁 refresh count every 30 seconds (optional)
-    setInterval(updateVisitorCount, 30000);
+  fetch('https://api.countapi.xyz/hit/gendeuportfolio/visits')
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById('visitor-count').textContent = data.value + "👤";
+    });
   </script>
 
+      
 </body>
 </html>
