@@ -271,15 +271,36 @@
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="script.js"></script>
     
-  <script>
-    fetch('https://api.countapi.xyz/create?namespace=gendeuportfolio&key=visits&value=0')
-      .then(() => fetch('https://api.countapi.xyz/hit/gendeuportfolio/visits'))
-      .then(response => response.json())
-      .then(data => {
-        document.getElementById('visitor-count').textContent = data.value + "👤";
+ <script>
+  const BIN_ID = "690db0d2ae596e708f49fb59";
+  const MASTER_KEY = "$2a$10$gd9X3ByoFpoehGbHhRiwlu4KHQDdrRssEdrY2bYDJ/FxAlF4FkEtm";
+
+  // Step 1: Get current count
+  fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+    headers: { "X-Master-Key": MASTER_KEY }
+  })
+    .then(res => res.json())
+    .then(data => {
+      let count = data.record.visits + 1;
+
+      // Step 2: Update the counter (+1)
+      return fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Master-Key": MASTER_KEY
+        },
+        body: JSON.stringify({ visits: count })
       })
-      .catch(err => console.log("Visitor counter error:", err));
+        .then(() => count); // Return the updated count
+    })
+    .then(count => {
+      // Step 3: Show new count in footer
+      document.getElementById("visitor-count").textContent = count;
+    })
+    .catch(err => console.error("Counter error:", err));
   </script>
+
 
 </body>
 </html>
