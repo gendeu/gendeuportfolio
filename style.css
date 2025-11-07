@@ -299,6 +299,9 @@ input:checked + .slider .icon {
   body.light nav ul { background: rgba(255,255,255,0.95); }
   nav ul.show { max-height: 400px; opacity: 1; max-width: 230px;}
   #menu-toggle { display: block; }
+  #menu-toggle.open {
+    color: red !important;
+  }
   nav ul li a { font-size: 1.05rem; }
 }
 
