@@ -273,17 +273,14 @@
   <!-- load Swiper BEFORE your script that uses it -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="script.js"></script>
-  
+    
   <script>
-    // Replace the key below with your custom namespace if you want unique tracking
     const counterUrl = "https://api.countapi.xyz/hit/gendeuportfolio.github.io/visits";
-
     fetch(counterUrl)
       .then(res => res.json())
       .then(data => {
         document.getElementById("visitor-count").textContent = data.value.toLocaleString();
-      })
-      .catch(err => console.error("Visitor counter error:", err));
+      });
   </script>
 
 </body>
