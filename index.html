@@ -8,6 +8,12 @@
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" type="image/png" href="images/me.jpg">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3HRP7RH8V5');
+  </script>
 </head>
 
 <body>
@@ -213,7 +219,12 @@
 </section>
 
 
-  <footer>© 2025 Gen Deu Gagarin</footer>
+  <footer>
+    © 2025 Gen Deu Gagarin  
+    <br>
+    <span>👁️ Visitors: <span id="visitor-count">0</span></span>
+  </footer>
+
 
   <script>
     const card = document.querySelector('.hover-hide-about');
@@ -259,6 +270,18 @@
   <!-- load Swiper BEFORE your script that uses it -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="script.js"></script>
+  
+  <script>
+    // Replace the key below with your custom namespace if you want unique tracking
+    const counterUrl = "https://api.countapi.xyz/hit/gendeuportfolio.github.io/visits";
+
+    fetch(counterUrl)
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("visitor-count").textContent = data.value.toLocaleString();
+      })
+      .catch(err => console.error("Visitor counter error:", err));
+  </script>
 
 </body>
 </html>

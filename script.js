@@ -32,6 +32,15 @@ function initSPA() {
     });
   });
 }
+
+// COUNT PAGE VISITORS
+document.querySelectorAll('.nav-link').forEach(link => {
+  link.addEventListener('click', () => {
+    const section = link.getAttribute('href');
+    gtag('event', 'page_view', { page_path: section });
+  });
+});
+
 function initFooterControl() {
   const pages = document.querySelectorAll('.page');
   pages.forEach(page => {
