@@ -1237,7 +1237,7 @@ body.dark .timeline-content p {
   .main-section .hero {
     width: 30%;
     margin: auto 0;
-    max-width: 356px;
+    /* max-width: 356px; */
   }
   .main-section .card {
     width: 70%;
@@ -1455,7 +1455,7 @@ body.home-active footer {
 }
 
 .btn-glass {
-  padding: 14px 28px;
+  padding: 14px 27px;
   border-radius: 50px;
   background: var(--glass-bg);
   backdrop-filter: blur(10px);
@@ -1511,7 +1511,7 @@ body.home-active footer {
 .btn-rotating-border {
   position: relative;
   display: inline-block;
-  padding: 14px 36px;
+  padding: 14px 27px;
   border-radius: 14px;
   background: #111;
   color: #fff;
@@ -1568,12 +1568,15 @@ body.home-active footer {
     flex-flow: column !important;
   }
   .home-buttons .btn:nth-child(1), .home-buttons .btn:nth-child(2) {
-    width: 197px;
+    width: 207px;
   }
 }
 @media (min-width: 632px) {
   .home-buttons {
     display: inline-block !important;
-    max-width: 406px !important;
+    max-width: 450px !important;
+  }
+  .main-section .hero { 
+    max-width: none !important;
   }
 }
