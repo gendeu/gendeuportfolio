@@ -1235,7 +1235,7 @@ body.dark .timeline-content p {
     transition: all 1s ease;
   }
   .main-section .hero {
-    width: 30%;
+    /* width: 30%; */
     margin: auto 0;
     /* max-width: 356px; */
   }
