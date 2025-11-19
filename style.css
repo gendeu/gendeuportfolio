@@ -1212,7 +1212,9 @@ body.dark .timeline-content p {
     height: 150px;
   }
 }
-
+.main-section {
+    width: 100%;
+}
 /* === Hero Fade-In Animation === */
 .main-section .hero {
   opacity: 0;
@@ -1569,6 +1571,9 @@ body.home-active footer {
   }
   .home-buttons .btn:nth-child(1), .home-buttons .btn:nth-child(2) {
     width: 207px;
+  }
+  .home-buttons .btn {
+    width: 100% !important;
   }
 }
 @media (min-width: 632px) {
