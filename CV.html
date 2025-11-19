@@ -118,8 +118,11 @@
     </div>
 
     <div class="top-actions">
-      <a class="btn" href="#" id="downloadPdf">Download PDF</a>
-      <a class="btn secondary" href="https://gendeu.github.io/gendeuportfolio" target="_blank">Portfolio</a>
+      <a class="btn" href="assets/GAGARIN-CV-2025.pdf" download="GenDeuGagarin-CV.pdf">
+        Download
+      </a>
+      <a class="btn" href="#" id="printPdf">Print</a>
+      <a class="btn secondary" href="https://gendeu.github.io/gendeuportfolio">Portfolio</a>
     </div>
   </div>
 
@@ -397,7 +400,7 @@
 <!-- Minimal JS: download as PDF (client side) -->
 <script>
   // Simple PDF download using print() as fallback.
-  document.getElementById('downloadPdf').addEventListener('click', function(e){
+  document.getElementById('printPdf').addEventListener('click', function(e){
     e.preventDefault();
     // Try to use print with landscape friendly scale — user can print to PDF
     window.print();
