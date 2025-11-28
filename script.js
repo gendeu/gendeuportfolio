@@ -40,6 +40,10 @@ document.querySelectorAll('.nav-link').forEach(link => {
     gtag('event', 'page_view', { page_path: section });
   });
 });
+function openSPA(section) {
+  const targetLink = document.querySelector(`a[href="${section}"]`);
+  if (targetLink) targetLink.click();
+}
 
 function initFooterControl() {
   const pages = document.querySelectorAll('.page');

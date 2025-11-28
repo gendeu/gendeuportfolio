@@ -111,7 +111,8 @@ body {
 body.light .nav-glass {
   /* background: rgba(255,255,255,0.8); */
   background: #fff;
-  border: 1.8px solid #e5e5e5;
+  border: 1px solid #e5e5e5;
+  max-height: 72px !important;
 }
 
 /* When scrolling — becomes floating */
@@ -261,7 +262,7 @@ input:checked + .slider .icon {
 }
 #menu-toggle.open {
   background: var(--text); /* changes when menu opens */
-  color: red !important;
+  color: #ff0000 !important;
   font-size: 20px !important;
   transform: rotate(180deg);
   box-shadow: 0 0 12px var(--accent);
@@ -301,9 +302,9 @@ input:checked + .slider .icon {
   body.light nav ul { background: rgba(255,255,255,0.95); }
   nav ul.show { max-height: 400px; opacity: 1; max-width: 230px;}
   #menu-toggle { display: block; }
-  #menu-toggle.open {
+  /* #menu-toggle.open {
     color: red !important;
-  }
+  } */
   nav ul li a { font-size: 1.05rem; }
 }
 
@@ -445,7 +446,7 @@ main, .page { padding-top: 90px; }
   right: 16px;
   font-size: 1.6rem;
   cursor: pointer;
-  color: red;
+  color: #ff0000 !important;
   transition: transform 0.2s ease;
 }
 .contact-btn {
@@ -463,7 +464,7 @@ main, .page { padding-top: 90px; }
 }
 .contact-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0,0,0,0.2); }
 
-.close:hover { transform: scale(1.15); color: red; }
+.close:hover { transform: scale(1.15); color: #ff0000 !important; }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
