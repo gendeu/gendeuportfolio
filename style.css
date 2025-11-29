@@ -34,7 +34,6 @@ body.light {
 body.light #dna-canvas { opacity: 0.8; }
 body:not(.light) #dna-canvas { opacity: 0.95; }
 
-
 /* --- CV iframe --- */
 iframe {
   width: 100%;
@@ -298,6 +297,14 @@ input:checked + .slider .icon {
     opacity: 0;
     overflow: hidden;
     transition: all 0.35s ease;
+  }
+  .visitor-count-text {
+    color: lightgray; 
+    opacity: .5; 
+    font-size: 12px;
+  }
+  body.light .visitor-count-text {
+    color: black; 
   }
   body.light nav ul { background: rgba(255,255,255,0.95); }
   nav ul.show { max-height: 400px; opacity: 1; max-width: 230px;}
@@ -800,6 +807,13 @@ body.dark .timeline-content p {
   }
   .skills-grid {
     grid-template-columns: none;
+  }
+}
+
+@media (max-height: 768px) {
+  .avatar-container, .avatar-container * {
+    max-width: 100px;
+    max-height: 120px;
   }
 }
 
