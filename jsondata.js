@@ -16,7 +16,7 @@ siteContent = {
     {
       title: "FTAP Events Platform",
       desc: "Built a complete events and registration system for conferences and trainings. Integrated ticketing, session scheduling, and responsive components via Wix and JavaScript customizations.",
-      link: "https://events.frontiertowers.ph",
+      link: "https://events.frontiertowersphilippines.com/",
       img: "FTAP-events.jpg"
     },
     {
