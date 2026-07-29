@@ -8,6 +8,12 @@ siteContent = {
 
   caseStudies: [
     {
+      title: "Bureau of Fire Protection - Balagtas Fire Station",
+      desc: "Developed a modern web interface for the Balagtas Fire Station, enhancing communication and data management for emergency response operations.",
+      link: "https://balagtasfirestation.github.io/info/",
+      img: "bfp-website.png"
+    },
+    {
       title: "Frontier Towers Associates Philippines (FTAP Portal)",
       desc: "Developed the official corporate portal for FTAP, implementing custom WordPress modules and scalable UI/UX architecture for partner access, internal data, and analytics visibility.",
       link: "https://frontiertowersphilippines.com/",
