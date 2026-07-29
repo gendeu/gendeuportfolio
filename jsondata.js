@@ -34,7 +34,7 @@ siteContent = {
     {
       title: "ADEC Innovations — ZDHC Gateway",
       desc: "Developed responsive SaaS dashboards for ZDHC (Zero Discharge of Hazardous Chemicals), implementing API-driven data tables and real-time reporting for sustainable supply chains.",
-      link: "https://www.adec-innovations.com/case_study/about-zdhc/",
+      link: "https://www.zdhc-gateway.com/",
       img: "ADEC-ZDHC.jpg"
     },
     {
