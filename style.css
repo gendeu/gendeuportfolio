@@ -1346,7 +1346,7 @@ body.dark .timeline-content p {
   font-size: 1.6rem;
 }
 body.light #scrollTopBtn {
-  background: linear-gradient(135deg, var(--accent), #3f51b5aa);
+  background: linear-gradient(135deg, var(--accent), #2D3748);
 }
 #scrollTopBtn {
   animation: floatUpDown 3s ease-in-out infinite;
