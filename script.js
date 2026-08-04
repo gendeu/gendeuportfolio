@@ -40,6 +40,23 @@ document.querySelectorAll('.nav-link').forEach(link => {
     gtag('event', 'page_view', { page_path: section });
   });
 });
+
+document.querySelectorAll('.avatar-image').forEach(img => {
+    const defaultSrc = img.dataset.default;
+    const hoverSrc = img.dataset.hover;
+
+    // Preload hover image
+    new Image().src = hoverSrc;
+
+    img.addEventListener('mouseenter', () => {
+        img.src = hoverSrc;
+    });
+
+    img.addEventListener('mouseleave', () => {
+        img.src = defaultSrc;
+    });
+});
+
 function openSPA(section) {
   const targetLink = document.querySelector(`a[href="${section}"]`);
   if (targetLink) targetLink.click();
@@ -632,20 +649,4 @@ function initScrollTop() {
 
 document.addEventListener("DOMContentLoaded", () => {
   initScrollTop();
-});
-
-document.querySelectorAll('.avatar-image').forEach(img => {
-    const defaultSrc = img.dataset.default;
-    const hoverSrc = img.dataset.hover;
-
-    // Preload hover image
-    new Image().src = hoverSrc;
-
-    img.addEventListener('mouseenter', () => {
-        img.src = hoverSrc;
-    });
-
-    img.addEventListener('mouseleave', () => {
-        img.src = defaultSrc;
-    });
 });
