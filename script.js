@@ -45,15 +45,22 @@ document.querySelectorAll('.avatar-image').forEach(img => {
     const defaultSrc = img.dataset.default;
     const hoverSrc = img.dataset.hover;
 
-    // Preload hover image
     new Image().src = hoverSrc;
 
     img.addEventListener('mouseenter', () => {
-        img.src = hoverSrc;
+        img.style.opacity = "0";
+        setTimeout(() => {
+            img.src = hoverSrc;
+            img.style.opacity = "1";
+        }, 120);
     });
 
     img.addEventListener('mouseleave', () => {
-        img.src = defaultSrc;
+        img.style.opacity = "0";
+        setTimeout(() => {
+            img.src = defaultSrc;
+            img.style.opacity = "1";
+        }, 120);
     });
 });
 
