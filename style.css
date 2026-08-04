@@ -108,7 +108,9 @@ body {
   display: flex;
   justify-content: center; 
 } */
-
+.avatar-image{
+    transition: opacity .25s ease;
+}
 body.light .nav-glass {
   /* background: rgba(255,255,255,0.8); */
   background: #fff;
