@@ -634,3 +634,18 @@ document.addEventListener("DOMContentLoaded", () => {
   initScrollTop();
 });
 
+document.querySelectorAll('.avatar-image').forEach(img => {
+    const defaultSrc = img.dataset.default;
+    const hoverSrc = img.dataset.hover;
+
+    // Preload hover image
+    new Image().src = hoverSrc;
+
+    img.addEventListener('mouseenter', () => {
+        img.src = hoverSrc;
+    });
+
+    img.addEventListener('mouseleave', () => {
+        img.src = defaultSrc;
+    });
+});
