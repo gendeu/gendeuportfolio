@@ -1511,7 +1511,7 @@ body.home-active footer {
 .btn-gradient {
   padding: 14px 34px;
   border-radius: 50px;
-  background: linear-gradient(45deg, #3911cb, var(--accent));
+  background: linear-gradient(45deg, #2D3748, var(--accent));
   color: #fff;
   text-decoration: none;
   font-weight: 700;
